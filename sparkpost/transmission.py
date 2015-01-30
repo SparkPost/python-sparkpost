@@ -36,6 +36,7 @@ class Transmission(object):
 
   def send(self, **kwargs):
     payload = self.__translate_keys(**kwargs)
+    print payload
     "Need to figure out how to get the config stuff into here"
     "headers = { 'authorization': apiKey }"
     "response = requests.post(constructUrl(), data = json.dumps(payload), headers = headers)"
