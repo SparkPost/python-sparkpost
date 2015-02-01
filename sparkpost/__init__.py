@@ -1,6 +1,7 @@
 import os
 
 from .exceptions import SparkPostException
+from .metrics import Metrics
 from .transmission import Transmission
 
 
@@ -13,7 +14,7 @@ def get_api_key():
 
 
 class SparkPost(object):
-    def __init__(self, api_key=None, base_url='https://api.sparkpost.com',
+    def __init__(self, api_key=None, base_uri='https://api.sparkpost.com',
                  version='1'):
         "Set up the SparkPost API client"
         if not api_key:
@@ -21,7 +22,8 @@ class SparkPost(object):
             if not api_key:
                 raise SparkPostException("No API key. Improve message.")
 
-        self.base = base_url + '/api/v' + version
+        self.base_uri = base_uri + '/api/v' + version
         self.api_key = api_key
 
+        self.metrics = Metrics(self.base_uri, self.api_key)
         self.transmission = Transmission()
