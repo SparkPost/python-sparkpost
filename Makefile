@@ -11,6 +11,7 @@ install: venv
 
 analysis:
 	. venv/bin/activate; flake8 sparkpost
+	. venv/bin/activate; flake8 test
 
 test: analysis
 	. venv/bin/activate; py.test --cov sparkpost test/
