@@ -20,10 +20,10 @@ class Resource(object):
         response = requests.request(method, uri, headers=headers)
         if not response.ok:
             raise SparkPostAPIException(response)
-        return response
+        return response.json()['results']
 
     def get(self):
-        pass
+        raise NotImplementedError
 
     def list(self, **kwargs):
-        return self.request('GET', self.uri, **kwargs)
+        raise NotImplementedError
