@@ -17,7 +17,7 @@ class Resource(object):
             'Content-Type': 'application/json',
             'Authorization': self.api_key
         }
-        response = requests.request(method, uri, headers=headers)
+        response = requests.request(method, uri, headers=headers, **kwargs)
         if not response.ok:
             raise SparkPostAPIException(response)
         return response.json()['results']
@@ -25,5 +25,5 @@ class Resource(object):
     def get(self):
         raise NotImplementedError
 
-    def list(self, **kwargs):
+    def list(self):
         raise NotImplementedError

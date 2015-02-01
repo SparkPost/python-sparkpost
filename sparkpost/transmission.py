@@ -1,23 +1,19 @@
 import json
-import requests
 
-API_KEY = 'ef44e02616f071677714065510240f29c946fdf0'
+from .base import Resource
 
 
-class Transmission(object):
+class Transmission(Resource):
     """
     Transmission class used to send, list and find transmissions
 
     The methods are:
-    - send: sends a transmission with the API
-    - find: retrieves a particuliar transmission by id
-    - list_all: retrieves all transmissions in the system
+    - create: sends a transmission with the API
+    - get: retrieves a particuliar transmission by id
+    - list: retrieves all transmissions in the system
     """
 
-    def __init__(self):
-        """
-        Constructor, current is empty
-        """
+    key = 'transmissions'
 
     def __translate_keys(self, **kwargs):
         model = {
@@ -49,63 +45,19 @@ class Transmission(object):
 
         return model
 
-    def __construct_url(self, **kwargs):
-        config = {
-            'options': {
-                'protocol': 'https',
-                'host': 'api-staging.sparkpost.com',
-                'version': 'v1'
-            }
-        }
-        port = ':' + config['options']['port'] if 'port' in config['options'] \
-            else ''
-
-        return config['options']['protocol'] + '://' + \
-            config['options']['host'] + port + '/api/' + \
-            config['options']['version'] + '/transmissions'
-
-    def __fetch(self, transmission_id=False):
-        url = self.__construct_url()
-        if transmission_id:
-            url + '/' + transmission_id
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': API_KEY
-        }
-        response = requests.get(url, headers=headers)
-        if response.status_code != 200:
-            return response.json()['errors']
-        else:
-            return response.json()
-
-    def send(self, **kwargs):
-        """
-          Responsible for sending a transmission
-        """
+    def create(self, **kwargs):
+        "Responsible for sending a transmission"
         payload = self.__translate_keys(**kwargs)
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': API_KEY
-        }
-        url = self.__construct_url()
-        print url
+        results = self.request('POST', self.uri, data=json.dumps(payload))
+        return results
 
-        response = requests.post(url, data=json.dumps(payload),
-                                 headers=headers)
+    def get(self, transmission_id):
+        "Finds a transmission by id"
+        uri = "%s/%s" % (self.uri, transmission_id)
+        results = self.request('GET', uri)
+        return results['transmisison']
 
-        if response.status_code != 200:
-            return response.json()['errors']
-        else:
-            return response.json()
-
-    def find(self, transmission_id):
-        """
-          Finds a transmission by id
-        """
-        return self.__fetch(transmission_id)
-
-    def list_all(self):
-        """
-          Lists all transmissions in system
-        """
-        return self.__fetch()
+    def list(self):
+        "Lists all transmissions in system"
+        results = self.request('GET', self.uri)
+        return results
