@@ -55,3 +55,6 @@ target/
 
 # virtualenv
 venv/
+
+# autoenv
+.env
