@@ -7,7 +7,7 @@ venv:
 
 install: venv
 	. venv/bin/activate; pip install -r dev-requirements.txt
-	. venv/bin/activate; pip install .
+	. venv/bin/activate; pip install -e .
 
 analysis:
 	. venv/bin/activate; flake8 sparkpost

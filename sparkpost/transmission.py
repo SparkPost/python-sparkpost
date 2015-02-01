@@ -55,7 +55,7 @@ class Transmission(Resource):
         "Finds a transmission by id"
         uri = "%s/%s" % (self.uri, transmission_id)
         results = self.request('GET', uri)
-        return results['transmisison']
+        return results['transmission']
 
     def list(self):
         "Lists all transmissions in system"
