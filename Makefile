@@ -1,4 +1,4 @@
-.PHONY: analysis all build clean docs docs-install install release test venv 
+.PHONY: analysis all build clean docs docs-install docs-open install release test venv 
 
 all: clean venv install
 
@@ -21,6 +21,9 @@ docs-install:
 
 docs:
 	. venv/bin/activate; cd docs && make html
+
+docs-open: docs
+	. venv/bin/activate; open docs/_build/html/index.html
 
 release: install
 	. venv/bin/activate; python setup.py sdist upload
