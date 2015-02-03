@@ -46,12 +46,16 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
     from sparkpost import SparkPost
     
     sp = SparkPost()
+    
     response = sp.transmission.send(
         recipients=['someone@somedomain.com'],
         html='<p>Hello world</p>',
         from_email='test@sparkpostbox.com',
         subject='Hello from python-sparkpost'
     )
+    
+    # response contains results of transmission
+    # {u'total_accepted_recipients': 1, u'id': u'47960765679942446', u'total_rejected_recipients': 0}
 
 
 Documentation
