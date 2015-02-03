@@ -7,19 +7,20 @@ from sparkpost.exceptions import SparkPostAPIException
 
 
 
-"""We should prob test this stuff at some point
 def test_translate_keys_with_list():
     t = Transmission('uri', 'key')
-    results = t.__translate_keys(recipient_list = 'test')
-    assert results == { 'return_path': 'default@sparkpostmail.com',
-      'track_opens': True, 'track_clicks': True, 'use_draft_template': False,
-      'recipients': { 'list_id': 'test' } }
+    results = t._translate_keys(recipient_list = 'test')
+    assert results['return_path'] == 'default@sparkpostmail.com'
+    assert results['options']['open_tracking'] == True
+    assert results['options']['click_tracking'] == True
+    assert results['content']['use_draft_template'] == False
+    assert results['recipients'] == { 'list_id': 'test' }
 
 def test_translate_keys_with_recips():
     t = Transmission('uri', 'key')
-    results = t.__translate_keys(recipients = ['test', {'key': 'value'}, 'foobar' ])
+    results = t._translate_keys(recipients = ['test', {'key': 'value'}, 'foobar' ])
     assert results['recipients'] == [ { 'address': {'email': 'test'} },
-      {'key': 'value'}, {'address': {'email': 'foobar'}}]"""
+      {'key': 'value'}, {'address': {'email': 'foobar'}}]
 
 @responses.activate
 def test_success_send():

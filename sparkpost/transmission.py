@@ -2,6 +2,7 @@ import json
 
 from .base import Resource
 
+
 class Transmission(Resource):
     """
     Transmission class used to send, list and find transmissions
@@ -14,7 +15,7 @@ class Transmission(Resource):
 
     key = 'transmissions'
 
-    def __translate_keys(self, **kwargs):
+    def _translate_keys(self, **kwargs):
         model = {
             'content': {},
             'options': {},
@@ -45,11 +46,11 @@ class Transmission(Resource):
           model['recipients']['list_id'] = recipient_list
         else:
           recipients = kwargs.get('recipients', [])
-          model['recipients'] = self.__extractRecipients(recipients)
+          model['recipients'] = self._extractRecipients(recipients)
 
         return model
 
-    def __extractRecipients(self, recipients):
+    def _extractRecipients(self, recipients):
       formatted_recipients = []
       for recip in recipients:
         if isinstance(recip, str):
@@ -60,7 +61,7 @@ class Transmission(Resource):
 
     def send(self, **kwargs):
         "Responsible for sending a transmission"
-        payload = self.__translate_keys(**kwargs)
+        payload = self._translate_keys(**kwargs)
         results = self.request('POST', self.uri, data=json.dumps(payload))
         return results
 
