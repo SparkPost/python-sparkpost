@@ -1,3 +1,3 @@
-from sparkpost import transmission
-t = transmission.Transmission()
-response = t.send(recipients = [ { 'address': { 'email': 'bob.evans@messagesystems.com'}}], html = '<p>Hello world</p>', envelope_from = 'test@example.com', subject = 'my sub')
+from sparkpost import SparkPost
+s = SparkPost('YOUR API KEY')
+response = s.transmission.send(recipients = ['bob.evans@messagesystems.com'], html = '<p>Hello world</p>', from_email = 'test@example.com', subject = 'my sub')

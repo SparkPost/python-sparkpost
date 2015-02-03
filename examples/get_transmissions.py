@@ -1,3 +1,3 @@
-from sparkpost import transmission
-t = transmission.Transmission()
-t.list_all()
+from sparkpost import SparkPost
+s = SparkPost('YOUR API KEY')
+s.transmission.list()

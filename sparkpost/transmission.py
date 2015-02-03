@@ -2,13 +2,12 @@ import json
 
 from .base import Resource
 
-
 class Transmission(Resource):
     """
     Transmission class used to send, list and find transmissions
 
     The methods are:
-    - create: sends a transmission with the API
+    - send: sends a transmission with the API
     - get: retrieves a particuliar transmission by id
     - list: retrieves all transmissions in the system
     """
@@ -34,18 +33,32 @@ class Transmission(Resource):
             kwargs.get('use_draft_template', False)
         model['content']['reply_to'] = kwargs.get('reply_to')
         model['content']['subject'] = kwargs.get('subject')
-        model['content']['from'] = kwargs.get('envelope_from')
+        model['content']['from'] = kwargs.get('from_email')
         model['content']['html'] = kwargs.get('html')
         model['content']['text'] = kwargs.get('text')
         model['content']['email_rfc822'] = kwargs.get('rfc822')
         model['content']['template_id'] = kwargs.get('template')
         model['content']['headers'] = kwargs.get('custom_headers')
-        model['recipients']['list_id'] = kwargs.get('recipient_list')
-        model['recipients'] = kwargs.get('recipients')
+
+        recipient_list = kwargs.get('recipient_list')
+        if recipient_list:
+          model['recipients']['list_id'] = recipient_list
+        else:
+          recipients = kwargs.get('recipients', [])
+          model['recipients'] = self.__extractRecipients(recipients)
 
         return model
 
-    def create(self, **kwargs):
+    def __extractRecipients(self, recipients):
+      formatted_recipients = []
+      for recip in recipients:
+        if isinstance(recip, str):
+          formatted_recipients.append({'address': {'email': recip}})
+        else:
+          formatted_recipients.append(recip)
+      return formatted_recipients
+
+    def send(self, **kwargs):
         "Responsible for sending a transmission"
         payload = self.__translate_keys(**kwargs)
         results = self.request('POST', self.uri, data=json.dumps(payload))

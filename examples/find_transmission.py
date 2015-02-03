@@ -1,3 +1,3 @@
-from sparkpost import transmission
-t = transmission.Transmission()
-t.find('trans_id')
+from sparkpost import SparkPost
+s = SparkPost('YOUR API KEY')
+s.transmission.get('transmission_id')

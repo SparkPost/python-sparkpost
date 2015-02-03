@@ -2,11 +2,27 @@ import pytest
 import responses
 
 from sparkpost import SparkPost
+from sparkpost import Transmission
 from sparkpost.exceptions import SparkPostAPIException
 
 
+
+"""We should prob test this stuff at some point
+def test_translate_keys_with_list():
+    t = Transmission('uri', 'key')
+    results = t.__translate_keys(recipient_list = 'test')
+    assert results == { 'return_path': 'default@sparkpostmail.com',
+      'track_opens': True, 'track_clicks': True, 'use_draft_template': False,
+      'recipients': { 'list_id': 'test' } }
+
+def test_translate_keys_with_recips():
+    t = Transmission('uri', 'key')
+    results = t.__translate_keys(recipients = ['test', {'key': 'value'}, 'foobar' ])
+    assert results['recipients'] == [ { 'address': {'email': 'test'} },
+      {'key': 'value'}, {'address': {'email': 'foobar'}}]"""
+
 @responses.activate
-def test_success_create():
+def test_success_send():
     responses.add(
         responses.POST,
         'https://api.sparkpost.com/api/v1/transmissions',
@@ -15,12 +31,11 @@ def test_success_create():
         body='{"results": "yay"}'
     )
     sp = SparkPost('fake-key')
-    results = sp.transmission.create()
+    results = sp.transmission.send()
     assert results == 'yay'
 
-
 @responses.activate
-def test_fail_create():
+def test_fail_send():
     responses.add(
         responses.POST,
         'https://api.sparkpost.com/api/v1/transmissions',
@@ -30,7 +45,7 @@ def test_fail_create():
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
-        sp.transmission.create()
+        sp.transmission.send()
 
 
 @responses.activate
