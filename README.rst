@@ -44,12 +44,13 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 .. code-block:: python
 
     from sparkpost import SparkPost
+    
     sp = SparkPost()
     response = sp.transmission.send(
-        recipients = ['someone@somedomain.com'],
-        html = '<p>Hello world</p>',
-        from_email = 'test@sparkpostbox.com',
-        subject = 'Hello from python-sparkpost'
+        recipients=['someone@somedomain.com'],
+        html='<p>Hello world</p>',
+        from_email='test@sparkpostbox.com',
+        subject='Hello from python-sparkpost'
     )
 
 
