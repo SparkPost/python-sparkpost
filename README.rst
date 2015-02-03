@@ -39,7 +39,7 @@ Alternatively, you can pass the API key to the SparkPost class:
 Send a message
 --------------
 
-Here at SparkPost, our messages are known as transmissions. Let's use the underlying transmissions API to send a message:
+Here at SparkPost, our messages are known as transmissions. Let's use the underlying `transmissions API`_ to send a friendly test message:
 
 .. code-block:: python
 
@@ -54,8 +54,10 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
         subject='Hello from python-sparkpost'
     )
     
-    # response contains results of transmission
-    # {u'total_accepted_recipients': 1, u'id': u'47960765679942446', u'total_rejected_recipients': 0}
+    print response
+    # outputs {u'total_accepted_recipients': 1, u'id': u'47960765679942446', u'total_rejected_recipients': 0}
+
+.. _transmissions API: http://www.sparkpost.com/docs/transmissions-api
 
 
 Documentation
