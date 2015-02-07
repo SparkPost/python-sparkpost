@@ -1,10 +1,8 @@
-import sparkpost
-
 from distutils.core import setup
 
 setup(
     name='sparkpost',
-    version=sparkpost.__version__,
+    version='1.0.0.dev1',
     author='Message Systems',
     author_email='appteam@messagesystems.com',
     packages=['sparkpost'],
