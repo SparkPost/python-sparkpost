@@ -37,7 +37,6 @@ class Transmission(Resource):
         model['content']['from'] = kwargs.get('from_email')
         model['content']['html'] = kwargs.get('html')
         model['content']['text'] = kwargs.get('text')
-        model['content']['email_rfc822'] = kwargs.get('rfc822')
         model['content']['template_id'] = kwargs.get('template')
         model['content']['headers'] = kwargs.get('custom_headers')
 
