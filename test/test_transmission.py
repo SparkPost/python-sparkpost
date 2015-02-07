@@ -42,7 +42,7 @@ def test_fail_send():
         'https://api.sparkpost.com/api/v1/transmissions',
         status=500,
         content_type='application/json',
-        body='{"errors": [{"message": "You failed"}]}'
+        body='{"errors": [{"message": "You failed", "description": "More Info"}]}'
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
@@ -70,7 +70,7 @@ def test_fail_get():
         'https://api.sparkpost.com/api/v1/transmissions/foobar',
         status=404,
         content_type='application/json',
-        body='{"errors": [{"message": "cant find"}]}'
+        body='{"errors": [{"message": "cant find", "description": "where you go"}]}'
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')

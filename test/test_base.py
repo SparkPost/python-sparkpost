@@ -43,7 +43,7 @@ def test_fail_request():
         fake_uri,
         status=500,
         content_type='application/json',
-        body='{"errors": [{"message": "failure"}]}'
+        body='{"errors": [{"message": "failure", "description": "desc"}]}'
     )
     resource = create_resource()
     with pytest.raises(SparkPostAPIException):
