@@ -32,6 +32,9 @@ extensions = [
     'sphinx.ext.autodoc',
 ]
 
+# Load the source for autodoc
+sys.path.insert(0, os.path.abspath(os.path.join(os.getcwd(), '..')))
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
