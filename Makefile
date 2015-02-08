@@ -1,4 +1,4 @@
-.PHONY: analysis all build clean docs docs-install docs-open install release test venv 
+.PHONY: analysis all build clean docs docs-install docs-open install release release-test test venv 
 
 all: clean venv install
 
@@ -26,12 +26,14 @@ docs-open: docs
 	. venv/bin/activate; open docs/_build/html/index.html
 
 release: install
-	. venv/bin/activate; python setup.py sdist upload
-	. venv/bin/activate; python setup.py bdist_wheel upload
+	. venv/bin/activate; python setup.py sdist bdist_wheel; twine upload -r pypi dist/*
+
+release-test: install
+	. venv/bin/activate; python setup.py sdist bdist_wheel; twine upload -r test dist/*
 
 build: install
 	. venv/bin/activate; python setup.py sdist
 	. venv/bin/activate; python setup.py bdist_wheel
 
 clean:
-	rm -rf venv
+	rm -rf venv build dist *.egg-info
