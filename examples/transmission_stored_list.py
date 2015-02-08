@@ -3,16 +3,7 @@ from sparkpost import SparkPost
 sp = SparkPost('YOUR API KEY')
 
 response = sp.transmission.send(
-  recipients = [
-    'postmaster@example.com',
-    'you@me.com',
-    {
-      'address': {
-        'email': 'john.doe@example.com',
-        'name': 'John Doe'
-      }
-    }
-  ],
+  recipient_list = 'my_list',
   html = '<p>Hello world {{name}}</p>',
   text = 'Hello world {{name}}',
   from_email = 'test@sparkpostbox.com',
@@ -21,8 +12,6 @@ response = sp.transmission.send(
   custom_headers = {
     'X-CUSTOM-HEADER': 'foo bar'
   },
-  track_opens = False,
-  track_clicks = False,
   campaign = 'sdk example',
   metadata = {
     'key': 'value',

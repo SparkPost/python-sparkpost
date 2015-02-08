@@ -1,3 +1,5 @@
 from sparkpost import SparkPost
-s = SparkPost('YOUR API KEY')
-s.transmission.get('transmission_id')
+
+sp = SparkPost('YOUR API KEY')
+trans = sp.transmission.get('transmission_id')
+print trans

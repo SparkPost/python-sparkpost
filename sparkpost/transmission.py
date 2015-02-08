@@ -28,8 +28,11 @@ class Transmission(Resource):
         model['campaign_id'] = kwargs.get('campaign')
         model['metadata'] = kwargs.get('metadata')
         model['substitution_data'] = kwargs.get('substitution_data')
+
         model['options']['open_tracking'] = kwargs.get('track_opens', True)
         model['options']['click_tracking'] = kwargs.get('track_clicks', True)
+        model['options']['sandbox'] = kwargs.get('use_sandbox')
+
         model['content']['use_draft_template'] = \
             kwargs.get('use_draft_template', False)
         model['content']['reply_to'] = kwargs.get('reply_to')
