@@ -5,12 +5,9 @@ from .base import Resource
 
 class Transmission(Resource):
     """
-    Transmission class used to send, list and find transmissions
-
-    The methods are:
-    - send: sends a transmission with the API
-    - get: retrieves a particuliar transmission by id
-    - list: retrieves all transmissions in the system
+    Transmission class used to send, list and get transmissions. For detailed
+    request and response formats, see the `Transmissions API documentation
+    <https://www.sparkpost.com/docs/transmissions-api>`_.
     """
 
     key = 'transmissions'
@@ -45,44 +42,60 @@ class Transmission(Resource):
 
         recipient_list = kwargs.get('recipient_list')
         if recipient_list:
-          model['recipients']['list_id'] = recipient_list
+            model['recipients']['list_id'] = recipient_list
         else:
-          recipients = kwargs.get('recipients', [])
-          model['recipients'] = self._extractRecipients(recipients)
+            recipients = kwargs.get('recipients', [])
+            model['recipients'] = self._extractRecipients(recipients)
 
         return model
 
     def _extractRecipients(self, recipients):
-      formatted_recipients = []
-      for recip in recipients:
-        if isinstance(recip, str):
-          formatted_recipients.append({'address': {'email': recip}})
+        formatted_recipients = []
+        for recip in recipients:
+            if isinstance(recip, str):
+                formatted_recipients.append({'address': {'email': recip}})
         else:
-          formatted_recipients.append(recip)
-      return formatted_recipients
+            formatted_recipients.append(recip)
+        return formatted_recipients
 
     def send(self, **kwargs):
         """
-        Responsible for sending a transmission
+        Send a transmission based on the supplied parameters
 
-        Args(dict with following keys):
-           - recipients: list or dict. If list it is an array of email addresses, if dict {'address': {'name': 'Name', 'email': 'me' }
-           - recipient_list: str, id of recipient list, if set recipients above will be ignored
-           - template: str, id of template, if set html or text will not be used
-           - use_draft_template: boolean, default to False. Set to true if you want to send a template that is a draft
-           - html: str, html part of transmission
-           - text: str, text part of transmission
-           - subject: str, subject of transmission
-           - from_email: friendly from of transmission, domain must be a verified sending domain to your account or transmission will fail
-           - reply_to: str, reply_to of transmission
-           - description: str, description of transmission
-           - campaign: str, campaign of transmission
-           - metatdata: dict, any data you want to send along with transmission, used in WebHooks
-           - substitution_data: dict, corresponds to substitutions in html/text content. see https://www.sparkpost.com/docs/substitutions-reference
-           - track_opens: boolean, defaults to True. Used to track opens of transmission
-           - track_clicks:  boolean, defaults to True. Used to track clicks of transmission
-           - use_sandbox: boolean, flag must be set to use sandbox domain instead of verified sending domain. limited to a lifetime of 50 transmissions with this domain
-           - custom_headers: dict. used to set any headers associated with transmission
+        :param list|dict recipients: If list it is an array of email addresses,
+            if dict ``{'address': {'name': 'Name', 'email': 'me' }}``
+        :param str recipient_list: ID of recipient list, if set recipients
+            above will be ignored
+        :param str template: ID of template. If set HTML or text will not be
+            used
+        :param bool use_draft_template: Default to False. Set to true if you
+            want to send a template that is a draft
+        :param str html: HTML part of transmission
+        :param str text: Text part of transmission
+        :param str subject: Subject of transmission
+        :param str from_email: Friendly from of transmission, domain must be a
+            verified sending domain to your account or transmission will fail
+        :param str reply_to: Reply to of transmission
+        :param str description: Description of transmission
+        :param str campaign: Campaign of transmission
+        :param dict metatdata: Any data you want to send along with
+            transmission, used in WebHooks
+        :param dict substitution_data: Corresponds to substitutions in
+            html/text content. See `substitutions reference
+            <https://www.sparkpost.com/docs/substitutions-reference>`_.
+        :param bool track_opens: Defaults to True. Used to track opens of
+            transmission
+        :param bool track_clicks: Defaults to True. Used to track clicks of
+            transmission
+        :param bool use_sandbox: Flag must be set to use sandbox domain instead
+            of verified sending domain. Limited to a lifetime of 50
+            transmissions with this domain
+        :param dict custom_headers: Used to set any headers associated with
+            transmission
+
+        :returns: a ``dict`` with the ID and number of accepted and rejected
+            recipients
+        :raises: :exc:`SparkPostAPIException` if transmission cannot be sent
         """
 
         payload = self._translate_keys(**kwargs)
@@ -91,18 +104,23 @@ class Transmission(Resource):
 
     def get(self, transmission_id):
         """
-        Finds a transmission by id
+        Get a transmission by ID
 
-        Args:
-           - transmission_id: The id of transmission you want to return
+        :param str transmission_id: ID of the transmission you want to retrieve
 
-        Returns: https://www.sparkpost.com/docs/transmissions-api
+        :returns: the requested transmission if found
+        :raises: :exc:`SparkPostAPIException` if transmission is not found
         """
         uri = "%s/%s" % (self.uri, transmission_id)
         results = self.request('GET', uri)
         return results['transmission']
 
     def list(self):
-        "Lists all transmissions in system"
+        """
+        Get a list of your transmissions
+
+        :returns: list of transmissions
+        :raises: :exc:`SparkPostAPIException` if API call fails
+        """
         results = self.request('GET', self.uri)
         return results
