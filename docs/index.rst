@@ -1,22 +1,79 @@
-.. python-sparkpost documentation master file, created by
-   sphinx-quickstart on Sun Feb  1 21:26:22 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+SparkPost Python API client
+===========================
 
-Welcome to python-sparkpost's documentation!
-============================================
+The super-mega-official Python package for using the SparkPost API.
 
-Contents:
+
+Installation
+------------
+
+Install from PyPI using `pip`_:
+
+.. code-block:: bash
+
+    $ pip install sparkpost
+
+.. _pip: http://www.pip-installer.org/en/latest/
+
+
+Authorization
+-------------
+
+Go to `API & SMTP`_ in the SparkPost app and create an API key. We recommend using the ``SPARKPOST_API_KEY`` environment variable:
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+    sp = SparkPost() # uses environment variable
+
+Alternatively, you can pass the API key to the SparkPost class:
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+    sp = SparkPost('YOUR API KEY')
+    
+.. _API & SMTP: https://app.sparkpost.com/#/configuration/credentials
+
+
+Resources
+---------
+
+The following resources are available in python-sparkpost:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 1
+
+    resources/transmissions
 
 
+API reference
+-------------
 
-Indices and tables
-==================
+Auto-generated API reference for python-sparkpost:
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. toctree::
+    :maxdepth: 2
+
+    api
+
+
+Additional documentation
+------------------------
+
+The underlying SparkPost API is documented at the official `SparkPost API Reference`_.
+
+.. _SparkPost API Reference: https://www.sparkpost.com/docs/introduction
+
+
+Contribute
+----------
+
+#. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug.
+#. Fork `the repository`_ on GitHub and make your changes in a branch on your fork
+#. Write a test which shows that the bug was fixed or that the feature works as expected.
+#. Send a pull request. Make sure to add yourself to AUTHORS_.
+
+.. _`the repository`: http://github.com/richleland/python-sparkpost
+.. _AUTHORS: https://github.com/richleland/python-sparkpost/blob/master/AUTHORS.rst
 
