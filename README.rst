@@ -1,6 +1,9 @@
 SparkPost Python API client
 ===========================
 
+.. image:: https://travis-ci.org/SparkPost/python-sparkpost.svg?branch=master
+    :target: https://travis-ci.org/SparkPost/python-sparkpost
+
 The super-mega-official Python package for using the SparkPost API.
 
 
