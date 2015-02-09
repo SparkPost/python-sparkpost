@@ -54,8 +54,8 @@ class Transmission(Resource):
         for recip in recipients:
             if isinstance(recip, str):
                 formatted_recipients.append({'address': {'email': recip}})
-        else:
-            formatted_recipients.append(recip)
+            else:
+                formatted_recipients.append(recip)
         return formatted_recipients
 
     def send(self, **kwargs):
