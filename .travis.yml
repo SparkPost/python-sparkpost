@@ -1,11 +1,11 @@
 language: python
 install:
-  - pip install tox 
+- pip install tox
 script:
-  - tox
+- tox
 env:
-  - TOXENV=py27
-  - TOXENV=py34
+- TOXENV=py27
+- TOXENV=py34
 notifications:
   slack:
-    secure: dsz+D/TuylEi+6zqdB5dVqyMlpbpafaBBcAwYIijTK6LuG8KdIdGNSFVX1ro6o3bJFwMvtfxNeK1eFrMy8l6VHZQL0dkXWRmCl/pxLhEntUiYTDwDOtiqy1QLZtv5AqtsdSr1qLiOJtgF6gXk66xipnV2UzjLVVoxzSrdOSnX4U=
+    secure: VNIwgvrbcwj0b2gfYSOeTyK7rkV62/belwhYthasHmN+DoTsEJF4+HFVtzOykS72LM/f5Id5zieWtxYG+soy+yEOc1iZizXRpRJORtTYfZJB9RCffavosl322BcpoTX99cGyiZjWjOFH70UWlFMB3zT0jS+9icuTfk7ZqBX/zDA=
