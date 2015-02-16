@@ -2,6 +2,7 @@ import os
 
 from .exceptions import SparkPostException
 from .metrics import Metrics
+from .sending_domains import SendingDomains
 from .transmission import Transmission
 
 
@@ -26,4 +27,5 @@ class SparkPost(object):
         self.api_key = api_key
 
         self.metrics = Metrics(self.base_uri, self.api_key)
+        self.sending_domains = SendingDomains(self.base_uri, self.api_key)
         self.transmission = Transmission(self.base_uri, self.api_key)
