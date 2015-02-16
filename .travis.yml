@@ -4,6 +4,7 @@ install:
 script:
 - tox
 env:
+- TOXENV=flake8
 - TOXENV=py27
 - TOXENV=py34
 notifications:

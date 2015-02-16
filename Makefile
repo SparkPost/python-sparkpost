@@ -11,7 +11,6 @@ install: venv
 
 analysis:
 	. venv/bin/activate; flake8 sparkpost
-	. venv/bin/activate; flake8 test
 
 test: analysis
 	. venv/bin/activate; py.test --cov sparkpost test/
@@ -19,7 +18,7 @@ test: analysis
 docs-install:
 	. venv/bin/activate; pip install -r docs/requirements.txt
 
-docs:
+docs: docs-install
 	. venv/bin/activate; cd docs && make html
 
 docs-open: docs
