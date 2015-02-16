@@ -34,3 +34,31 @@ def test_fail_get():
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
         sp.sending_domains.get('fake.com')
+
+
+@responses.activate
+def test_success_list():
+    responses.add(
+        responses.GET,
+        base_uri,
+        status=200,
+        content_type='application/json',
+        body='{"results": []}'
+    )
+    sp = SparkPost('fake-key')
+    results = sp.sending_domains.list()
+    assert results == []
+
+
+@responses.activate
+def test_fail_list():
+    responses.add(
+        responses.GET,
+        base_uri,
+        status=500,
+        content_type='application/json',
+        body='{"errors": [{"message": "fail"}]}'
+    )
+    with pytest.raises(SparkPostAPIException):
+        sp = SparkPost('fake-key')
+        sp.sending_domains.list()
