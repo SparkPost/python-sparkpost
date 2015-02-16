@@ -22,3 +22,13 @@ class SendingDomains(Resource):
         uri = "%s/%s" % (self.uri, domain)
         results = self.request('GET', uri)
         return results
+
+    def list(self):
+        """
+        Get a list of your sending domains
+
+        :returns: list of sending domains
+        :raises: :exc:`SparkPostAPIException` if API call fails
+        """
+        results = self.request('GET', self.uri)
+        return results
