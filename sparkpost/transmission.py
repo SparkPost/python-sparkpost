@@ -26,8 +26,8 @@ class Transmission(Resource):
         model['metadata'] = kwargs.get('metadata')
         model['substitution_data'] = kwargs.get('substitution_data')
 
-        model['options']['open_tracking'] = kwargs.get('track_opens', True)
-        model['options']['click_tracking'] = kwargs.get('track_clicks', True)
+        model['options']['open_tracking'] = kwargs.get('track_opens')
+        model['options']['click_tracking'] = kwargs.get('track_clicks')
         model['options']['sandbox'] = kwargs.get('use_sandbox')
 
         model['content']['use_draft_template'] = \

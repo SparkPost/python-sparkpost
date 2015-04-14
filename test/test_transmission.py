@@ -11,8 +11,6 @@ def test_translate_keys_with_list():
     t = Transmission('uri', 'key')
     results = t._translate_keys(recipient_list = 'test')
     assert results['return_path'] == 'default@sparkpostmail.com'
-    assert results['options']['open_tracking'] == True
-    assert results['options']['click_tracking'] == True
     assert results['content']['use_draft_template'] == False
     assert results['recipients'] == { 'list_id': 'test' }
 
