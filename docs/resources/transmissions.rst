@@ -13,7 +13,9 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
         recipients=['someone@somedomain.com'],
         html='<p>Hello world</p>',
         from_email='test@sparkpostbox.com',
-        subject='Hello from python-sparkpost'
+        subject='Hello from python-sparkpost',
+        track_opens=True,
+        track_clicks=True
     )
 
     print response
@@ -46,7 +48,9 @@ Using inline templates and/or recipients
         text="Hello world",
         html='<p>Hello world</p>',
         from_email='test@sparkpostbox.com',
-        subject='Hello from python-sparkpost'
+        subject='Hello from python-sparkpost',
+        track_opens=True,
+        track_clicks=True
     )
 
 
