@@ -14,7 +14,10 @@ setup(
     license='Apache 2.0',
     description='SparkPost Python API client',
     long_description=readme,
-    install_requires=['requests==2.5.1'],
+    install_requires=[
+        'pycrypto==2.6.1',
+        'requests==2.5.1'
+    ],
     classifiers=[
         'Development Status :: 1 - Planning',
         'Intended Audience :: Developers',
