@@ -14,6 +14,7 @@ class Resource(object):
 
     def request(self, method, uri, **kwargs):
         headers = {
+            'User-Agent': 'python-sparkpost',
             'Content-Type': 'application/json',
             'Authorization': self.api_key
         }
@@ -22,8 +23,14 @@ class Resource(object):
             raise SparkPostAPIException(response)
         return response.json()['results']
 
-    def get(self):
-        raise NotImplementedError
+    def get(self, uri, **kwargs):
+        return self.request('get', uri, **kwargs)
 
-    def list(self):
-        raise NotImplementedError
+    def post(self, uri, **kwargs):
+        return self.request('post', uri, **kwargs)
+
+    def put(self, uri, **kwargs):
+        return self.request('put', uri, **kwargs)
+
+    def delete(self, uri, **kwargs):
+        return self.request('delete', uri, **kwargs)
