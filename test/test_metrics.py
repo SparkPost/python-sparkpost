@@ -26,7 +26,9 @@ def test_fail_campaigns():
         'https://api.sparkpost.com/api/v1/metrics/campaigns',
         status=500,
         content_type='application/json',
-        body='{"errors": [{"message": "You failed", "description": "More Info"}]}'
+        body="""
+        {"errors": [{"message": "You failed", "description": "More Info"}]}
+        """
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
@@ -54,7 +56,9 @@ def test_fail_domains():
         'https://api.sparkpost.com/api/v1/metrics/domains',
         status=500,
         content_type='application/json',
-        body='{"errors": [{"message": "You failed", "description": "More Info"}]}'
+        body="""
+        {"errors": [{"message": "You failed", "description": "More Info"}]}
+        """
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')

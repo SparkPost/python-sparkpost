@@ -6,21 +6,24 @@ from sparkpost import Transmission
 from sparkpost.exceptions import SparkPostAPIException
 
 
-
 def test_translate_keys_with_list():
     t = Transmission('uri', 'key')
-    results = t._translate_keys(recipient_list = 'test')
+    results = t._translate_keys(recipient_list='test')
     assert results['return_path'] == 'default@sparkpostmail.com'
-    assert results['options']['open_tracking'] == True
-    assert results['options']['click_tracking'] == True
-    assert results['content']['use_draft_template'] == False
-    assert results['recipients'] == { 'list_id': 'test' }
+    assert results['options']['open_tracking'] is True
+    assert results['options']['click_tracking'] is True
+    assert results['content']['use_draft_template'] is False
+    assert results['recipients'] == {'list_id': 'test'}
+
 
 def test_translate_keys_with_recips():
     t = Transmission('uri', 'key')
-    results = t._translate_keys(recipients = ['test', {'key': 'value'}, 'foobar' ])
-    assert results['recipients'] == [ { 'address': {'email': 'test'} },
-      {'key': 'value'}, {'address': {'email': 'foobar'}}]
+    results = t._translate_keys(recipients=['test',
+                                            {'key': 'value'}, 'foobar'])
+    assert results['recipients'] == [{'address': {'email': 'test'}},
+                                     {'key': 'value'},
+                                     {'address': {'email': 'foobar'}}]
+
 
 @responses.activate
 def test_success_send():
@@ -35,6 +38,7 @@ def test_success_send():
     results = sp.transmission.send()
     assert results == 'yay'
 
+
 @responses.activate
 def test_fail_send():
     responses.add(
@@ -42,7 +46,9 @@ def test_fail_send():
         'https://api.sparkpost.com/api/v1/transmissions',
         status=500,
         content_type='application/json',
-        body='{"errors": [{"message": "You failed", "description": "More Info"}]}'
+        body="""
+        {"errors": [{"message": "You failed", "description": "More Info"}]}
+        """
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
@@ -70,7 +76,9 @@ def test_fail_get():
         'https://api.sparkpost.com/api/v1/transmissions/foobar',
         status=404,
         content_type='application/json',
-        body='{"errors": [{"message": "cant find", "description": "where you go"}]}'
+        body="""
+        {"errors": [{"message": "cant find", "description": "where you go"}]}
+        """
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
