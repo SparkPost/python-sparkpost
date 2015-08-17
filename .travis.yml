@@ -6,6 +6,7 @@ script:
 env:
 - TOXENV=py27
 - TOXENV=py34
+- TOXENV=flake8
 notifications:
   slack:
     secure: VNIwgvrbcwj0b2gfYSOeTyK7rkV62/belwhYthasHmN+DoTsEJF4+HFVtzOykS72LM/f5Id5zieWtxYG+soy+yEOc1iZizXRpRJORtTYfZJB9RCffavosl322BcpoTX99cGyiZjWjOFH70UWlFMB3zT0jS+9icuTfk7ZqBX/zDA=
