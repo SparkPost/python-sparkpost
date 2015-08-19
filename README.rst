@@ -9,6 +9,10 @@ SparkPost Python API client
     :target: https://readthedocs.org/projects/python-sparkpost/?badge=latest
     :alt: Documentation Status
 
+.. image:: https://coveralls.io/repos/SparkPost/python-sparkpost/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/SparkPost/python-sparkpost?branch=master
+    :alt: Coverage Status
+
 The super-mega-official Python package for using the SparkPost API.
 
 

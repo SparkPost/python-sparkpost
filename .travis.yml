@@ -1,12 +1,17 @@
 language: python
+python:
+  - "2.7"
+  - "3.4"
 install:
-- pip install tox
+  - pip install -r dev-requirements.txt
+  - pip install coveralls
+  - pip install -e .
+before_script:
+  - flake8 sparkpost test
 script:
-- tox
-env:
-- TOXENV=py27
-- TOXENV=py34
-- TOXENV=flake8
+  - py.test --cov sparkpost test/ --cov-report term-missing
+after_success:
+  - coveralls
 notifications:
   slack:
     secure: VNIwgvrbcwj0b2gfYSOeTyK7rkV62/belwhYthasHmN+DoTsEJF4+HFVtzOykS72LM/f5Id5zieWtxYG+soy+yEOc1iZizXRpRJORtTYfZJB9RCffavosl322BcpoTX99cGyiZjWjOFH70UWlFMB3zT0jS+9icuTfk7ZqBX/zDA=

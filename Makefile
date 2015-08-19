@@ -13,7 +13,7 @@ analysis:
 	. venv/bin/activate; flake8 sparkpost test
 
 test: analysis
-	. venv/bin/activate; py.test --cov sparkpost test/
+	. venv/bin/activate; py.test --cov-report html --cov sparkpost test/
 
 docs-install:
 	. venv/bin/activate; pip install -r docs/requirements.txt
