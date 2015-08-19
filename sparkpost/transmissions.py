@@ -3,7 +3,7 @@ import json
 from .base import Resource
 
 
-class Transmission(Resource):
+class Transmissions(Resource):
     """
     Transmission class used to send, list and get transmissions. For detailed
     request and response formats, see the `Transmissions API documentation

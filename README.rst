@@ -44,7 +44,7 @@ Alternatively, you can pass the API key to the SparkPost class:
 
     from sparkpost import SparkPost
     sp = SparkPost('YOUR API KEY')
-    
+
 .. _API & SMTP: https://app.sparkpost.com/#/configuration/credentials
 
 
@@ -56,16 +56,16 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 .. code-block:: python
 
     from sparkpost import SparkPost
-    
+
     sp = SparkPost()
-    
-    response = sp.transmission.send(
+
+    response = sp.transmissions.send(
         recipients=['someone@somedomain.com'],
         html='<p>Hello world</p>',
         from_email='test@sparkpostbox.com',
         subject='Hello from python-sparkpost'
     )
-    
+
     print response
     # outputs {u'total_accepted_recipients': 1, u'id': u'47960765679942446', u'total_rejected_recipients': 0}
 
@@ -75,8 +75,8 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 Documentation
 -------------
 
-* Documentation for `python-sparkpost`_ 
-* `SparkPost API Reference`_ 
+* Documentation for `python-sparkpost`_
+* `SparkPost API Reference`_
 
 .. _python-sparkpost: http://readthedocs.org/docs/python-sparkpost
 .. _SparkPost API Reference: https://www.sparkpost.com/docs/introduction

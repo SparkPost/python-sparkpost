@@ -2,12 +2,12 @@ import pytest
 import responses
 
 from sparkpost import SparkPost
-from sparkpost import Transmission
+from sparkpost import Transmissions
 from sparkpost.exceptions import SparkPostAPIException
 
 
 def test_translate_keys_with_list():
-    t = Transmission('uri', 'key')
+    t = Transmissions('uri', 'key')
     results = t._translate_keys(recipient_list='test')
     assert results['return_path'] == 'default@sparkpostmail.com'
     assert results['options']['open_tracking'] is True
@@ -17,7 +17,7 @@ def test_translate_keys_with_list():
 
 
 def test_translate_keys_with_recips():
-    t = Transmission('uri', 'key')
+    t = Transmissions('uri', 'key')
     results = t._translate_keys(recipients=['test',
                                             {'key': 'value'}, 'foobar'])
     assert results['recipients'] == [{'address': {'email': 'test'}},

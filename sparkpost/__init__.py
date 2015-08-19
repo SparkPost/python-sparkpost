@@ -2,7 +2,7 @@ import os
 
 from .exceptions import SparkPostException
 from .metrics import Metrics
-from .transmission import Transmission
+from .transmissions import Transmissions
 
 
 __version__ = '1.0.0.dev1'
@@ -26,4 +26,5 @@ class SparkPost(object):
         self.api_key = api_key
 
         self.metrics = Metrics(self.base_uri, self.api_key)
-        self.transmission = Transmission(self.base_uri, self.api_key)
+        self.transmissions = Transmissions(self.base_uri, self.api_key)
+        self.transmission = self.transmissions
