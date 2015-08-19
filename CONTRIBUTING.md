@@ -30,4 +30,4 @@ propose changes to this document in a pull request.
 Once you are set up for local development:
 
 * Run ``make test`` to test against your current Python environment
-* Run ``tox`` to test against multiple Python environments
+* Open htmlcov/index.html to view coverage information
