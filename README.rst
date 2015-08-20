@@ -44,7 +44,7 @@ Alternatively, you can pass the API key to the SparkPost class:
 
     from sparkpost import SparkPost
     sp = SparkPost('YOUR API KEY')
-    
+
 .. _API & SMTP: https://app.sparkpost.com/#/configuration/credentials
 
 
@@ -56,30 +56,30 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 .. code-block:: python
 
     from sparkpost import SparkPost
-    
+
     sp = SparkPost()
-    
+
     response = sp.transmission.send(
         recipients=['someone@somedomain.com'],
         html='<p>Hello world</p>',
         from_email='test@sparkpostbox.com',
         subject='Hello from python-sparkpost'
     )
-    
+
     print response
     # outputs {u'total_accepted_recipients': 1, u'id': u'47960765679942446', u'total_rejected_recipients': 0}
 
-.. _transmissions API: http://www.sparkpost.com/docs/transmissions-api
+.. _transmissions API: https://www.sparkpost.com/api#/reference/transmissions
 
 
 Documentation
 -------------
 
-* Documentation for `python-sparkpost`_ 
-* `SparkPost API Reference`_ 
+* Documentation for `python-sparkpost`_
+* `SparkPost API Reference`_
 
 .. _python-sparkpost: http://readthedocs.org/docs/python-sparkpost
-.. _SparkPost API Reference: https://www.sparkpost.com/docs/introduction
+.. _SparkPost API Reference: https://www.sparkpost.com/api
 
 
 Contribute
@@ -90,5 +90,5 @@ Contribute
 #. Write a test which shows that the bug was fixed or that the feature works as expected.
 #. Send a pull request. Make sure to add yourself to AUTHORS_.
 
-.. _`the repository`: http://github.com/richleland/python-sparkpost
-.. _AUTHORS: https://github.com/richleland/python-sparkpost/blob/master/AUTHORS.rst
+.. _`the repository`: http://github.com/SparkPost/python-sparkpost
+.. _AUTHORS: https://github.com/SparkPost/python-sparkpost/blob/master/AUTHORS.rst
