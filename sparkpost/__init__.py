@@ -27,4 +27,6 @@ class SparkPost(object):
 
         self.metrics = Metrics(self.base_uri, self.api_key)
         self.transmissions = Transmissions(self.base_uri, self.api_key)
+        # Keeping self.transmission for backwards compatibility.
+        # Will be removed in a future release.
         self.transmission = self.transmissions
