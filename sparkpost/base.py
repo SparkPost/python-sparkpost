@@ -1,4 +1,5 @@
 import requests
+import sparkpost
 
 from .exceptions import SparkPostAPIException
 
@@ -14,6 +15,7 @@ class Resource(object):
 
     def request(self, method, uri, **kwargs):
         headers = {
+            'User-Agent': 'python-sparkpost/' + sparkpost.__version__,
             'Content-Type': 'application/json',
             'Authorization': self.api_key
         }
@@ -26,4 +28,13 @@ class Resource(object):
         raise NotImplementedError
 
     def list(self):
+        raise NotImplementedError
+
+    def create(self):
+        raise NotImplementedError
+
+    def update(self):
+        raise NotImplementedError
+
+    def delete(self):
         raise NotImplementedError

@@ -60,3 +60,21 @@ def test_fail_list():
     resource = create_resource()
     with pytest.raises(NotImplementedError):
         resource.list()
+
+
+def test_fail_create():
+    resource = create_resource()
+    with pytest.raises(NotImplementedError):
+        resource.create()
+
+
+def test_fail_update():
+    resource = create_resource()
+    with pytest.raises(NotImplementedError):
+        resource.update()
+
+
+def test_fail_delete():
+    resource = create_resource()
+    with pytest.raises(NotImplementedError):
+        resource.delete()
