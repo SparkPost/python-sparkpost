@@ -67,7 +67,7 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 
     sp = SparkPost()
 
-    response = sp.transmission.send(
+    response = sp.transmissions.send(
         recipients=['someone@somedomain.com'],
         html='<p>Hello world</p>',
         from_email='test@sparkpostbox.com',
