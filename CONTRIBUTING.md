@@ -16,12 +16,6 @@ propose changes to this document in a pull request.
 * Perform a [cursory search](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Asparkpost+repo%3Apython-sparkpost)
   to see if a similar issue has already been submitted.
 
-## Guidelines
-
-- Provide documentation for any newly added code.
-- Provide tests for any newly added code.
-- Follow PEP8.
-
 ## Local development
 
 * Fork this repository
@@ -32,6 +26,12 @@ propose changes to this document in a pull request.
 * Write code!
 
 ## Contribution Steps
+
+### Guidelines
+
+- Provide documentation for any newly added code.
+- Provide tests for any newly added code.
+- Follow PEP8.
 
 1. Create a new branch named after the issue you’ll be fixing (include the issue number as the branch name, example: Issue in GH is #8 then the branch name should be ISSUE-8)) 
 2. Write corresponding tests and code (only what is needed to satisfy the issue and tests please)
