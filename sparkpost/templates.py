@@ -105,8 +105,9 @@ class Templates(Resource):
         :returns: TODO
         :raises: :exc:`SparkPostAPIException` if template is not found
         """
+        uri = "%s/%s" % (self.uri, template_id)
         payload = self._translate_keys(**kwargs)
-        results = self.request('PUT', self.uri, data=json.dumps(payload))
+        results = self.request('PUT', uri, data=json.dumps(payload))
         return results
 
     def delete(self, template_id):
@@ -123,17 +124,24 @@ class Templates(Resource):
         results = self.request('DELETE', uri)
         return results
 
-    def get(self, template_id):
+    def get(self, template_id, is_draft=None):
         """
         Get a template by ID
 
         :param str template_id: ID of the template you want to retrieve
+        :param bool is_draft: Defaults to None. If True, returns the most
+            recent draft template. If False, returns the most recent published
+            template. If None, returns the most recent template version
+            regardless of draft or published.
 
         :returns: the requested template if found
         :raises: :exc:`SparkPostAPIException` if template is not found
         """
         uri = "%s/%s" % (self.uri, template_id)
-        results = self.request('GET', uri)
+        params = {}
+        if is_draft is not None:
+            params['draft'] = str(is_draft).lower()
+        results = self.request('GET', uri, params=params)
         return results
 
     def list(self):
@@ -146,7 +154,7 @@ class Templates(Resource):
         results = self.request('GET', self.uri)
         return results
 
-    def preview(self, template_id, substitution_data, is_draft):
+    def preview(self, template_id, substitution_data, is_draft=None):
         """
         Get a preivew of your template by ID with the
         provided substitution_data
@@ -164,7 +172,11 @@ class Templates(Resource):
         :raises: :exc:`SparkPostAPIException` if API call fails
         """
         uri = "%s/%s/preview" % (self.uri, template_id)
+        params = {}
         if is_draft is not None:
-            uri += "?draft=" + str(is_draft).lower()
-        results = self.request('POST', uri, data=json.dumps(substitution_data))
+            params['draft'] = str(is_draft).lower()
+        results = self.request('POST',
+                               uri,
+                               params=params,
+                               data=json.dumps(substitution_data))
         return results
