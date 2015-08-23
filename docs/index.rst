@@ -33,7 +33,7 @@ Alternatively, you can pass the API key to the SparkPost class:
     from sparkpost import SparkPost
     sp = SparkPost('YOUR API KEY')
     
-.. _API & SMTP: https://app.sparkpost.com/#/configuration/credentials
+.. _API & SMTP: https://app.sparkpost.com/configuration/credentials
 
 
 Resources
@@ -44,6 +44,7 @@ The following resources are available in python-sparkpost:
 .. toctree::
     :maxdepth: 1
 
+    resources/metrics
     resources/transmissions
 
 
@@ -63,7 +64,7 @@ Additional documentation
 
 The underlying SparkPost API is documented at the official `SparkPost API Reference`_.
 
-.. _SparkPost API Reference: https://www.sparkpost.com/docs/introduction
+.. _SparkPost API Reference: https://www.sparkpost.com/api
 
 
 Contribute
@@ -74,6 +75,6 @@ Contribute
 #. Write a test which shows that the bug was fixed or that the feature works as expected.
 #. Send a pull request. Make sure to add yourself to AUTHORS_.
 
-.. _`the repository`: http://github.com/richleland/python-sparkpost
-.. _AUTHORS: https://github.com/richleland/python-sparkpost/blob/master/AUTHORS.rst
+.. _`the repository`: http://github.com/SparkPost/python-sparkpost
+.. _AUTHORS: https://github.com/SparkPost/python-sparkpost/blob/master/AUTHORS.rst
 
