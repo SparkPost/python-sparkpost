@@ -21,7 +21,7 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
     print response
     # outputs {u'total_accepted_recipients': 1, u'id': u'47960765679942446', u'total_rejected_recipients': 0}
 
-.. _transmissions API: http://www.sparkpost.com/docs/transmissions-api
+.. _transmissions API: https://www.sparkpost.com/api#/reference/transmissions
 
 
 Send a transmission
@@ -119,7 +119,7 @@ Further examples
 
 See the `python-sparkpost transmissions examples`_.
 
-.. _python-sparkpost transmissions examples: https://github.com/richleland/python-sparkpost/tree/master/examples/transmissions
+.. _python-sparkpost transmissions examples: https://github.com/SparkPost/python-sparkpost/tree/master/examples/transmissions
 
 
 Additional documentation
@@ -127,5 +127,5 @@ Additional documentation
 
 See the `SparkPost Transmissions API Reference`_.
 
-.. _SparkPost Transmissions API Reference: https://www.sparkpost.com/docs/transmissions-api
+.. _SparkPost Transmissions API Reference: https://www.sparkpost.com/api#/reference/transmissions
 
