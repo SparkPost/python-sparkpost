@@ -179,7 +179,7 @@ def test_success_preview():
 
 
 @responses.activate
-def test_success_preview_with_is_draft():
+def test_success_preview_with_draft():
     responses.add(
         responses.POST,
         'https://api.sparkpost.com/api/v1/templates/foobar/preview?draft=true',

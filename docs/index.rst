@@ -32,7 +32,7 @@ Alternatively, you can pass the API key to the SparkPost class:
 
     from sparkpost import SparkPost
     sp = SparkPost('YOUR API KEY')
-    
+
 .. _API & SMTP: https://app.sparkpost.com/configuration/credentials
 
 
@@ -45,6 +45,7 @@ The following resources are available in python-sparkpost:
     :maxdepth: 1
 
     resources/metrics
+    resources/templates
     resources/transmissions
 
 
@@ -77,4 +78,3 @@ Contribute
 
 .. _`the repository`: http://github.com/SparkPost/python-sparkpost
 .. _AUTHORS: https://github.com/SparkPost/python-sparkpost/blob/master/AUTHORS.rst
-

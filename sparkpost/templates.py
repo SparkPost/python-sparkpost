@@ -124,12 +124,12 @@ class Templates(Resource):
         results = self.request('DELETE', uri)
         return results
 
-    def get(self, template_id, is_draft=None):
+    def get(self, template_id, draft=None):
         """
         Get a template by ID
 
         :param str template_id: ID of the template you want to retrieve
-        :param bool is_draft: Defaults to None. If True, returns the most
+        :param bool draft: Defaults to None. If True, returns the most
             recent draft template. If False, returns the most recent published
             template. If None, returns the most recent template version
             regardless of draft or published.
@@ -139,8 +139,8 @@ class Templates(Resource):
         """
         uri = "%s/%s" % (self.uri, template_id)
         params = {}
-        if is_draft is not None:
-            params['draft'] = str(is_draft).lower()
+        if draft is not None:
+            params['draft'] = str(draft).lower()
         results = self.request('GET', uri, params=params)
         return results
 
@@ -154,7 +154,7 @@ class Templates(Resource):
         results = self.request('GET', self.uri)
         return results
 
-    def preview(self, template_id, substitution_data, is_draft=None):
+    def preview(self, template_id, substitution_data, draft=None):
         """
         Get a preivew of your template by ID with the
         provided substitution_data
@@ -162,7 +162,7 @@ class Templates(Resource):
         :param str template_id: ID of the template you want to retrieve
         :param dict substitution_data: data to be substituted in the
             template content
-        :param bool is_draft: Defaults to None. If True, previews the most
+        :param bool draft: Defaults to None. If True, previews the most
             recent draft template. If False, previews the most recent published
             template. If None, previews the most recent template version
             regardless of draft or published.
@@ -173,8 +173,8 @@ class Templates(Resource):
         """
         uri = "%s/%s/preview" % (self.uri, template_id)
         params = {}
-        if is_draft is not None:
-            params['draft'] = str(is_draft).lower()
+        if draft is not None:
+            params['draft'] = str(draft).lower()
         results = self.request('POST',
                                uri,
                                params=params,
