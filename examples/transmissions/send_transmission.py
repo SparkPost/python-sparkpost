@@ -21,8 +21,8 @@ response = sp.transmission.send(
   custom_headers = {
     'X-CUSTOM-HEADER': 'foo bar'
   },
-  track_opens = False,
-  track_clicks = False,
+  track_opens = True,
+  track_clicks = True,
   campaign = 'sdk example',
   metadata = {
     'key': 'value',
