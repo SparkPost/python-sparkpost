@@ -22,6 +22,8 @@ class Resource(object):
         response = requests.request(method, uri, headers=headers, **kwargs)
         if not response.ok:
             raise SparkPostAPIException(response)
+        if response.status_code == 204:
+            return None
         return response.json()['results']
 
     def get(self):

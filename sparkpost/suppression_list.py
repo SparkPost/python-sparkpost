@@ -16,16 +16,16 @@ class SuppressionList(Resource):
         """
         Search for an entry based on the supplied parameters
 
-        :param datetime to: DateTime to end searching
-        :param datetime from: DateTime to start searching
-        :param list types: Types of entries to include in the search
-        :param int limit: Maximum number of results to return
+        :param datetime To: DateTime to end searching
+        :param datetime From: DateTime to start searching
+        :param list Types: Types of entries to include in the search
+        :param int Limit: Maximum number of results to return
 
         :returns: a ``list`` of entries
         :raises: :exc:`SparkPostAPIException` if API call fails
         """
-        params = dict([(i, kwargs[i]) for i in ["to", "from", "types", "limit"]
-                      if i in kwargs])
+        params = dict([(i.lower(), kwargs[i]) for i in ["To", "From", "Types",
+                      "Limit"] if i in kwargs])
         results = self.request('GET', self.uri, params=params)
         return results
 
