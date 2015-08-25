@@ -42,11 +42,10 @@ Resources
 The following resources are available in python-sparkpost:
 
 .. toctree::
+    :glob:
     :maxdepth: 1
 
-    resources/metrics
-    resources/templates
-    resources/transmissions
+    resources/*
 
 
 API reference
