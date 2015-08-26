@@ -10,6 +10,7 @@ Let's use the underlying `suppression_list API`_ to upsert a status:
     sp = SparkPost()
 
     response = sp.suppression_list.upsert({
+      "email": "test@test.com"
       "transactional": False,
       "non_transactional": True,
       "description": "User requested to not receive any non-transactional emails."
