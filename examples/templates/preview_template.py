@@ -5,5 +5,5 @@ sub_data = {
     'first_name': 'John',
     'last_name': 'Doe'
 }
-template = sp.transmission.preview('template_id', sub_data)
+template = sp.templates.preview('template_id', sub_data)
 print template
