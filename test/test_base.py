@@ -29,6 +29,20 @@ def test_success_request():
         fake_uri,
         status=200,
         content_type='application/json',
+        body='{}'
+    )
+    resource = create_resource()
+    results = resource.request('GET', resource.uri)
+    assert results == {}
+
+
+@responses.activate
+def test_success_request_with_results():
+    responses.add(
+        responses.GET,
+        fake_uri,
+        status=200,
+        content_type='application/json',
         body='{"results": []}'
     )
     resource = create_resource()

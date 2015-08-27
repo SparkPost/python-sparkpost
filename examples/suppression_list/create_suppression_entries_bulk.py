@@ -21,5 +21,5 @@ recipients = [
         'description': 'Test description 3'
     }
 ]
-result = sp.suppression_list.upsert(recipients)
+result = sp.suppression_list.create(recipients)
 print result

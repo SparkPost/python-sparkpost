@@ -12,14 +12,14 @@ class SuppressionList(Resource):
 
     key = 'suppression-list'
 
-    def search(self, **kwargs):
+    def list(self, **kwargs):
         """
-        Search for an entry based on the supplied parameters
+        List supression list entries based on the supplied parameters
 
-        :param datetime To: DateTime to end searching
-        :param datetime From: DateTime to start searching
-        :param list Types: Types of entries to include in the search
-        :param int Limit: Maximum number of results to return
+        :param datetime From: DateTime to start listing
+        :param datetime To: DateTime to end listing
+        :param list Types: Types of entries to return
+        :param int Limit: Maximum number of entries to return
 
         :returns: a ``list`` of entries
         :raises: :exc:`SparkPostAPIException` if API call fails
@@ -29,21 +29,65 @@ class SuppressionList(Resource):
         results = self.request('GET', self.uri, params=params)
         return results
 
-    def check_status(self, email):
+    def get(self, email):
         """
-        Retrieve the suppression status for a specific recipient by email
+        Retrieve a suppression list entry for a specific recipient by email
 
         :param str email: Email of the recipient whose status you want to
             check_status
 
-        :returns: a list entry
+        :returns: a suppression list entry
         :raises: :exc:`SparkPostAPIException` if API call fails
         """
         uri = "%s/%s" % (self.uri, email)
         results = self.request('GET', uri)
         return results
 
-    def remove_status(self, email):
+    def _upsert(self, status):
+        uri = self.uri
+        if isinstance(status, dict):
+            # single upsert, update uri and remove email property
+            uri = "%s/%s" % (self.uri, status.pop("email", None))
+        else:
+            status = {"recipients": status}
+        results = self.request('PUT', uri, data=json.dumps(status))
+        return results
+
+    def create(self, entry):
+        """
+        Create a suppression list entry.
+
+        :param dict|list status: If dict it is a single entry to create
+            ``{
+                'email': 'test@test.com',
+                'transactional': True,
+                'non_transactional': True,
+                'description': 'Test description'
+            }``, if list it is multiple entries to create
+
+        :returns: a ``dict`` with a message
+        :raises: :exc:`SparkPostAPIException` if API call fails
+        """
+        return self._upsert(entry)
+
+    def update(self, entry):
+        """
+        Update a suppression list entry.
+
+        :param dict|list status: If dict it is a single entry to update
+            ``{
+                'email': 'test@test.com',
+                'transactional': True,
+                'non_transactional': True,
+                'description': 'Test description'
+            }``, if list it is multiple entries to update
+
+        :returns: a ``dict`` with a message
+        :raises: :exc:`SparkPostAPIException` if API call fails
+        """
+        return self._upsert(entry)
+
+    def delete(self, email):
         """
         Delete the suppression status for a specific recipient by email
 
@@ -55,28 +99,4 @@ class SuppressionList(Resource):
         """
         uri = "%s/%s" % (self.uri, email)
         results = self.request('DELETE', uri)
-        return results
-
-    def upsert(self, status):
-        """
-        Insert or Update a status entry.
-
-        :param dict|list status: If dict it is a single entry to upsert
-            ``{
-                'email': 'test@test.com',
-                'transactional': True,
-                'non_transactional': True,
-                'description': 'Test description'
-            }``, if list it is multiple entries to upsert
-
-        :returns: a ``dict`` with a message
-        :raises: :exc:`SparkPostAPIException` if API call fails
-        """
-        uri = self.uri
-        if isinstance(status, dict):
-            # single upsert, update uri and remove email property
-            uri = "%s/%s" % (self.uri, status.pop("email", None))
-        else:
-            status = {"recipients": status}
-        results = self.request('PUT', uri, data=json.dumps(status))
         return results

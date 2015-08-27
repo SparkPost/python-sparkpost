@@ -1,7 +1,7 @@
 Suppression List
 =============
 
-Let's use the underlying `suppression_list API`_ to upsert a status:
+Let's use the underlying `suppression_list API`_ to create a suppression entry:
 
 .. code-block:: python
 
@@ -9,7 +9,7 @@ Let's use the underlying `suppression_list API`_ to upsert a status:
 
     sp = SparkPost()
 
-    response = sp.suppression_list.upsert({
+    response = sp.suppression_list.create({
       "email": "test@test.com"
       "transactional": False,
       "non_transactional": True,
@@ -17,12 +17,12 @@ Let's use the underlying `suppression_list API`_ to upsert a status:
     })
 
     print response
-    # outputs {u'message': u'Recipient successfully created|updated'}
+    # outputs {u'message': u'Recipient successfully created'}
 
 .. _suppression_list API: https://www.sparkpost.com/api#/reference/suppression-list
 
 
-Check a Status
+Get a suppression entry
 -----------------------
 
 .. code-block:: python
@@ -31,10 +31,10 @@ Check a Status
 
     sp = SparkPost()
 
-    sp.suppression_list.check_status('test@test.com')
+    sp.suppression_list.get('test@test.com')
 
 
-Search
+List suppression entries
 ----------------------
 
 .. code-block:: python
@@ -43,7 +43,7 @@ Search
 
     sp = SparkPost()
 
-    sp.suppression_list.search()
+    sp.suppression_list.list()
 
 
 API reference
