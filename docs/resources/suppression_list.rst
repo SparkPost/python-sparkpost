@@ -1,5 +1,5 @@
 Suppression List
-=============
+================
 
 Let's use the underlying `suppression_list API`_ to create a suppression entry:
 
@@ -35,7 +35,7 @@ Get a suppression entry
 
 
 List suppression entries
-----------------------
+------------------------
 
 .. code-block:: python
 
