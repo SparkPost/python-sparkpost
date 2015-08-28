@@ -16,16 +16,22 @@ class SuppressionList(Resource):
         """
         List supression list entries based on the supplied parameters
 
-        :param datetime From: DateTime to start listing
-        :param datetime To: DateTime to end listing
-        :param list Types: Types of entries to return
-        :param int Limit: Maximum number of entries to return
+        :param datetime from_date: DateTime to start listing
+        :param datetime to_date: DateTime to end listing
+        :param list types: Types of entries to return
+        :param int limit: Maximum number of entries to return
 
         :returns: a ``list`` of entries
         :raises: :exc:`SparkPostAPIException` if API call fails
         """
-        params = dict([(i.lower(), kwargs[i]) for i in ["To", "From", "Types",
-                      "Limit"] if i in kwargs])
+        key_map = {
+            'from_date': 'from',
+            'to_date': 'to',
+            'types': 'types',
+            'limit': 'limit'
+        }
+        params = dict([(key_map[i], kwargs[i]) for i in list(key_map.keys())
+                       if i in kwargs])
         results = self.request('GET', self.uri, params=params)
         return results
 
