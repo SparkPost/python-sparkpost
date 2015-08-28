@@ -1,5 +1,5 @@
 Recipient Lists
-=============
+===============
 
 Let's use the underlying `recipient_lists API`_ to create a recipient list:
 
@@ -38,7 +38,7 @@ Let's use the underlying `recipient_lists API`_ to create a recipient list:
 
 
 Retrieve a recipient list
------------------------
+-------------------------
 
 .. code-block:: python
 
@@ -50,7 +50,7 @@ Retrieve a recipient list
 
 
 List all recipient lists
-----------------------
+------------------------
 
 .. code-block:: python
 
@@ -78,6 +78,6 @@ See the `python-sparkpost recipient_lists examples`_.
 Additional documentation
 ------------------------
 
-See the `SparkPost Recipient List API Reference`_.
+See the `SparkPost Recipient Lists API Reference`_.
 
 .. _SparkPost Recipient Lists API Reference: https://www.sparkpost.com/api#/reference/recipient_lists

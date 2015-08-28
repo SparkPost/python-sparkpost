@@ -6,9 +6,9 @@ from .base import Resource
 class RecipientLists(Resource):
     """
     RecipientLists class used to create, update, delete, list and get recipient
-    lists. For
-    detailed request and response formats, see the `Recipient Lists API
-    documentation <https://www.sparkpost.com/api#/reference/recipient-lists>`_.
+    lists. For detailed request and response formats, see the `Recipient Lists
+    API documentation
+    <https://www.sparkpost.com/api#/reference/recipient-lists>`_.
     """
 
     key = 'recipient-lists'
@@ -68,7 +68,7 @@ class RecipientLists(Resource):
 
         :param str list_id: ID of the recipient list you want to delete
 
-        :returns: TODO
+        :returns: empty ``dict``
         :raises: :exc:`SparkPostAPIException` if recipient list is not found
             or if recipient list is in use
         """
