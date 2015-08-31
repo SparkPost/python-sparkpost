@@ -118,7 +118,7 @@ class Templates(Resource):
 
         :returns: TODO
         :raises: :exc:`SparkPostAPIException` if template is not found or if
-        template is in use
+            template is in use
         """
         uri = "%s/%s" % (self.uri, template_id)
         results = self.request('DELETE', uri)
