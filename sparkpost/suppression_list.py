@@ -7,7 +7,8 @@ class SuppressionList(Resource):
     """
     SuppressionList class used to search, get and modify suppression status.
     For detailed request and response formats, see the `Suppresion List API
-    documentation<https://www.sparkpost.com/api#/reference/suppression-list>`_.
+    documentation
+    <https://www.sparkpost.com/api#/reference/suppression-list>`_.
     """
 
     key = 'suppression-list'
@@ -65,10 +66,10 @@ class SuppressionList(Resource):
 
         :param dict|list status: If dict it is a single entry to create
             ``{
-                'email': 'test@test.com',
-                'transactional': True,
-                'non_transactional': True,
-                'description': 'Test description'
+            'email': 'test@test.com',
+            'transactional': True,
+            'non_transactional': True,
+            'description': 'Test description'
             }``, if list it is multiple entries to create
 
         :returns: a ``dict`` with a message
@@ -82,10 +83,10 @@ class SuppressionList(Resource):
 
         :param dict|list status: If dict it is a single entry to update
             ``{
-                'email': 'test@test.com',
-                'transactional': True,
-                'non_transactional': True,
-                'description': 'Test description'
+            'email': 'test@test.com',
+            'transactional': True,
+            'non_transactional': True,
+            'description': 'Test description'
             }``, if list it is multiple entries to update
 
         :returns: a ``dict`` with a message
