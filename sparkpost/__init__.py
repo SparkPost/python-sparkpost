@@ -3,6 +3,7 @@ import os
 from .exceptions import SparkPostException
 from .metrics import Metrics
 from .recipient_lists import RecipientLists
+from .suppression_list import SuppressionList
 from .templates import Templates
 from .transmissions import Transmissions
 
@@ -29,6 +30,7 @@ class SparkPost(object):
 
         self.metrics = Metrics(self.base_uri, self.api_key)
         self.recipient_lists = RecipientLists(self.base_uri, self.api_key)
+        self.suppression_list = SuppressionList(self.base_uri, self.api_key)
         self.templates = Templates(self.base_uri, self.api_key)
         self.transmissions = Transmissions(self.base_uri, self.api_key)
         # Keeping self.transmission for backwards compatibility.

@@ -20,9 +20,13 @@ class Resource(object):
             'Authorization': self.api_key
         }
         response = requests.request(method, uri, headers=headers, **kwargs)
+        if response.status_code == 204:
+            return True
         if not response.ok:
             raise SparkPostAPIException(response)
-        return response.json()['results']
+        if 'results' in response.json():
+            return response.json()['results']
+        return response.json()
 
     def get(self):
         raise NotImplementedError
