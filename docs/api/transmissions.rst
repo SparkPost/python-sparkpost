@@ -1,7 +1,7 @@
-.. module:: sparkpost.transmission
+.. module:: sparkpost.transmissions
 
-:mod:`sparkpost.transmission`
-=============================
+:mod:`sparkpost.transmissions`
+==============================
 
-.. autoclass:: Transmission
+.. autoclass:: Transmissions
    :members:
