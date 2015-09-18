@@ -33,7 +33,7 @@ propose changes to this document in a pull request.
 - Provide tests for any newly added code.
 - Follow PEP8.
 
-1. Create a new branch named after the issue you’ll be fixing (include the issue number as the branch name, example: Issue in GH is #8 then the branch name should be ISSUE-8)) 
+1. Create a new branch named after the issue you’ll be fixing (include the issue number as the branch name, example: Issue in GH is #8 then the branch name should be ISSUE-8))
 2. Write corresponding tests and code (only what is needed to satisfy the issue and tests please)
     * Include your tests in the 'test' directory in an appropriate test file
     * Write code to satisfy the tests
@@ -46,3 +46,12 @@ Once you are set up for local development:
 
 * Run ``make test`` to test against your current Python environment
 * Open htmlcov/index.html to view coverage information
+
+## Releasing
+
+To put python-sparkpost on PyPI
+
+* Ensure you have maintainer privileges in PyPI
+* Update your ``~/.pypirc`` if necessary to contain your username and password (hint: you can run ``python setup.py register``)
+* Run ``make release``, which will create the dists and upload them to PyPI
+* Confirm you are able to successfully install the new version by running ``pip install sparkpost``
