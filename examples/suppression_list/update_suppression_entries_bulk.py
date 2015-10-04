@@ -1,6 +1,6 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 recipients = [
     {
         'email': 'test1@test.com',

@@ -1,5 +1,5 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 template = sp.templates.get('template_id')
 print template

@@ -1,5 +1,5 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 result = sp.templates.delete('template_id')
 print result
