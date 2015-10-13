@@ -1,6 +1,6 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 result = sp.suppression_list.update({
     'email': 'test@test.com',
     'transactional': False,

@@ -1,5 +1,5 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 transmission_list = sp.transmission.list()
 print transmission_list

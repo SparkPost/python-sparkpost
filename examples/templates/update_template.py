@@ -1,6 +1,6 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 response = sp.templates.update(
     'TEST_ID',
     name='Test Template',

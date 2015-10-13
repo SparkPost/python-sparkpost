@@ -1,5 +1,5 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 result = sp.suppression_list.delete('test@test.com')
 print result

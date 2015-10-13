@@ -1,5 +1,5 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 result = sp.recipient_lists.delete('list_id')
 print result

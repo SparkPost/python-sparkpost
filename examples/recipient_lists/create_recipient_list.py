@@ -1,6 +1,6 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 response = sp.recipient_lists.create(
     id='UNIQUE_TEST_ID',
     name='Test Recipient list',

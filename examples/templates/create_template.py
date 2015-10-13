@@ -1,6 +1,7 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
+
 response = sp.templates.create(
     id='TEST_ID',
     name='Test Template',
@@ -8,4 +9,5 @@ response = sp.templates.create(
     subject='Test email template!',
     html='<b>This is a test email template!</b>'
 )
+
 print response

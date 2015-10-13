@@ -1,6 +1,6 @@
 from sparkpost import SparkPost
 
-sp = SparkPost('YOUR API KEY')
+sp = SparkPost()
 sub_data = {
     'first_name': 'John',
     'last_name': 'Doe'
