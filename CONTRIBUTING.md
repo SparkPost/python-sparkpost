@@ -13,7 +13,7 @@ propose changes to this document in a pull request.
   before doing that please read the notes below on debugging and submitting issues,
   and include as many details as possible with your report.
 * Include the version of python-sparkpost you are using.
-* Perform a [cursory search](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Asparkpost+repo%3Apython-sparkpost)
+* Perform a [cursory search](https://github.com/SparkPost/python-sparkpost/issues?q=is%3Aissue+is%3Aopen)
   to see if a similar issue has already been submitted.
 
 ## Local development
