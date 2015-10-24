@@ -10,3 +10,4 @@ Patches and suggestions
 -----------------------
 
 - ADD YOURSELF HERE (and link to your github page)
+- Jon Vlachogiannis | https://github.com/jonromero
