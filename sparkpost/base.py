@@ -1,5 +1,6 @@
-import requests
+import httplib2
 import sparkpost
+import json
 
 from .exceptions import SparkPostAPIException
 
@@ -13,21 +14,26 @@ class Resource(object):
     def uri(self):
         return "%s/%s" % (self.base_uri, self.key)
 
-    def request(self, method, uri, **kwargs):
+    def request(self, method, uri, data):
         headers = {
             'User-Agent': 'python-sparkpost/' + sparkpost.__version__,
             'Content-Type': 'application/json',
             'Authorization': self.api_key
         }
-        response = requests.request(method, uri, headers=headers, **kwargs)
-        if response.status_code == 204:
+        h = httplib2.Http('.cache')
+        (r, content) = h.request(uri, method, headers=headers, body=data)
+        if int(r['status']) == 200:
             return True
-        if not response.ok:
+        if int(r['status']) >= 400:
+            response = {}
+            response['errors'] = json.loads(content)['errors']
+            response['uri'] = uri
+            response['status'] = r['status']
             raise SparkPostAPIException(response)
-        if 'results' in response.json():
-            return response.json()['results']
-        return response.json()
-
+        if 'results' in json.loads(content):
+            return json.loads(content)['results']
+        return json.loads(content)
+                
     def get(self):
         raise NotImplementedError
 
