@@ -33,7 +33,7 @@ class Resource(object):
         if 'results' in json.loads(content):
             return json.loads(content)['results']
         return json.loads(content)
-                
+
     def get(self):
         raise NotImplementedError
 
