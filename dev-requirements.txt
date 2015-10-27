@@ -5,3 +5,5 @@ requests==2.5.1
 responses==0.3.0
 wheel
 twine
+pytest-mock==0.8.1
+Django==1.8.5
