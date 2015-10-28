@@ -87,7 +87,28 @@ def test_params():
         mailer(to=recipients, fail_silently=True)
 
         Transmissions.send.assert_called_with(recipients=recipients,
-                                              html='test body',
+                                              text='test body',
                                               from_email='from@example.com',
                                               subject='test subject'
                                               )
+
+
+def test_content_types():
+    def new_send(**kwargs):
+        assert kwargs['text'] == 'hello there'
+        assert kwargs['html'] == '<p>Hello There</p>'
+
+        return {
+            'total_accepted_recipients': 0,
+            'total_rejected_recipients': 0
+        }
+
+    with mock.patch.object(Transmissions, 'send') as mock_send:
+        mock_send.side_effect = new_send
+        send_mail('test subject',
+                  'hello there',
+                  'from@example.com',
+                  ['to@example.com'],
+                  html_message='<p>Hello There</p>'
+              )
+

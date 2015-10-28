@@ -1,7 +1,7 @@
 from django.core.mail.backends.base import BaseEmailBackend
-# from django.core.mail import EmailMultiAlternatives
 from sparkpost import SparkPost
 from django.conf import settings
+from . import UnSupportedFormat
 
 
 class SparkPostEmailBackend(BaseEmailBackend):
@@ -21,7 +21,6 @@ class SparkPostEmailBackend(BaseEmailBackend):
         """
         Send emails, returns integer representing number of successful emails
         """
-
         success = 0
         for message in email_messages:
             try:
@@ -33,11 +32,19 @@ class SparkPostEmailBackend(BaseEmailBackend):
         return success
 
     def _send(self, message):
-        args = dict(
+        params = dict(
             recipients=message.to,
-            html=message.body,
+            text=message.body,
             from_email=message.from_email,
             subject=message.subject
         )
 
-        return self.client.transmissions.send(**args)
+        if hasattr(message, 'alternatives') and len(message.alternatives) > 0:
+            for alternative in message.alternatives:
+
+                if alternative[1] == 'text/html':
+                    params['html'] = alternative[0]
+                else:
+                    raise UnSupportedFormat('Content type %s is not supported' % alternative[1])
+
+        return self.client.transmissions.send(**params)
