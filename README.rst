@@ -1,3 +1,12 @@
+.. image:: https://www.sparkpost.com/sites/default/files/attachments/SparkPost_Logo_2-Color_Gray-Orange_RGB.svg
+    :target: https://www.sparkpost.com
+    :width: 200px
+
+`Sign up`_ for a SparkPost account and visit our `Developer Hub`_ for even more content.
+
+.. _Sign up: https://app.sparkpost.com/sign-up?src=Dev-Website&sfdcid=70160000000pqBb
+.. _Developer Hub: https://developers.sparkpost.com
+
 SparkPost Python API client
 ===========================
 
