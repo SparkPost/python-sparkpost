@@ -1,12 +1,15 @@
 from sparkpost.django.email_backend import SparkPostEmailBackend
 from sparkpost.django.exceptions import UnSupportedParam, UnSupportedContent
-from StringIO import StringIO
 from sparkpost.transmissions import Transmissions
 from django.conf import settings
 from django.core.mail import send_mail, send_mass_mail, EmailMessage
 import pytest
-
 import mock
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 API_KEY = 'API_Key'
 
