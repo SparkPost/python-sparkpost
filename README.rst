@@ -95,7 +95,7 @@ Documentation
 * Documentation for `python-sparkpost`_
 * `SparkPost API Reference`_
 
-.. _python-sparkpost: http://readthedocs.org/docs/python-sparkpost
+.. _python-sparkpost: http://python-sparkpost.readthedocs.org/
 .. _SparkPost API Reference: https://www.sparkpost.com/api
 
 
