@@ -1,7 +1,7 @@
 from django.core.mail.backends.base import BaseEmailBackend
 from sparkpost import SparkPost
 from django.conf import settings
-from . import UnSupportedFormat
+from .exceptions import UnSupportedContent, UnSupportedParam
 
 
 class SparkPostEmailBackend(BaseEmailBackend):
@@ -32,6 +32,9 @@ class SparkPostEmailBackend(BaseEmailBackend):
         return success
 
     def _send(self, message):
+        self.check_unsupported(message)
+        self.check_attachments(message)
+
         params = dict(
             recipients=message.to,
             text=message.body,
@@ -45,6 +48,32 @@ class SparkPostEmailBackend(BaseEmailBackend):
                 if alternative[1] == 'text/html':
                     params['html'] = alternative[0]
                 else:
-                    raise UnSupportedFormat('Content type %s is not supported' % alternative[1])
+                    raise UnSupportedContent(
+                        'Content type %s is not supported' % alternative[1]
+                    )
 
         return self.client.transmissions.send(**params)
+
+    @staticmethod
+    def check_attachments(message):
+        if len(message.attachments):
+            raise UnSupportedContent(
+                'Unfortunately attachment is not supported, yet'
+            )
+
+    @staticmethod
+    def check_unsupported(message):
+        if len(message.cc):
+            raise UnSupportedParam(
+                'Unfortunately cc is not supported, yet'
+            )
+
+        if len(message.bcc):
+            raise UnSupportedParam(
+                'Unfortunately bcc is not supported, yet'
+            )
+
+        if len(message.reply_to):
+            raise UnSupportedParam(
+                'Unfortunately reply_to is not supported, yet'
+            )
