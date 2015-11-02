@@ -1,6 +1,6 @@
-class UnSupportedContent(Exception):
+class UnsupportedContent(Exception):
     pass
 
 
-class UnSupportedParam(Exception):
+class UnsupportedParam(Exception):
     pass

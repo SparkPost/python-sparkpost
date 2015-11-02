@@ -1,7 +1,10 @@
-from django.core.mail.backends.base import BaseEmailBackend
-from sparkpost import SparkPost
 from django.conf import settings
-from .exceptions import UnSupportedContent, UnSupportedParam
+from django.core.mail.backends.base import BaseEmailBackend
+
+from sparkpost import SparkPost
+
+from .exceptions import UnsupportedContent
+from .exceptions import UnsupportedParam
 
 
 class SparkPostEmailBackend(BaseEmailBackend):
@@ -13,9 +16,9 @@ class SparkPostEmailBackend(BaseEmailBackend):
         super(SparkPostEmailBackend, self)\
             .__init__(fail_silently=fail_silently, **kwargs)
 
-        sp_password = getattr(settings, 'SP_PASSWORD', None)
+        sp_api_key = getattr(settings, 'SPARKPOST_API_KEY', None)
 
-        self.client = SparkPost(sp_password)
+        self.client = SparkPost(sp_api_key)
 
     def send_messages(self, email_messages):
         """
@@ -48,7 +51,7 @@ class SparkPostEmailBackend(BaseEmailBackend):
                 if alternative[1] == 'text/html':
                     params['html'] = alternative[0]
                 else:
-                    raise UnSupportedContent(
+                    raise UnsupportedContent(
                         'Content type %s is not supported' % alternative[1]
                     )
 
@@ -57,23 +60,18 @@ class SparkPostEmailBackend(BaseEmailBackend):
     @staticmethod
     def check_attachments(message):
         if len(message.attachments):
-            raise UnSupportedContent(
-                'Unfortunately attachment is not supported, yet'
+            raise UnsupportedContent(
+                'The SparkPost Django email backend does not '
+                'currently support attachment.'
             )
 
     @staticmethod
     def check_unsupported(message):
-        if len(message.cc):
-            raise UnSupportedParam(
-                'Unfortunately cc is not supported, yet'
-            )
 
-        if len(message.bcc):
-            raise UnSupportedParam(
-                'Unfortunately bcc is not supported, yet'
-            )
-
-        if len(message.reply_to):
-            raise UnSupportedParam(
-                'Unfortunately reply_to is not supported, yet'
-            )
+        unsupported_params = ['cc', 'bcc', 'reply_to']
+        for param in unsupported_params:
+            if len(getattr(message, param, [])):
+                raise UnsupportedParam(
+                    'The SparkPost Django email backend does not currently '
+                    'support %s.' % param
+                )
