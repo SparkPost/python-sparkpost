@@ -1,6 +1,8 @@
 import pytest
 import mock
+from distutils.version import StrictVersion
 
+from django import get_version
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.mail import send_mass_mail
@@ -26,6 +28,10 @@ settings.configure(
 )
 
 
+def at_least_version(version):
+    return StrictVersion(get_version()) > StrictVersion(version)
+
+
 def get_params(overrides=None):
     if overrides is None:
         overrides = {}
@@ -44,9 +50,6 @@ def get_params(overrides=None):
 
 def mailer(params):
     return send_mail(**params)
-    params = get_params()
-    params['body'] = params.pop('message')
-    params['to'] = params.pop('recipient_list')
 
 
 def test_password_retrieval():
@@ -196,9 +199,10 @@ def test_cc_bcc_reply_to():
         email.send()
     params.pop('bcc')
 
-    # test reply_to exception
-    params['reply_to'] = ['devnull@example.com']
-    with pytest.raises(UnsupportedParam):
-        email = EmailMessage(**params)
-        email.send()
-    params.pop('reply_to')
+    if at_least_version('1.8'):  # reply_to is supported from django 1.8
+        # test reply_to exception
+        params['reply_to'] = ['devnull@example.com']
+        with pytest.raises(UnsupportedParam):
+            email = EmailMessage(**params)
+            email.send()
+        params.pop('reply_to')
