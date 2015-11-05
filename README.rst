@@ -88,6 +88,16 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 
 .. _transmissions API: https://www.sparkpost.com/api#/reference/transmissions
 
+Django Integration
+------------------
+The SparkPost python library comes with an email backend for Django. Put the following configuration in `settings.py` file.
+
+.. code-block:: python
+
+    SPARKPOST_API_KEY = 'API_KEY'
+    EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
+
+Replace *API_KEY* with an actual API key that you've generated in `Get a Key`_ section.
 
 Documentation
 -------------

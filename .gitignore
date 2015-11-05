@@ -62,3 +62,4 @@ venv/
 
 # Mac OSX
 .DS_Store
+.idea

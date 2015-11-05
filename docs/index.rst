@@ -58,6 +58,16 @@ Auto-generated API reference for python-sparkpost:
 
     api
 
+Using in Django
+---------------
+
+Configure Django to use SparkPost email backend
+
+.. toctree::
+    :maxdepth: 2
+
+    django/backend
+
 
 Additional documentation
 ------------------------
