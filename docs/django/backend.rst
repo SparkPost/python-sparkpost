@@ -6,8 +6,7 @@ SparkPost python library comes with an email backend for Django.
 Configure Django
 ----------------
 
-To configure Django to use SparkPost email,
-put the following configuration in `settings.py` file.
+To configure Django to use SparkPost email, put the following configuration in `settings.py` file.
 
 .. code-block:: python
 
