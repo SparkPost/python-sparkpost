@@ -1,12 +1,12 @@
 Django Email Backend
 ====================
 
-SparkPost python library comes with an email backend for Django.
+The SparkPost python library comes with an email backend for Django.
 
 Configure Django
 ----------------
 
-To configure Django to use SparkPost email, put the following configuration in `settings.py` file.
+To configure Django to use SparkPost, put the following configuration in `settings.py` file.
 
 .. code-block:: python
 
@@ -19,7 +19,7 @@ Replace *API_KEY* with an actual API key.
 Sending an email
 ----------------
 
-As Django is now configured to use SparkPost's email backend, we can send email simply, as you usually do, using its `send_mail` method.
+Django is now configured to use the SparkPost email backend. You can now send mail using Django's `send_mail` method:
 
 .. code-block:: python
 
@@ -36,7 +36,7 @@ As Django is now configured to use SparkPost's email backend, we can send email 
 
 Supported version
 -----------------
-SparkPost will support all Django versions of Django that are within extended support period. Refer to `Django Supported_Version`_.
+SparkPost will support all versions of Django that are within extended support period. Refer to `Django Supported_Version`_.
 
 Current supported versions are:
     * 1.7
@@ -50,7 +50,7 @@ Current supported versions are:
 Additional documentation
 ------------------------
 
-See the `Using SparkPost with Django`_ in support page.
+See our `Using SparkPost with Django`_ in support article.
 
 .. _Using SparkPost with Django: https://support.sparkpost.com/customer/en/portal/articles/2169630-using-sparkpost-with-django?b_id=7411
 

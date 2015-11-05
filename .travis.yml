@@ -9,7 +9,7 @@ env:
 install:
   - pip install -r dev-requirements.txt
   - pip uninstall django --yes
-  - pip install -q django==$DJANGO_VERSION --pre
+  - pip install -q django==$DJANGO_VERSION
   - pip install coveralls
   - pip install -e .
 before_script:

@@ -67,7 +67,6 @@ class SparkPostEmailBackend(BaseEmailBackend):
 
     @staticmethod
     def check_unsupported(message):
-
         unsupported_params = ['cc', 'bcc', 'reply_to']
         for param in unsupported_params:
             if len(getattr(message, param, [])):
