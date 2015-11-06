@@ -26,9 +26,12 @@ class Transmissions(Resource):
         model['metadata'] = kwargs.get('metadata')
         model['substitution_data'] = kwargs.get('substitution_data')
 
+        model['options']['start_time'] = kwargs.get('start_time')
         model['options']['open_tracking'] = kwargs.get('track_opens')
         model['options']['click_tracking'] = kwargs.get('track_clicks')
+        model['options']['transactional'] = kwargs.get('transactional')
         model['options']['sandbox'] = kwargs.get('use_sandbox')
+        model['options']['skip_suppression'] = kwargs.get('skip_suppression')
 
         model['content']['use_draft_template'] = \
             kwargs.get('use_draft_template', False)
