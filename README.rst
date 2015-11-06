@@ -36,12 +36,6 @@ Install from PyPI using `pip`_:
 
 .. _pip: http://www.pip-installer.org/en/latest/
 
-To install a pre-release version (dev, alpha, beta, rc):
-
-.. code-block:: bash
-
-    $ pip install --pre sparkpost
-
 .. _pip: http://www.pip-installer.org/en/latest/
 
 
