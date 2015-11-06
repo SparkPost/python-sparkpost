@@ -26,9 +26,12 @@ class Transmissions(Resource):
         model['metadata'] = kwargs.get('metadata')
         model['substitution_data'] = kwargs.get('substitution_data')
 
+        model['options']['start_time'] = kwargs.get('start_time')
         model['options']['open_tracking'] = kwargs.get('track_opens')
         model['options']['click_tracking'] = kwargs.get('track_clicks')
+        model['options']['transactional'] = kwargs.get('transactional')
         model['options']['sandbox'] = kwargs.get('use_sandbox')
+        model['options']['skip_suppression'] = kwargs.get('skip_suppression')
 
         model['content']['use_draft_template'] = \
             kwargs.get('use_draft_template', False)
@@ -83,6 +86,9 @@ class Transmissions(Resource):
         :param dict substitution_data: Corresponds to substitutions in
             html/text content. See `substitutions reference
             <https://www.sparkpost.com/docs/substitutions-reference>`_.
+        :param str start_time: Delay generation of messages until this
+            datetime. Format YYYY-MM-DDTHH:MM:SS+-HH:MM. Example:
+            '2015-02-11T08:00:00-04:00'.
         :param bool track_opens: Defaults to True. Used to track opens of
             transmission
         :param bool track_clicks: Defaults to True. Used to track clicks of
@@ -90,6 +96,11 @@ class Transmissions(Resource):
         :param bool use_sandbox: Flag must be set to use sandbox domain instead
             of verified sending domain. Limited to a lifetime of 50
             transmissions with this domain
+        :param bool transactional: Whether message is transactional or
+            non-transactional for unsubscribe and suppression purposes
+        :param bool skip_suppression: Whether or not to ignore customer
+            suppression rules, for this transmission only. Only applicable if
+            your configuration supports this parameter. (SparkPost Elite only)
         :param dict custom_headers: Used to set any headers associated with
             transmission
 
