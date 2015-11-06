@@ -87,7 +87,8 @@ class Transmissions(Resource):
             html/text content. See `substitutions reference
             <https://www.sparkpost.com/docs/substitutions-reference>`_.
         :param str start_time: Delay generation of messages until this
-            datetime.
+            datetime. Format YYYY-MM-DDTHH:MM:SS+-HH:MM. Example:
+            '2015-02-11T08:00:00-04:00'.
         :param bool track_opens: Defaults to True. Used to track opens of
             transmission
         :param bool track_clicks: Defaults to True. Used to track clicks of
