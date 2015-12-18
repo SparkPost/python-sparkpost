@@ -2,7 +2,7 @@ from sparkpost import SparkPost
 
 sp = SparkPost()
 
-response = sp.transmission.send(
+response = sp.transmissions.send(
     recipient_list='my_list',
     html='<p>Hello world {{name}}</p>',
     text='Hello world {{name}}',
