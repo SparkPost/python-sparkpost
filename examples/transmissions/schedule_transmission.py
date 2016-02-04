@@ -2,7 +2,7 @@ from sparkpost import SparkPost
 
 sp = SparkPost()
 
-response = sp.transmission.send(
+response = sp.transmissions.send(
     recipients=[
         'postmaster@example.com',
         'you@me.com',
