@@ -1,5 +1,5 @@
 from codecs import open
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.rst', 'r', 'utf-8') as f:
     readme = f.read()
@@ -9,7 +9,7 @@ setup(
     version='1.0.0',
     author='Message Systems',
     author_email='appteam@messagesystems.com',
-    packages=['sparkpost'],
+    packages=find_packages(),
     url='https://github.com/SparkPost/python-sparkpost',
     license='Apache 2.0',
     description='SparkPost Python API client',
