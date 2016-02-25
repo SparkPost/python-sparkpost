@@ -44,7 +44,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Docs on readthedocs.org
 
 [unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.1...HEAD
-[1.0.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.0...v1.0.1
+[1.0.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/sparkpost/python-sparkpost/compare/1.0.0.dev2...v1.0.0
 [1.0.0.dev2]: https://github.com/sparkpost/python-sparkpost/compare/1.0.0.dev1...1.0.0.dev2
 [coveralls]: https://coveralls.io/github/SparkPost/python-sparkpost
