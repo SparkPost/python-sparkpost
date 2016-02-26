@@ -15,7 +15,7 @@ SparkPost Python API client
     :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/python-sparkpost/badge/?version=latest
-    :target: https://readthedocs.org/projects/python-sparkpost/?badge=latest
+    :target: http://python-sparkpost.readthedocs.org/en/latest/
     :alt: Documentation Status
 
 .. image:: https://coveralls.io/repos/SparkPost/python-sparkpost/badge.svg?branch=master&service=github
