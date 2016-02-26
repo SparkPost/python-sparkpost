@@ -47,6 +47,23 @@ Once you are set up for local development:
 * Run ``make test`` to test against your current Python environment
 * Open htmlcov/index.html to view coverage information
 
+### Testing all version combinations
+
+You can also test all the supported Python and dependencies versions with tox:
+
+1. Install tox: ``pip install tox``
+2. Run tox: ``tox``
+
+If you do not have Python 2.7, 3.4, and 3.5, you can install them with pyenv:
+
+1. Install [pyenv](https://github.com/yyuu/pyenv)
+2. Install the required versions of Python:
+    1. ``pyenv install 2.7.11``
+    2. ``pyenv install 3.4.4``
+    3. ``pyenv install 3.5.1``
+3. Set the global versions: ``pyenv global 2.7.11 3.4.4 3.5.1``
+4. Run tox: ``tox``
+
 ## Releasing
 
 To put python-sparkpost on PyPI

@@ -1,0 +1,5 @@
+flake8
+pytest==2.8.7
+pytest-cov==1.8.1
+requests==2.5.1
+responses==0.3.0
