@@ -81,6 +81,33 @@ Sending an attachment
     )
 
 
+Using substitution data
+***********************
+
+.. note::
+
+   Substitution data can be specified at the template, transmission and recipient levels. The order of precedence is as follows: recipient overrides transmission overrides template.
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+
+    sp = SparkPost()
+
+    sp.transmissions.send(
+        recipients=['someone@somedomain.com'],
+        text="Hello {{name}}",
+        html='<p>Hello {{name}}</p>',
+        from_email='test@sparkpostbox.com',
+        subject='Hello from python-sparkpost',
+        track_opens=True,
+        track_clicks=True,
+        substitution_data={
+            'name': 'Sparky'
+        }
+    )
+
+
 Using a stored template
 ***********************
 

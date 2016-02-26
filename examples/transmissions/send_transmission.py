@@ -18,8 +18,8 @@ response = sp.transmissions.send(
             }
         }
     ],
-    html='<p>Hello world {{name}}</p>',
-    text='Hello world {{name}}',
+    html='<p>Hello {{name}}</p>',
+    text='Hello {{name}}',
     from_email='test@sparkpostbox.com',
     subject='Example Script',
     description='contrived example',
