@@ -54,6 +54,33 @@ Using inline templates and/or recipients
     )
 
 
+Sending an attachment
+*********************
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+
+    sp = SparkPost()
+
+    sp.transmission.send(
+        recipients=['someone@somedomain.com'],
+        text="Hello world",
+        html='<p>Hello world</p>',
+        from_email='test@sparkpostbox.com',
+        subject='Hello from python-sparkpost',
+        track_opens=True,
+        track_clicks=True,
+        attachments=[
+            {
+                "name": "test.txt",
+                "type": "text/plain",
+                "filename": "/home/sparkpost/a-file.txt"
+            }
+        ]
+    )
+
+
 Using a stored template
 ***********************
 

@@ -1,3 +1,4 @@
+import base64
 import json
 
 from .base import Resource
@@ -50,7 +51,30 @@ class Transmissions(Resource):
             recipients = kwargs.get('recipients', [])
             model['recipients'] = self._extractRecipients(recipients)
 
+        attachments = kwargs.get('attachments', [])
+        model['content']['attachments'] = self._extract_attachments(
+            attachments)
+
         return model
+
+    def _extract_attachments(self, attachments):
+        formatted_attachments = []
+        for attachment in attachments:
+            formatted_attachment = {}
+            formatted_attachment['type'] = attachment.get('type')
+            formatted_attachment['name'] = attachment.get('name')
+            if 'filename' in attachment:
+                formatted_attachment['data'] = self._get_base64_from_file(
+                    attachment['filename'])
+            else:
+                formatted_attachment['data'] = attachment.get('data')
+            formatted_attachments.append(formatted_attachment)
+        return formatted_attachments
+
+    def _get_base64_from_file(self, filename):
+        with open(filename, "rb") as a_file:
+            encoded_string = base64.b64encode(a_file.read()).decode("ascii")
+        return encoded_string
 
     def _extractRecipients(self, recipients):
         formatted_recipients = []
@@ -86,6 +110,11 @@ class Transmissions(Resource):
         :param dict substitution_data: Corresponds to substitutions in
             html/text content. See `substitutions reference
             <https://www.sparkpost.com/docs/substitutions-reference>`_.
+        :param dict attachments: Corresponds to attachments.
+            See `Attachment Attributes reference
+            <https://developers.sparkpost.com/api/#/reference/transmissions>`_.
+            Replace `data` by `filename` if you want the library to perform
+            the base64 conversion. Example: `"filename": "/full/path/test.txt"`
         :param str start_time: Delay generation of messages until this
             datetime. Format YYYY-MM-DDTHH:MM:SS+-HH:MM. Example:
             '2015-02-11T08:00:00-04:00'.

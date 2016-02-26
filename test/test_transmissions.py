@@ -1,5 +1,11 @@
+import base64
+import json
+import os
+import tempfile
+
 import pytest
 import responses
+import six
 
 from sparkpost import SparkPost
 from sparkpost import Transmissions
@@ -35,6 +41,58 @@ def test_success_send():
     sp = SparkPost('fake-key')
     results = sp.transmission.send()
     assert results == 'yay'
+
+
+@responses.activate
+def test_success_send_with_attachments():
+    try:
+        # Let's compare unicode for Python 2 / 3 compatibility
+        test_content = six.u("Hello \nWorld\n")
+        (_, temp_file_path) = tempfile.mkstemp()
+        with open(temp_file_path, "w") as temp_file:
+            temp_file.write(test_content)
+
+        responses.add(
+            responses.POST,
+            'https://api.sparkpost.com/api/v1/transmissions',
+            status=200,
+            content_type='application/json',
+            body='{"results": "yay"}'
+        )
+        sp = SparkPost('fake-key')
+
+        attachment = {
+            "name": "test.txt",
+            "type": "text/plain",
+            "filename": temp_file_path
+        }
+        results = sp.transmission.send(attachments=[attachment])
+
+        request_params = json.loads(responses.calls[0].request.body)
+        content = base64.b64decode(
+            request_params["content"]["attachments"][0]["data"])
+        # Let's compare unicode for Python 2 / 3 compatibility
+        assert test_content == content.decode("ascii")
+
+        assert results == 'yay'
+
+        attachment = {
+            "name": "test.txt",
+            "type": "text/plain",
+            "data": base64.b64encode(
+                test_content.encode("ascii")).decode("ascii")
+        }
+        results = sp.transmission.send(attachments=[attachment])
+
+        request_params = json.loads(responses.calls[1].request.body)
+        content = base64.b64decode(
+            request_params["content"]["attachments"][0]["data"])
+        # Let's compare unicode for Python 2 / 3 compatibility
+        assert test_content == content.decode("ascii")
+
+        assert results == 'yay'
+    finally:
+        os.unlink(temp_file_path)
 
 
 @responses.activate
