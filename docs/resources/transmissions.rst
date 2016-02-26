@@ -9,7 +9,7 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 
     sp = SparkPost()
 
-    response = sp.transmission.send(
+    response = sp.transmissions.send(
         recipients=['someone@somedomain.com'],
         html='<p>Hello world</p>',
         from_email='test@sparkpostbox.com',
@@ -43,7 +43,7 @@ Using inline templates and/or recipients
 
     sp = SparkPost()
 
-    sp.transmission.send(
+    sp.transmissions.send(
         recipients=['someone@somedomain.com'],
         text="Hello world",
         html='<p>Hello world</p>',
@@ -63,7 +63,7 @@ Sending an attachment
 
     sp = SparkPost()
 
-    sp.transmission.send(
+    sp.transmissions.send(
         recipients=['someone@somedomain.com'],
         text="Hello world",
         html='<p>Hello world</p>',
@@ -90,7 +90,7 @@ Using a stored template
 
     sp = SparkPost()
 
-    sp.transmission.send(
+    sp.transmissions.send(
         recipients=['someone@somedomain.com'],
         template='my-template-id'
     )
@@ -105,7 +105,7 @@ Using a stored recipient list
 
     sp = SparkPost()
 
-    sp.transmission.send(
+    sp.transmissions.send(
         recipient_list='my-recipient-list',
         template='my-template-id'
     )
@@ -120,7 +120,7 @@ Retrieve a transmission
 
     sp = SparkPost()
 
-    sp.transmission.get('my-transmission-id')
+    sp.transmissions.get('my-transmission-id')
 
 
 List all transmissions
@@ -132,7 +132,7 @@ List all transmissions
 
     sp = SparkPost()
 
-    sp.transmission.list()
+    sp.transmissions.list()
 
 
 API reference
