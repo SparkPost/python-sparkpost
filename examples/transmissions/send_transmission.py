@@ -1,4 +1,9 @@
+import os
+
 from sparkpost import SparkPost
+
+parent_dir = os.path.dirname(os.path.realpath(__file__))
+attachment_path = os.path.abspath(os.path.join(parent_dir, "a-file.txt"))
 
 sp = SparkPost()
 
@@ -13,8 +18,8 @@ response = sp.transmissions.send(
             }
         }
     ],
-    html='<p>Hello world {{name}}</p>',
-    text='Hello world {{name}}',
+    html='<p>Hello {{name}}</p>',
+    text='Hello {{name}}',
     from_email='test@sparkpostbox.com',
     subject='Example Script',
     description='contrived example',
@@ -23,6 +28,13 @@ response = sp.transmissions.send(
     },
     track_opens=True,
     track_clicks=True,
+    attachments=[
+        {
+            "name": "test.txt",
+            "type": "text/plain",
+            "filename": attachment_path
+        }
+    ],
     campaign='sdk example',
     metadata={
         'key': 'value',
