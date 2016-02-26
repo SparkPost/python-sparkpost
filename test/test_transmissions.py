@@ -75,6 +75,22 @@ def test_success_send_with_attachments():
         assert test_content == content.decode("ascii")
 
         assert results == 'yay'
+
+        attachment = {
+            "name": "test.txt",
+            "type": "text/plain",
+            "data": base64.b64encode(
+                test_content.encode("ascii")).decode("ascii")
+        }
+        results = sp.transmission.send(attachments=[attachment])
+
+        request_params = json.loads(responses.calls[1].request.body)
+        content = base64.b64decode(
+            request_params["content"]["attachments"][0]["data"])
+        # Let's compare unicode for Python 2 / 3 compatibility
+        assert test_content == content.decode("ascii")
+
+        assert results == 'yay'
     finally:
         os.unlink(temp_file_path)
 
