@@ -22,6 +22,10 @@ SparkPost Python API client
     :target: https://coveralls.io/github/SparkPost/python-sparkpost?branch=master
     :alt: Coverage Status
 
+.. image:: http://slack.sparkpost.com/badge.svg
+    :target: http://slack.sparkpost.com
+    :alt: Slack Community
+
 The super-mega-official Python package for using the SparkPost API.
 
 
