@@ -22,4 +22,4 @@ response = sp.recipient_lists.create(
         }
     ]
 )
-print response
+print(response)

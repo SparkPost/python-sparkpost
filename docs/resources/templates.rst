@@ -17,7 +17,7 @@ Let's use the underlying `templates API`_ to create a template:
         html='<b>This is a test email template!</b>'
     )
 
-    print response
+    print(response)
     # outputs {u'id': u'TEST_ID'}
 
 .. _templates API: https://www.sparkpost.com/api#/reference/templates

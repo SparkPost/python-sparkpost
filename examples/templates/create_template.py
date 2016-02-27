@@ -10,4 +10,4 @@ response = sp.templates.create(
     html='<b>This is a test email template!</b>'
 )
 
-print response
+print(response)

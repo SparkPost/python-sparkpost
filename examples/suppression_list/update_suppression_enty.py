@@ -7,4 +7,4 @@ result = sp.suppression_list.update({
     'non_transactional': True,
     'description': 'Test description'
 })
-print result
+print(result)

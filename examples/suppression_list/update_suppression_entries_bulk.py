@@ -22,4 +22,4 @@ recipients = [
     }
 ]
 result = sp.suppression_list.update(recipients)
-print result
+print(result)

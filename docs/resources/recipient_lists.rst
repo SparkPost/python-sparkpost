@@ -31,7 +31,7 @@ Let's use the underlying `recipient_lists API`_ to create a recipient list:
         ]
     )
 
-    print response
+    print(response)
     # outputs {u'total_accepted_recipients': 3, u'id': u'UNIQUE_TEST_ID', u'total_rejected_recipients': 0, u'name':'Test Recipient list'}
 
 .. _recipient_lists API: https://www.sparkpost.com/api#/reference/recipient-lists

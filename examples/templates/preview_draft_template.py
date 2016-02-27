@@ -6,4 +6,4 @@ sub_data = {
     'last_name': 'Doe'
 }
 template = sp.templates.preview('template_id', sub_data, True)
-print template
+print(template)
