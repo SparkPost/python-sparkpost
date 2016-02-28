@@ -29,6 +29,16 @@ def test_translate_keys_with_recips():
                                      {'address': {'email': 'foobar'}}]
 
 
+def test_translate_keys_with_unicode_recips():
+    t = Transmissions('uri', 'key')
+    results = t._translate_keys(recipients=[u'unicode_email@example.com',
+                                            'str_email@example.com'])
+    assert results['recipients'] == [
+        {'address': {'email': 'unicode_email@example.com'}},
+        {'address': {'email': 'str_email@example.com'}}
+    ]
+
+
 @responses.activate
 def test_success_send():
     responses.add(

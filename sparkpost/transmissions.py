@@ -80,10 +80,10 @@ class Transmissions(Resource):
         formatted_recipients = []
         for recip in recipients:
             try:
-                basestring
+                string_types = basestring
             except NameError:
-                basestring = str  # Python 3 doesn't have basestring
-            if isinstance(recip, basestring):
+                string_types = str  # Python 3 doesn't have basestring
+            if isinstance(recip, string_types):
                 formatted_recipients.append({'address': {'email': recip}})
             else:
                 formatted_recipients.append(recip)
