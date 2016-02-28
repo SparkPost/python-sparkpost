@@ -79,7 +79,7 @@ class Transmissions(Resource):
     def _extractRecipients(self, recipients):
         formatted_recipients = []
         for recip in recipients:
-            if isinstance(recip, str):
+            if isinstance(recip, basestring):
                 formatted_recipients.append({'address': {'email': recip}})
             else:
                 formatted_recipients.append(recip)
