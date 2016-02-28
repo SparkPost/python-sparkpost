@@ -81,7 +81,7 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
         subject='Hello from python-sparkpost'
     )
 
-    print response
+    print(response)
     # outputs {u'total_accepted_recipients': 1, u'id': u'47960765679942446', u'total_rejected_recipients': 0}
 
 .. _transmissions API: https://www.sparkpost.com/api#/reference/transmissions

@@ -8,4 +8,4 @@ response = sp.templates.update(
     subject='Updated Test email template!',
     html='<b>This is a test email template! Updated!</b>'
 )
-print response
+print(response)

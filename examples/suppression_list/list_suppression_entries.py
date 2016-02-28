@@ -6,4 +6,4 @@ results = sp.suppression_list.list(
     to_date='2015-05-07T23:59:59+0000',
     limit=5
 )
-print results
+print(results)

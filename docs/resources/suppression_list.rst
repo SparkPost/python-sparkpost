@@ -16,7 +16,7 @@ Let's use the underlying `suppression_list API`_ to create a suppression entry:
       "description": "User requested to not receive any non-transactional emails."
     })
 
-    print response
+    print(response)
     # outputs {u'message': u'Recipient successfully created'}
 
 .. _suppression_list API: https://www.sparkpost.com/api#/reference/suppression-list
