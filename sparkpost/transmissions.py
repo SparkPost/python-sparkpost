@@ -79,6 +79,10 @@ class Transmissions(Resource):
     def _extractRecipients(self, recipients):
         formatted_recipients = []
         for recip in recipients:
+            try:
+                basestring
+            except NameError:
+                basestring = str  # Python 3 doesn't have basestring
             if isinstance(recip, basestring):
                 formatted_recipients.append({'address': {'email': recip}})
             else:
