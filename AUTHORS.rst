@@ -13,4 +13,5 @@ Patches and suggestions
 - Mohammad Hossain `@rajumsys <https://github.com/rajumsys>`_
 - Zdeněk Softič `@btx <https://github.com/btx>`_
 - Simeon Visser `@svisser <https://github.com/svisser>`_
+- `@puttu <https://github.com/puttu>`_
 - ADD YOURSELF HERE (and link to your github page)
