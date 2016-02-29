@@ -1,5 +1,6 @@
 import base64
 import json
+from email.utils import parseaddr
 
 from .base import Resource
 
@@ -84,7 +85,16 @@ class Transmissions(Resource):
             except NameError:
                 string_types = str  # Python 3 doesn't have basestring
             if isinstance(recip, string_types):
-                formatted_recipients.append({'address': {'email': recip}})
+                name, email = parseaddr(recip)
+                formatted_recip = {
+                    'address': {
+                        'name': name,
+                        'email': email
+                    }
+                }
+                if not name:
+                    del formatted_recip['address']['name']
+                formatted_recipients.append(formatted_recip)
             else:
                 formatted_recipients.append(recip)
         return formatted_recipients
