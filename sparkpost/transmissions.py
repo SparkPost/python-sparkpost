@@ -61,7 +61,7 @@ class Transmissions(Resource):
                 bcc_copies = self._format_copies(recipients, bcc)
                 recipients = recipients + bcc_copies
 
-            model['recipients'] = self._extractRecipients(recipients)
+            model['recipients'] = self._extract_recipients(recipients)
 
         attachments = kwargs.get('attachments', [])
         model['content']['attachments'] = self._extract_attachments(
@@ -72,7 +72,7 @@ class Transmissions(Resource):
     def _format_copies(self, recipients, copies):
         formatted_copies = []
         if len(recipients) > 0:
-            formatted_copies = self._extractRecipients(copies)
+            formatted_copies = self._extract_recipients(copies)
             for recipient in formatted_copies:
                 recipient['address'].update({'header_to': recipients[0]})
         return formatted_copies
@@ -96,7 +96,7 @@ class Transmissions(Resource):
             encoded_string = base64.b64encode(a_file.read()).decode("ascii")
         return encoded_string
 
-    def _extractRecipients(self, recipients):
+    def _extract_recipients(self, recipients):
         formatted_recipients = []
         for recip in recipients:
             try:
