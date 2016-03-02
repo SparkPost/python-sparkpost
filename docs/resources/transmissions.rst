@@ -27,13 +27,6 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 Send a transmission
 -------------------
 
-There are several ways to send a transmission:
-
-* Using inline templates and/or recipients
-* Using a stored template
-* Using a stored recipient list
-
-
 Using inline templates and/or recipients
 ****************************************
 
@@ -45,6 +38,28 @@ Using inline templates and/or recipients
 
     sp.transmissions.send(
         recipients=['someone@somedomain.com'],
+        text="Hello world",
+        html='<p>Hello world</p>',
+        from_email='test@sparkpostbox.com',
+        subject='Hello from python-sparkpost',
+        track_opens=True,
+        track_clicks=True
+    )
+
+
+Including cc, bcc
+*****************
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+
+    sp = SparkPost()
+
+    sp.transmissions.send(
+        recipients=['someone@somedomain.com'],
+        cc=['carboncopy@somedomain.com'],
+        bcc=['blindcarboncopy@somedomain.com'],
         text="Hello world",
         html='<p>Hello world</p>',
         from_email='test@sparkpostbox.com',

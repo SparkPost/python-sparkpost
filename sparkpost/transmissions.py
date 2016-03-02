@@ -122,10 +122,12 @@ class Transmissions(Resource):
         """
         Send a transmission based on the supplied parameters
 
-        :param list|dict recipients: If list it is an array of email addresses,
+        :param list|dict recipients: If list it is an list of email addresses,
             if dict ``{'address': {'name': 'Name', 'email': 'me' }}``
         :param str recipient_list: ID of recipient list, if set recipients
             above will be ignored
+        :param cc: List of email addresses to send carbon copy to
+        :param bcc: List of email addresses to send blind carbon copy to
         :param str template: ID of template. If set HTML or text will not be
             used
         :param bool use_draft_template: Default to False. Set to true if you
