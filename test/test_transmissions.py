@@ -49,6 +49,20 @@ def test_translate_keys_for_email_parsing():
     ]
 
 
+def test_translate_keys_with_cc():
+    t = Transmissions('uri', 'key')
+    results = t._translate_keys(recipients=['primary@example.com'],
+                                cc=['ccone@example.com'])
+    assert results['recipients'] == [
+        {'address': {'email': 'primary@example.com'}},
+        {'address': {'email': 'ccone@example.com',
+                     'header_to': 'primary@example.com'}},
+    ]
+    assert results['content']['headers'] == {
+        'CC': 'ccone@example.com'
+    }
+
+
 @responses.activate
 def test_success_send():
     responses.add(

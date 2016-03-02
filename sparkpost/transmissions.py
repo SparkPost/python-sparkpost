@@ -43,13 +43,20 @@ class Transmissions(Resource):
         model['content']['html'] = kwargs.get('html')
         model['content']['text'] = kwargs.get('text')
         model['content']['template_id'] = kwargs.get('template')
-        model['content']['headers'] = kwargs.get('custom_headers')
+        model['content']['headers'] = kwargs.get('custom_headers', {})
 
         recipient_list = kwargs.get('recipient_list')
         if recipient_list:
             model['recipients']['list_id'] = recipient_list
         else:
             recipients = kwargs.get('recipients', [])
+            cc = kwargs.get('cc')
+            if cc and len(recipients) > 0:
+                model['content']['headers']['CC'] = ','.join(cc)
+                formatted_ccs = self._extractRecipients(cc)
+                for recipient in formatted_ccs:
+                    recipient['address'].update({'header_to': recipients[0]})
+                recipients = recipients + formatted_ccs
             model['recipients'] = self._extractRecipients(recipients)
 
         attachments = kwargs.get('attachments', [])
