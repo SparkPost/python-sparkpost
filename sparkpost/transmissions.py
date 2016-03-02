@@ -51,18 +51,16 @@ class Transmissions(Resource):
         else:
             recipients = kwargs.get('recipients', [])
             cc = kwargs.get('cc')
-            if cc and len(recipients) > 0:
-                model['content']['headers']['CC'] = ','.join(cc)
-                formatted_ccs = self._extractRecipients(cc)
-                for recipient in formatted_ccs:
-                    recipient['address'].update({'header_to': recipients[0]})
-                recipients = recipients + formatted_ccs
             bcc = kwargs.get('bcc')
-            if bcc and len(recipients) > 0:
-                formatted_ccs = self._extractRecipients(bcc)
-                for recipient in formatted_ccs:
-                    recipient['address'].update({'header_to': recipients[0]})
-                recipients = recipients + formatted_ccs
+
+            if cc:
+                model['content']['headers']['CC'] = ','.join(cc)
+                cc_copies = self._format_copies(recipients, cc)
+                recipients = recipients + cc_copies
+            if bcc:
+                bcc_copies = self._format_copies(recipients, bcc)
+                recipients = recipients + bcc_copies
+
             model['recipients'] = self._extractRecipients(recipients)
 
         attachments = kwargs.get('attachments', [])
@@ -70,6 +68,14 @@ class Transmissions(Resource):
             attachments)
 
         return model
+
+    def _format_copies(self, recipients, copies):
+        formatted_copies = []
+        if len(recipients) > 0:
+            formatted_copies = self._extractRecipients(copies)
+            for recipient in formatted_copies:
+                recipient['address'].update({'header_to': recipients[0]})
+        return formatted_copies
 
     def _extract_attachments(self, attachments):
         formatted_attachments = []

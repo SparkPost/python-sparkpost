@@ -63,6 +63,22 @@ def test_translate_keys_with_cc():
     }
 
 
+def test_translate_keys_with_multiple_cc():
+    t = Transmissions('uri', 'key')
+    results = t._translate_keys(recipients=['primary@example.com'],
+                                cc=['ccone@example.com', 'cctwo@example.com'])
+    assert results['recipients'] == [
+        {'address': {'email': 'primary@example.com'}},
+        {'address': {'email': 'ccone@example.com',
+                     'header_to': 'primary@example.com'}},
+        {'address': {'email': 'cctwo@example.com',
+                     'header_to': 'primary@example.com'}},
+    ]
+    assert results['content']['headers'] == {
+        'CC': 'ccone@example.com,cctwo@example.com'
+    }
+
+
 def test_translate_keys_with_bcc():
     t = Transmissions('uri', 'key')
     results = t._translate_keys(recipients=['primary@example.com'],
