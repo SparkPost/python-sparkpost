@@ -63,6 +63,17 @@ def test_translate_keys_with_cc():
     }
 
 
+def test_translate_keys_with_bcc():
+    t = Transmissions('uri', 'key')
+    results = t._translate_keys(recipients=['primary@example.com'],
+                                bcc=['bccone@example.com'])
+    assert results['recipients'] == [
+        {'address': {'email': 'primary@example.com'}},
+        {'address': {'email': 'bccone@example.com',
+                     'header_to': 'primary@example.com'}},
+    ]
+
+
 @responses.activate
 def test_success_send():
     responses.add(

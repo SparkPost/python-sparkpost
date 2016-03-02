@@ -57,6 +57,12 @@ class Transmissions(Resource):
                 for recipient in formatted_ccs:
                     recipient['address'].update({'header_to': recipients[0]})
                 recipients = recipients + formatted_ccs
+            bcc = kwargs.get('bcc')
+            if bcc and len(recipients) > 0:
+                formatted_ccs = self._extractRecipients(bcc)
+                for recipient in formatted_ccs:
+                    recipient['address'].update({'header_to': recipients[0]})
+                recipients = recipients + formatted_ccs
             model['recipients'] = self._extractRecipients(recipients)
 
         attachments = kwargs.get('attachments', [])
