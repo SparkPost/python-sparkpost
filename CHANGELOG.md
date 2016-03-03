@@ -3,7 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
-- No notable updates
+
+## [1.0.3] - 2016-03-03
+### Added
+- Tox for local testing
+- Allow unicode recipients
+- Automatically parse emails with friendly from e.g. `Friendly Name <hi@example.com>`
+- Support for cc/bcc
 
 ## [1.0.2] - 2016-02-25
 ### Added
@@ -47,7 +53,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.2...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.3...HEAD
+[1.0.3]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/sparkpost/python-sparkpost/compare/1.0.0.dev2...v1.0.0
