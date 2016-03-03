@@ -43,20 +43,39 @@ class Transmissions(Resource):
         model['content']['html'] = kwargs.get('html')
         model['content']['text'] = kwargs.get('text')
         model['content']['template_id'] = kwargs.get('template')
-        model['content']['headers'] = kwargs.get('custom_headers')
+        model['content']['headers'] = kwargs.get('custom_headers', {})
 
         recipient_list = kwargs.get('recipient_list')
         if recipient_list:
             model['recipients']['list_id'] = recipient_list
         else:
             recipients = kwargs.get('recipients', [])
-            model['recipients'] = self._extractRecipients(recipients)
+            cc = kwargs.get('cc')
+            bcc = kwargs.get('bcc')
+
+            if cc:
+                model['content']['headers']['CC'] = ','.join(cc)
+                cc_copies = self._format_copies(recipients, cc)
+                recipients = recipients + cc_copies
+            if bcc:
+                bcc_copies = self._format_copies(recipients, bcc)
+                recipients = recipients + bcc_copies
+
+            model['recipients'] = self._extract_recipients(recipients)
 
         attachments = kwargs.get('attachments', [])
         model['content']['attachments'] = self._extract_attachments(
             attachments)
 
         return model
+
+    def _format_copies(self, recipients, copies):
+        formatted_copies = []
+        if len(recipients) > 0:
+            formatted_copies = self._extract_recipients(copies)
+            for recipient in formatted_copies:
+                recipient['address'].update({'header_to': recipients[0]})
+        return formatted_copies
 
     def _extract_attachments(self, attachments):
         formatted_attachments = []
@@ -77,7 +96,7 @@ class Transmissions(Resource):
             encoded_string = base64.b64encode(a_file.read()).decode("ascii")
         return encoded_string
 
-    def _extractRecipients(self, recipients):
+    def _extract_recipients(self, recipients):
         formatted_recipients = []
         for recip in recipients:
             try:
@@ -103,10 +122,12 @@ class Transmissions(Resource):
         """
         Send a transmission based on the supplied parameters
 
-        :param list|dict recipients: If list it is an array of email addresses,
+        :param list|dict recipients: If list it is an list of email addresses,
             if dict ``{'address': {'name': 'Name', 'email': 'me' }}``
         :param str recipient_list: ID of recipient list, if set recipients
             above will be ignored
+        :param cc: List of email addresses to send carbon copy to
+        :param bcc: List of email addresses to send blind carbon copy to
         :param str template: ID of template. If set HTML or text will not be
             used
         :param bool use_draft_template: Default to False. Set to true if you

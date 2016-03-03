@@ -18,6 +18,8 @@ response = sp.transmissions.send(
             }
         }
     ],
+    cc=['carboncopy@example.com'],
+    bcc=['blindcarboncopy@example.com'],
     html='<p>Hello {{name}}</p>',
     text='Hello {{name}}',
     from_email='test@sparkpostbox.com',
