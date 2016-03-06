@@ -41,7 +41,7 @@ class Transmissions(Resource):
         model['content']['subject'] = kwargs.get('subject')
         if kwargs.get('from_name'):
             model['content']['from'] = {
-                'name': kwargs.get('from_name') or '',
+                'name': kwargs.get('from_name'),
                 'email': kwargs.get('from_email')
             }
         else:
