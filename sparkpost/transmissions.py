@@ -39,7 +39,13 @@ class Transmissions(Resource):
             kwargs.get('use_draft_template', False)
         model['content']['reply_to'] = kwargs.get('reply_to')
         model['content']['subject'] = kwargs.get('subject')
-        model['content']['from'] = kwargs.get('from_email')
+        if kwargs.get('from_name'):
+            model['content']['from'] = {
+                'name': kwargs.get('from_name'),
+                'email': kwargs.get('from_email')
+            }
+        else:
+            model['content']['from'] = kwargs.get('from_email')
         model['content']['html'] = kwargs.get('html')
         model['content']['text'] = kwargs.get('text')
         model['content']['template_id'] = kwargs.get('template')
