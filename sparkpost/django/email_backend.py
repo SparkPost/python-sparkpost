@@ -38,14 +38,13 @@ class SparkPostEmailBackend(BaseEmailBackend):
         self.check_unsupported(message)
         self.check_attachments(message)
 
-        params = dict(
+        params = getattr(settings, 'SPARKPOST_OPTIONS', {})
+        params.update(dict(
             recipients=message.to,
             text=message.body,
             from_email=message.from_email,
             subject=message.subject
-        )
-
-        options = getattr(settings, 'SPARKPOST_OPTIONS', {})
+        ))
 
         if hasattr(message, 'alternatives') and len(message.alternatives) > 0:
             for alternative in message.alternatives:
@@ -57,7 +56,7 @@ class SparkPostEmailBackend(BaseEmailBackend):
                         'Content type %s is not supported' % alternative[1]
                     )
 
-        return self.client.transmissions.send(**params, **options)
+        return self.client.transmissions.send(**params)
 
     @staticmethod
     def check_attachments(message):
