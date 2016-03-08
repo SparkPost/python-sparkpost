@@ -38,12 +38,13 @@ class SparkPostEmailBackend(BaseEmailBackend):
         self.check_unsupported(message)
         self.check_attachments(message)
 
-        params = dict(
+        params = getattr(settings, 'SPARKPOST_OPTIONS', {})
+        params.update(dict(
             recipients=message.to,
             text=message.body,
             from_email=message.from_email,
             subject=message.subject
-        )
+        ))
 
         if hasattr(message, 'alternatives') and len(message.alternatives) > 0:
             for alternative in message.alternatives:

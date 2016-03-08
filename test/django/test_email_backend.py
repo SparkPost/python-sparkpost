@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from django.core.mail import send_mass_mail
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
+from django.utils.functional import empty
 
 from sparkpost.django.email_backend import SparkPostEmailBackend
 from sparkpost.django.exceptions import UnsupportedParam
@@ -21,7 +22,15 @@ except ImportError:
 
 API_KEY = 'API_Key'
 
-settings.configure(
+
+def reconfigure_settings(**new_settings):
+    old_settings = settings._wrapped
+
+    settings._wrapped = empty
+    settings.configure(default_settings=old_settings, **new_settings)
+
+
+reconfigure_settings(
     DEBUG=True,
     EMAIL_BACKEND='sparkpost.django.email_backend.SparkPostEmailBackend',
     SPARKPOST_API_KEY=API_KEY
@@ -206,3 +215,17 @@ def test_cc_bcc_reply_to():
             email = EmailMessage(**params)
             email.send()
         params.pop('reply_to')
+
+
+def test_settings_options():
+    SPARKPOST_OPTIONS = {
+        'track_opens': False,
+        'track_clicks': False,
+        'transactional': True,
+    }
+
+    reconfigure_settings(SPARKPOST_OPTIONS=SPARKPOST_OPTIONS)
+
+    with mock.patch.object(Transmissions, 'send'):
+        mailer(get_params())
+        Transmissions.send.assert_called_with(**SPARKPOST_OPTIONS)

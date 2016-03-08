@@ -15,6 +15,17 @@ To configure Django to use SparkPost, put the following configuration in `settin
 
 Replace *API_KEY* with an actual API key.
 
+You can also use `SPARKPOST_OPTIONS` to set options that will apply to every transmission.
+For example:
+
+.. code-block:: python
+
+    SPARKPOST_OPTIONS = {
+        'track_opens': False,
+        'track_clicks': False,
+        'transactional': True,
+    }
+
 
 Sending an email
 ----------------
