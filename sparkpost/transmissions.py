@@ -135,8 +135,11 @@ class Transmissions(Resource):
         :param str html: HTML part of transmission
         :param str text: Text part of transmission
         :param str subject: Subject of transmission
-        :param str from_email: Friendly from of transmission, domain must be a
-            verified sending domain to your account or transmission will fail
+        :param str from_email: Email that the transmission comes from. The
+            domain must be a verified sending domain to your account or
+            the transmission will fail. You can pass a from email or both
+            from name and from email - `testing@example.com` or
+            `Test Email <testing@example.com>` will both work.
         :param str reply_to: Reply to of transmission
         :param str description: Description of transmission
         :param str campaign: Campaign of transmission
