@@ -1,8 +1,6 @@
 import pytest
 import mock
-from distutils.version import StrictVersion
 
-from django import get_version
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.mail import send_mass_mail
@@ -28,10 +26,6 @@ reconfigure_settings(
     EMAIL_BACKEND='sparkpost.django.email_backend.SparkPostEmailBackend',
     SPARKPOST_API_KEY=API_KEY
 )
-
-
-def at_least_version(version):
-    return StrictVersion(get_version()) > StrictVersion(version)
 
 
 def get_params(overrides=None):

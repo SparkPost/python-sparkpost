@@ -9,6 +9,7 @@ from django.core.mail.message import EmailMessage
 
 from sparkpost.django.exceptions import UnsupportedContent
 from sparkpost.django.message import SparkPostMessage
+from .utils import at_least_version
 
 
 def message(**extras):
@@ -57,20 +58,18 @@ def test_multipart():
     assert multipart_message() == expected
 
 
-def test_cc_bcc_reply_to():
+def test_cc_bcc():
     expected = dict(
         recipients=['recipient@example.com'],
         from_email='test@from.com',
         subject='Test',
         text='Testing',
         cc=['ccone@example.com'],
-        bcc=['bccone@example.com'],
-        reply_to=['replyto@example.com']
+        bcc=['bccone@example.com']
     )
 
     extras = dict(cc=['ccone@example.com'],
-                  bcc=['bccone@example.com'],
-                  reply_to=['replyto@example.com'])
+                  bcc=['bccone@example.com'])
     assert message(**extras) == expected
 
 
@@ -89,3 +88,15 @@ def test_attachment():
 
     with pytest.raises(UnsupportedContent):
         SparkPostMessage(email_message)
+
+if at_least_version('1.8'):
+    def test_reply_to():
+        expected = dict(
+            recipients=['recipient@example.com'],
+            from_email='test@from.com',
+            subject='Test',
+            text='Testing',
+            reply_to=['replyto@example.com']
+        )
+
+        assert message(reply_to=['replyto@example.com']) == expected
