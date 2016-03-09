@@ -145,11 +145,27 @@ class Transmissions(Resource):
         :param dict substitution_data: Corresponds to substitutions in
             html/text content. See `substitutions reference
             <https://www.sparkpost.com/docs/substitutions-reference>`_.
-        :param dict attachments: Corresponds to attachments.
-            See `Attachment Attributes reference
-            <https://developers.sparkpost.com/api/#/reference/transmissions>`_.
-            Replace `data` by `filename` if you want the library to perform
-            the base64 conversion. Example: `"filename": "/full/path/test.txt"`
+        :param attachments: List of dicts. For example:
+
+            .. code-block:: python
+
+                dict(
+                    type='application/pdf',
+                    name='document.pdf',
+                    data='base64 encoded string'
+                )
+
+            Replace `data` with `filename` if you want the library to perform
+            the base64 conversion. For example:
+
+            .. code-block:: python
+
+                dict(
+                    type='application/pdf',
+                    name='document.pdf',
+                    filename='/full/path/to/document.pdf'
+                )
+
         :param str start_time: Delay generation of messages until this
             datetime. Format YYYY-MM-DDTHH:MM:SS+-HH:MM. Example:
             '2015-02-11T08:00:00-04:00'.
