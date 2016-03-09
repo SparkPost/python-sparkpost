@@ -12,78 +12,63 @@ from sparkpost.django.message import SparkPostMessage
 from .utils import at_least_version
 
 
-def message(**extras):
-    options = dict(
-        subject='Test',
-        body='Testing',
-        from_email='test@from.com',
-        to=['recipient@example.com']
-    )
-    options.update(extras)
+base_options = dict(
+    subject='Test',
+    body='Testing',
+    from_email='test@from.com',
+    to=['recipient@example.com']
+)
+
+
+def message(**options):
+    options.update(base_options)
     email_message = EmailMessage(**options)
     return SparkPostMessage(email_message)
 
 
-def multipart_message(**extras):
-    options = dict(
-        subject='Test',
-        body='Testing',
-        from_email='test@from.com',
-        to=['recipient@example.com']
-    )
-    options.update(extras)
+def multipart_message(**options):
+    options.update(base_options)
     email_message = EmailMultiAlternatives(**options)
     email_message.attach_alternative('<p>Testing</p>', 'text/html')
     return SparkPostMessage(email_message)
 
 
+base_expected = dict(
+    recipients=['recipient@example.com'],
+    from_email='test@from.com',
+    subject='Test',
+    text='Testing'
+)
+
+
 def test_minimal():
-    expected = dict(
-        recipients=['recipient@example.com'],
-        from_email='test@from.com',
-        subject='Test',
-        text='Testing'
-    )
-    assert message() == expected
+    assert message() == base_expected
 
 
 def test_multipart():
     expected = dict(
-        recipients=['recipient@example.com'],
-        from_email='test@from.com',
-        subject='Test',
-        text='Testing',
         html='<p>Testing</p>'
     )
+    expected.update(base_expected)
     assert multipart_message() == expected
 
 
 def test_cc_bcc():
     expected = dict(
-        recipients=['recipient@example.com'],
-        from_email='test@from.com',
-        subject='Test',
-        text='Testing',
         cc=['ccone@example.com'],
         bcc=['bccone@example.com']
     )
+    expected.update(base_expected)
 
-    extras = dict(cc=['ccone@example.com'],
-                  bcc=['bccone@example.com'])
-    assert message(**extras) == expected
+    options = dict(cc=['ccone@example.com'],
+                   bcc=['bccone@example.com'])
+    assert message(**options) == expected
 
 
 def test_attachment():
-    options = dict(
-        subject='Test',
-        body='Testing',
-        from_email='test@from.com',
-        to=['recipient@example.com']
-    )
-
     attachment = StringIO()
     attachment.write('hello file')
-    email_message = EmailMessage(**options)
+    email_message = EmailMessage(**base_options)
     email_message.attach('file.txt', attachment, 'text/plain')
 
     with pytest.raises(UnsupportedContent):
@@ -92,11 +77,8 @@ def test_attachment():
 if at_least_version('1.8'):
     def test_reply_to():
         expected = dict(
-            recipients=['recipient@example.com'],
-            from_email='test@from.com',
-            subject='Test',
-            text='Testing',
             reply_to=['replyto@example.com']
         )
+        expected.update(base_expected)
 
         assert message(reply_to=['replyto@example.com']) == expected
