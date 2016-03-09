@@ -165,7 +165,7 @@ class Transmissions(Resource):
                     name='document.pdf',
                     filename='/full/path/to/document.pdf'
                 )
-                
+
         :param str start_time: Delay generation of messages until this
             datetime. Format YYYY-MM-DDTHH:MM:SS+-HH:MM. Example:
             '2015-02-11T08:00:00-04:00'.
