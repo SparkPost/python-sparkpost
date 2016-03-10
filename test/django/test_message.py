@@ -1,13 +1,6 @@
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
-
-import pytest
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail.message import EmailMessage
 
-from sparkpost.django.exceptions import UnsupportedContent
 from sparkpost.django.message import SparkPostMessage
 from .utils import at_least_version
 
@@ -66,13 +59,21 @@ def test_cc_bcc():
 
 
 def test_attachment():
-    attachment = StringIO()
-    attachment.write('hello file')
     email_message = EmailMessage(**base_options)
-    email_message.attach('file.txt', attachment, 'text/plain')
+    email_message.attach('file.txt', 'test content', 'text/plain')
 
-    with pytest.raises(UnsupportedContent):
-        SparkPostMessage(email_message)
+    actual = SparkPostMessage(email_message)
+    expected = dict(
+        attachments=[
+            {
+                'name': 'file.txt',
+                'data': 'test content',
+                'type': 'text/plain'
+            }
+        ]
+    )
+    expected.update(base_expected)
+    assert actual == expected
 
 if at_least_version('1.8'):
     def test_reply_to():
