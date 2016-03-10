@@ -1,24 +1,15 @@
 import pytest
 import mock
-from distutils.version import StrictVersion
 
-from django import get_version
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.mail import send_mass_mail
-from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 from django.utils.functional import empty
 
 from sparkpost.django.email_backend import SparkPostEmailBackend
-from sparkpost.django.exceptions import UnsupportedParam
 from sparkpost.django.exceptions import UnsupportedContent
 from sparkpost.transmissions import Transmissions
-
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
 
 API_KEY = 'API_Key'
 
@@ -35,10 +26,6 @@ reconfigure_settings(
     EMAIL_BACKEND='sparkpost.django.email_backend.SparkPostEmailBackend',
     SPARKPOST_API_KEY=API_KEY
 )
-
-
-def at_least_version(version):
-    return StrictVersion(get_version()) > StrictVersion(version)
 
 
 def get_params(overrides=None):
@@ -172,49 +159,6 @@ def test_unsupported_content_types():
             params['recipient_list'])
         mail.attach_alternative('<ppp>non-plain content</ppp>', 'text/alien')
         mail.send()
-
-
-def test_attachment():
-    params = get_params()
-    params['body'] = params.pop('message')
-    params['to'] = params.pop('recipient_list')
-
-    attachment = StringIO()
-    attachment.write('hello file')
-    email = EmailMessage(**params)
-    email.attach('file.txt', attachment, 'text/plain')
-
-    with pytest.raises(UnsupportedContent):
-        email.send()
-
-
-def test_cc_bcc_reply_to():
-    params = get_params({
-        'cc': ['cc1@example.com', 'cc2@example.com']
-    })
-    params['body'] = params.pop('message')
-    params['to'] = params.pop('recipient_list')
-
-    # test cc exception
-    with pytest.raises(UnsupportedParam):
-        email = EmailMessage(**params)
-        email.send()
-    params.pop('cc')
-
-    # test bcc exception
-    params['bcc'] = ['bcc1@example.com', 'bcc1@example.com']
-    with pytest.raises(UnsupportedParam):
-        email = EmailMessage(**params)
-        email.send()
-    params.pop('bcc')
-
-    if at_least_version('1.8'):  # reply_to is supported from django 1.8
-        # test reply_to exception
-        params['reply_to'] = ['devnull@example.com']
-        with pytest.raises(UnsupportedParam):
-            email = EmailMessage(**params)
-            email.send()
-        params.pop('reply_to')
 
 
 def test_settings_options():
