@@ -45,9 +45,14 @@ class SparkPostMessage(dict):
                     )
 
         if message.attachments:
-            raise UnsupportedContent(
-                'The SparkPost Django email backend does not '
-                'currently support attachment.'
-            )
+            formatted['attachments'] = []
+            for attachment in message.attachments:
+                filename, content, mimetype = attachment
+                formatted['attachments'].append({
+                    'name': filename,
+                    'data': content,
+                    'type': mimetype
+                })
+            print(message.attachments)
 
         return super(SparkPostMessage, self).__init__(formatted)
