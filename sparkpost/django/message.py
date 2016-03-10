@@ -33,7 +33,7 @@ class SparkPostMessage(dict):
             formatted['bcc'] = message.bcc
 
         if hasattr(message, 'reply_to') and message.reply_to:
-            formatted['reply_to'] = message.reply_to
+            formatted['reply_to'] = ','.join(message.reply_to)
 
         if isinstance(message, EmailMultiAlternatives):
             for alternative in message.alternatives:

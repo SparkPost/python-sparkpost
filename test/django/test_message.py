@@ -77,8 +77,8 @@ def test_attachment():
 if at_least_version('1.8'):
     def test_reply_to():
         expected = dict(
-            reply_to=['replyto@example.com']
+            reply_to='replyone@example.com,replytwo@example.com'
         )
         expected.update(base_expected)
 
-        assert message(reply_to=['replyto@example.com']) == expected
+        assert message(reply_to=['replyone@example.com', 'replytwo@example.com']) == expected
