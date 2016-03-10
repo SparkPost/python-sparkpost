@@ -37,25 +37,39 @@ Django is now configured to use the SparkPost email backend. You can now send ma
     from django.core.mail import send_mail
 
     send_mail(
-        subject='hello from sparkpost',
-        message='Hello Rock stars!'
+        subject='Hello from SparkPost',
+        message='Woo hoo! Sent from Django!'
         from_email='from@yourdomain.com',
-        recipient_list=['to@friendsdomain.com'],
+        recipient_list=['to@example.com'],
         html_message='<p>Hello Rock stars!</p>',
     )
+
+If you need to add cc, bcc, reply to, or attachments, use the `EmailMultiAlternatives` class directly:
+
+.. code-block:: python
+
+    from django.core.mail import EmailMultiAlternatives
+
+    email = EmailMultiAlternatives(
+      subject='hello from sparkpost',
+      message='Woo hoo! Sent from Django!'
+      from_email='from@yourdomain.com',
+      to=['to@example.com'],
+      cc=['ccone@example.com'],
+      bcc=['bccone@example.com'],
+      reply_to=['replyone@example.com']
+    )
+
+    email.attach_alternative('<p>Woo hoo! Sent from Django!</p>', 'text/html')
+    email.attach('image.png', img_data, 'image/png')
+    email.send()
 
 
 Supported version
 -----------------
-SparkPost will support all versions of Django that are within extended support period. Refer to `Django Supported_Version`_.
+SparkPost will support all versions of Django that are within extended support period. Refer to `Django Supported Versions`_.
 
-Current supported versions are:
-    * 1.7
-    * 1.8
-    * 1.9b1
-
-
-.. _Django Supported_Version: https://www.djangoproject.com/download/#supported-versions
+.. _Django Supported Versions: https://www.djangoproject.com/download/#supported-versions
 
 
 Additional documentation
@@ -64,4 +78,3 @@ Additional documentation
 See our `Using SparkPost with Django`_ in support article.
 
 .. _Using SparkPost with Django: https://support.sparkpost.com/customer/en/portal/articles/2169630-using-sparkpost-with-django?b_id=7411
-
