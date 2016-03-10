@@ -1,5 +1,3 @@
-import os
-
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail.message import EmailMessage
 
@@ -64,10 +62,6 @@ def test_attachment():
     email_message = EmailMessage(**base_options)
     email_message.attach('file.txt', 'test content', 'text/plain')
 
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    test_file = os.path.join(current_dir, 'testfile.txt')
-    email_message.attach_file(test_file)
-
     actual = SparkPostMessage(email_message)
     expected = dict(
         attachments=[
@@ -75,16 +69,10 @@ def test_attachment():
                 'name': 'file.txt',
                 'data': 'test content',
                 'type': 'text/plain'
-            },
-            {
-                'name': 'testfile.txt',
-                'data': 'hello there!\n',
-                'type': 'text/plain'
             }
         ]
     )
     expected.update(base_expected)
-
     assert actual == expected
 
 if at_least_version('1.8'):
