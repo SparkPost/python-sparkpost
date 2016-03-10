@@ -4,6 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [1.0.4] - 2016-03-10
+### Added
+- `SPARKPOST_OPTIONS` setting for Django for passing through additional transmission options like `track_opens`, `track_clicks`, and `transactional`
+- Support for cc, bcc, reply to, and attachments for Django
+
+### Changed
+- Refactored some of the bits in the Django email backend out into a `SparkPostMessage` class which prepares parameters for calls to the `Transmissions.send` method
+
 ## [1.0.3] - 2016-03-03
 ### Added
 - Tox for local testing
@@ -53,7 +61,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.3...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.0...v1.0.1
