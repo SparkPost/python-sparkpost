@@ -52,7 +52,7 @@ If you need to add cc, bcc, reply to, or attachments, use the `EmailMultiAlterna
 
     email = EmailMultiAlternatives(
       subject='hello from sparkpost',
-      message='Woo hoo! Sent from Django!'
+      body='Woo hoo! Sent from Django!',
       from_email='from@yourdomain.com',
       to=['to@example.com'],
       cc=['ccone@example.com'],
