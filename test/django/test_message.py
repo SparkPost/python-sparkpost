@@ -81,4 +81,5 @@ if at_least_version('1.8'):
         )
         expected.update(base_expected)
 
-        assert message(reply_to=['replyone@example.com', 'replytwo@example.com']) == expected
+        assert message(reply_to=['replyone@example.com',
+                                 'replytwo@example.com']) == expected
