@@ -173,5 +173,9 @@ def test_settings_options():
     with mock.patch.object(Transmissions, 'send'):
         mailer(get_params())
         expected_kargs = dict(get_params())
+        expected_kargs["text"] = expected_kargs["message"]
+        expected_kargs["recipients"] = expected_kargs["recipient_list"]
+        del expected_kargs["message"]
+        del expected_kargs["recipient_list"]
         expected_kargs.update(SPARKPOST_OPTIONS)
         Transmissions.send.assert_called_with(**expected_kargs)
