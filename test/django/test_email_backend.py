@@ -148,6 +148,51 @@ def test_content_types():
         )
 
 
+def test_send_plain_mail_after_html_mail():
+    SPARKPOST_OPTIONS = {
+        'track_opens': False,
+        'track_clicks': False,
+        'transactional': True,
+    }
+
+    reconfigure_settings(SPARKPOST_OPTIONS=SPARKPOST_OPTIONS)
+
+    def new_send(**kwargs):
+        assert kwargs['text'] == 'hello there'
+        assert kwargs['html'] == '<p>Hello There</p>'
+
+        return {
+            'total_accepted_recipients': 0,
+            'total_rejected_recipients': 0
+        }
+
+    def new_send_text_only(**kwargs):
+        assert kwargs['text'] == 'hello there again in text only'
+        assert "html" not in kwargs
+
+        return {
+            'total_accepted_recipients': 0,
+            'total_rejected_recipients': 0
+        }
+
+    with mock.patch.object(Transmissions, 'send') as mock_send:
+        mock_send.side_effect = new_send
+        send_mail(
+            'test subject',
+            'hello there',
+            'from@example.com',
+            ['to@example.com'],
+            html_message='<p>Hello There</p>'
+        )
+        mock_send.side_effect = new_send_text_only
+        send_mail(
+            'test subject 2',
+            'hello there again in text only',
+            'from@example.com',
+            ['to@example.com'],
+        )
+
+
 def test_unsupported_content_types():
     params = get_params()
 
@@ -172,4 +217,10 @@ def test_settings_options():
 
     with mock.patch.object(Transmissions, 'send'):
         mailer(get_params())
-        Transmissions.send.assert_called_with(**SPARKPOST_OPTIONS)
+        expected_kargs = get_params().copy()
+        expected_kargs["text"] = expected_kargs["message"]
+        expected_kargs["recipients"] = expected_kargs["recipient_list"]
+        del expected_kargs["message"]
+        del expected_kargs["recipient_list"]
+        expected_kargs.update(SPARKPOST_OPTIONS)
+        Transmissions.send.assert_called_with(**expected_kargs)

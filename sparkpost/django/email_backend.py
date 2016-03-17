@@ -34,6 +34,6 @@ class SparkPostEmailBackend(BaseEmailBackend):
         return success
 
     def _send(self, message):
-        params = getattr(settings, 'SPARKPOST_OPTIONS', {})
+        params = getattr(settings, 'SPARKPOST_OPTIONS', {}).copy()
         params.update(message)
         return self.client.transmissions.send(**params)
