@@ -172,4 +172,6 @@ def test_settings_options():
 
     with mock.patch.object(Transmissions, 'send'):
         mailer(get_params())
-        Transmissions.send.assert_called_with(**SPARKPOST_OPTIONS)
+        expected_kargs = dict(get_params())
+        expected_kargs.update(SPARKPOST_OPTIONS)
+        Transmissions.send.assert_called_with(**expected_kargs)
