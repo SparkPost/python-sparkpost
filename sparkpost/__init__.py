@@ -8,7 +8,7 @@ from .templates import Templates
 from .transmissions import Transmissions
 
 
-__version__ = '1.0.4'
+__version__ = '1.0.5'
 
 
 def get_api_key():

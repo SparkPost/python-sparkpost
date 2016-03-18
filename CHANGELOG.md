@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [1.0.5] - 2016-03-18
+### Fixed
+- Issue where global Django settings object was being modified, causing mixed emails
+
 ## [1.0.4] - 2016-03-10
 ### Added
 - `SPARKPOST_OPTIONS` setting for Django for passing through additional transmission options like `track_opens`, `track_clicks`, and `transactional`
@@ -61,7 +65,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.4...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.5...HEAD
+[1.0.5]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.1...v1.0.2
