@@ -53,6 +53,5 @@ class SparkPostMessage(dict):
                     'data': content,
                     'type': mimetype
                 })
-            print(message.attachments)
 
         return super(SparkPostMessage, self).__init__(formatted)
