@@ -1,13 +1,13 @@
-from .base import Resource
+from .base import Resource, RequestsTransport
 
 
 class Metrics(object):
     "Wrapper for sub-resources"
 
-    def __init__(self, base_uri, api_key):
+    def __init__(self, base_uri, api_key, transport_class=RequestsTransport):
         self.base_uri = "%s/%s" % (base_uri, 'metrics')
-        self.campaigns = Campaigns(self.base_uri, api_key)
-        self.domains = Domains(self.base_uri, api_key)
+        self.campaigns = Campaigns(self.base_uri, api_key, transport_class)
+        self.domains = Domains(self.base_uri, api_key, transport_class)
 
 
 class Campaigns(Resource):
