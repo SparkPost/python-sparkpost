@@ -15,4 +15,5 @@ Patches and suggestions
 - Simeon Visser `@svisser <https://github.com/svisser>`_
 - `@gnarvaja <https://github.com/gnarvaja>`_
 - `@puttu <https://github.com/puttu>`_
+- Marko Mrdjenovic `@friedcell <https://github.com/friedcell>`_
 - ADD YOURSELF HERE (and link to your github page)
