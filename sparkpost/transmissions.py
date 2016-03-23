@@ -34,6 +34,7 @@ class Transmissions(Resource):
         model['options']['transactional'] = kwargs.get('transactional')
         model['options']['sandbox'] = kwargs.get('use_sandbox')
         model['options']['skip_suppression'] = kwargs.get('skip_suppression')
+        model['options']['inline_css'] = kwargs.get('inline_css')
 
         model['content']['use_draft_template'] = \
             kwargs.get('use_draft_template', False)
@@ -184,6 +185,7 @@ class Transmissions(Resource):
         :param bool skip_suppression: Whether or not to ignore customer
             suppression rules, for this transmission only. Only applicable if
             your configuration supports this parameter. (SparkPost Elite only)
+        :param bool inline_css: Whether or not to perform CSS inlining
         :param dict custom_headers: Used to set any headers associated with
             transmission
 

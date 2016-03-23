@@ -90,6 +90,12 @@ def test_translate_keys_with_bcc():
     ]
 
 
+def test_translate_keys_with_inline_css():
+    t = Transmissions('uri', 'key')
+    results = t._translate_keys(inline_css=True)
+    assert results['options'].get('inline_css') is True
+
+
 @responses.activate
 def test_success_send():
     responses.add(
