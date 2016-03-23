@@ -196,6 +196,11 @@ class Transmissions(Resource):
         results = self.request('POST', self.uri, data=json.dumps(payload))
         return results
 
+    def _fetch_get(self, transmission_id):
+        uri = "%s/%s" % (self.uri, transmission_id)
+        results = self.request('GET', uri)
+        return results
+    
     def get(self, transmission_id):
         """
         Get a transmission by ID
@@ -205,8 +210,7 @@ class Transmissions(Resource):
         :returns: the requested transmission if found
         :raises: :exc:`SparkPostAPIException` if transmission is not found
         """
-        uri = "%s/%s" % (self.uri, transmission_id)
-        results = self.request('GET', uri)
+        results = self._fetch_get(transmission_id)
         return results['transmission']
 
     def list(self):
