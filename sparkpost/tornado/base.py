@@ -12,7 +12,8 @@ class TornadoTransport(object):
             kwargs["body"] = kwargs.pop("data")
         client = AsyncHTTPClient()
         try:
-            response = yield client.fetch(uri, method=method, headers=headers, **kwargs)
+            response = yield client.fetch(uri, method=method, headers=headers,
+                                          **kwargs)
         except HTTPError as ex:
             raise SparkPostAPIException(ex.response)
         if response.code == 204:

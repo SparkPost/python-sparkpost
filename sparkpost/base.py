@@ -34,9 +34,9 @@ class Resource(object):
             'Content-Type': 'application/json',
             'Authorization': self.api_key
         }
-        response = self.transport.request(method, uri, headers=headers, **kwargs)
+        response = self.transport.request(method, uri, headers=headers,
+                                          **kwargs)
         return response
-
 
     def get(self):
         raise NotImplementedError

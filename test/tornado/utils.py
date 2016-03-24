@@ -14,7 +14,8 @@ class ResponseGenerator(object):
         return self
 
     def build_response(self, request, response):
-        resp = HTTPResponse(request, response.status, headers=response.headers, effective_url=request.url, error=None, buffer="")
+        resp = HTTPResponse(request, response.status, headers=response.headers,
+                            effective_url=request.url, error=None, buffer="")
         resp._body = response.data
         f = Future()
         f.content = None
@@ -32,9 +33,13 @@ class AsyncClientMock(RequestsMock):
 
         def unbound_on_send(client, request, callback=None, **kwargs):
             if not isinstance(request, HTTPRequest):
-                request = Request(request, kwargs.get("method", "GET"), kwargs.get("headers", []), kwargs.get("body", ""))
+                request = Request(request,
+                                  kwargs.get("method", "GET"),
+                                  kwargs.get("headers", []),
+                                  kwargs.get("body", ""))
             return self._on_request(ResponseGenerator(), request)
-        self._patcher = mock.patch('tornado.httpclient.AsyncHTTPClient.fetch', unbound_on_send)
+        self._patcher = mock.patch('tornado.httpclient.AsyncHTTPClient.fetch',
+                                   unbound_on_send)
         self._patcher.start()
 
     def stop(self):

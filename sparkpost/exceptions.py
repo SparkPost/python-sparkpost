@@ -9,7 +9,7 @@ class SparkPostAPIException(SparkPostException):
         try:
             errors = response.json()['errors']
             errors = [e['message'] + ': ' + e.get('description', '')
-                  for e in errors]
+                      for e in errors]
         except:
             pass
         message = """Call to {uri} returned {status_code}, errors:

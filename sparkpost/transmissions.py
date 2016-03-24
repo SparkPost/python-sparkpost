@@ -200,7 +200,7 @@ class Transmissions(Resource):
         uri = "%s/%s" % (self.uri, transmission_id)
         results = self.request('GET', uri)
         return results
-    
+
     def get(self, transmission_id):
         """
         Get a transmission by ID

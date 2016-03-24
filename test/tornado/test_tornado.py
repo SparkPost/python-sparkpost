@@ -50,6 +50,7 @@ def test_success_send_with_attachments():
             "type": "text/plain",
             "filename": temp_file_path
         }
+
         def send():
             return sp.transmission.send(attachments=[attachment])
         results = ioloop.IOLoop().run_sync(send)
@@ -68,6 +69,7 @@ def test_success_send_with_attachments():
             "data": base64.b64encode(
                 test_content.encode("ascii")).decode("ascii")
         }
+
         def send():
             return sp.transmission.send(attachments=[attachment])
         results = ioloop.IOLoop().run_sync(send)
@@ -90,7 +92,9 @@ def test_fail_send():
         'https://api.sparkpost.com/api/v1/transmissions',
         status=500,
         content_type='application/json',
-        body='{"errors": [{"message": "You failed", "description": "More Info"}]}'
+        body="""
+        {"errors": [{"message": "You failed", "description": "More Info"}]}
+        """
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
@@ -107,6 +111,7 @@ def test_success_get():
         body='{"results": {"transmission": {}}}'
     )
     sp = SparkPost('fake-key')
+
     def send():
         return sp.transmission.get('foobar')
     results = ioloop.IOLoop().run_sync(send, timeout=3)
@@ -120,10 +125,13 @@ def test_fail_get():
         'https://api.sparkpost.com/api/v1/transmissions/foobar',
         status=404,
         content_type='application/json',
-        body='{"errors": [{"message": "cant find", "description": "where you go"}]}'
+        body="""
+        {"errors": [{"message": "cant find", "description": "where you go"}]}
+        """
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
+
         def send():
             return sp.transmission.get('foobar')
         ioloop.IOLoop().run_sync(send, timeout=3)
@@ -140,7 +148,7 @@ def test_nocontent_get():
     )
     sp = SparkPost('fake-key')
     response = ioloop.IOLoop().run_sync(sp.transmission.list)
-    assert response == True
+    assert response is True
 
 
 @responses.activate
@@ -154,7 +162,7 @@ def test_brokenjson_get():
     )
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
-        response = ioloop.IOLoop().run_sync(sp.transmission.list)
+        ioloop.IOLoop().run_sync(sp.transmission.list)
 
 
 @responses.activate

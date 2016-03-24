@@ -11,7 +11,7 @@ class SparkPostAPIException(RequestsSparkPostAPIException):
             if data:
                 errors = data['errors']
                 errors = [e['message'] + ': ' + e.get('description', '')
-                      for e in errors]
+                          for e in errors]
         except:
             pass
         message = """Call to {uri} returned {status_code}, errors:
@@ -22,4 +22,5 @@ class SparkPostAPIException(RequestsSparkPostAPIException):
             status_code=response.code,
             errors='\n'.join(errors)
         )
-        super(RequestsSparkPostAPIException, self).__init__(message, *args, **kwargs)
+        super(RequestsSparkPostAPIException, self).__init__(message, *args,
+                                                            **kwargs)
