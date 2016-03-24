@@ -21,7 +21,7 @@ class TornadoTransport(object):
         if response.code == 200:
             result = None
             try:
-                result = json.loads(response.body)
+                result = json.loads(response.body.decode("utf-8"))
             except:
                 pass
             if result:
