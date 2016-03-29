@@ -14,6 +14,9 @@ class SparkPostAPIException(SparkPostException):
             pass
         if not errors:
             errors = [response.text or ""]
+        self.status = response.status_code
+        self.response = response
+        self.errors = errors
         message = """Call to {uri} returned {status_code}, errors:
 
         {errors}
