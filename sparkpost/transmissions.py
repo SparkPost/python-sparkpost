@@ -5,6 +5,12 @@ from email.utils import parseaddr
 from .base import Resource
 
 
+try:
+    string_types = basestring
+except NameError:
+    string_types = str  # Python 3 doesn't have basestring
+
+
 class Transmissions(Resource):
     """
     Transmission class used to send, list and get transmissions. For detailed
@@ -34,12 +40,16 @@ class Transmissions(Resource):
         model['options']['transactional'] = kwargs.get('transactional')
         model['options']['sandbox'] = kwargs.get('use_sandbox')
         model['options']['skip_suppression'] = kwargs.get('skip_suppression')
+        model['options']['inline_css'] = kwargs.get('inline_css')
 
         model['content']['use_draft_template'] = \
             kwargs.get('use_draft_template', False)
         model['content']['reply_to'] = kwargs.get('reply_to')
         model['content']['subject'] = kwargs.get('subject')
-        model['content']['from'] = kwargs.get('from_email')
+        from_email = kwargs.get('from_email')
+        if isinstance(from_email, string_types):
+            from_email = self._parse_address(from_email)
+        model['content']['from'] = from_email
         model['content']['html'] = kwargs.get('html')
         model['content']['text'] = kwargs.get('text')
         model['content']['template_id'] = kwargs.get('template')
@@ -96,24 +106,22 @@ class Transmissions(Resource):
             encoded_string = base64.b64encode(a_file.read()).decode("ascii")
         return encoded_string
 
+    def _parse_address(self, address):
+        name, email = parseaddr(address)
+        parsed_address = {
+            'email': email
+        }
+        if name:
+            parsed_address['name'] = name
+        return parsed_address
+
     def _extract_recipients(self, recipients):
         formatted_recipients = []
         for recip in recipients:
-            try:
-                string_types = basestring
-            except NameError:
-                string_types = str  # Python 3 doesn't have basestring
             if isinstance(recip, string_types):
-                name, email = parseaddr(recip)
-                formatted_recip = {
-                    'address': {
-                        'name': name,
-                        'email': email
-                    }
-                }
-                if not name:
-                    del formatted_recip['address']['name']
-                formatted_recipients.append(formatted_recip)
+                formatted_recipients.append({
+                    'address': self._parse_address(recip)
+                })
             else:
                 formatted_recipients.append(recip)
         return formatted_recipients
@@ -184,6 +192,7 @@ class Transmissions(Resource):
         :param bool skip_suppression: Whether or not to ignore customer
             suppression rules, for this transmission only. Only applicable if
             your configuration supports this parameter. (SparkPost Elite only)
+        :param bool inline_css: Whether or not to perform CSS inlining
         :param dict custom_headers: Used to set any headers associated with
             transmission
 

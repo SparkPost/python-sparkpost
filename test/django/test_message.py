@@ -1,8 +1,22 @@
+from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail.message import EmailMessage
+from django.utils.functional import empty
 
 from sparkpost.django.message import SparkPostMessage
 from .utils import at_least_version
+
+
+def reconfigure_settings(**new_settings):
+    old_settings = settings._wrapped
+
+    settings._wrapped = empty
+    settings.configure(default_settings=old_settings, **new_settings)
+
+
+reconfigure_settings(
+    DEFAULT_CHARSET='utf-8'
+)
 
 
 base_options = dict(
@@ -67,7 +81,25 @@ def test_attachment():
         attachments=[
             {
                 'name': 'file.txt',
-                'data': 'test content',
+                'data': 'dGVzdCBjb250ZW50',
+                'type': 'text/plain'
+            }
+        ]
+    )
+    expected.update(base_expected)
+    assert actual == expected
+
+
+def test_attachment_unicode():
+    email_message = EmailMessage(**base_options)
+    email_message.attach('file.txt', u'test content', 'text/plain')
+
+    actual = SparkPostMessage(email_message)
+    expected = dict(
+        attachments=[
+            {
+                'name': 'file.txt',
+                'data': 'dGVzdCBjb250ZW50',
                 'type': 'text/plain'
             }
         ]

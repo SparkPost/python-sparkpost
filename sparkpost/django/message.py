@@ -1,4 +1,7 @@
+from base64 import b64encode
+
 from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
 
 from .exceptions import UnsupportedContent
 
@@ -46,11 +49,19 @@ class SparkPostMessage(dict):
 
         if message.attachments:
             formatted['attachments'] = []
+            str_encoding = settings.DEFAULT_CHARSET
             for attachment in message.attachments:
                 filename, content, mimetype = attachment
+                try:
+                    if isinstance(content, unicode):
+                        content = content.encode(str_encoding)
+                except NameError:
+                    if isinstance(content, str):
+                        content = content.encode(str_encoding)
+                base64_encoded_content = b64encode(content)
                 formatted['attachments'].append({
                     'name': filename,
-                    'data': content,
+                    'data': base64_encoded_content.decode('ascii'),
                     'type': mimetype
                 })
 
