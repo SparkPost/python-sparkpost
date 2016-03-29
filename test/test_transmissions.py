@@ -49,6 +49,15 @@ def test_translate_keys_for_email_parsing():
     ]
 
 
+def test_translate_keys_for_from_email():
+    t = Transmissions('uri', 'key')
+    results = t._translate_keys(from_email='Testing <testing@example.com>')
+    assert results['content']['from'] == {
+        'name': 'Testing',
+        'email': 'testing@example.com'
+    }
+
+
 def test_translate_keys_with_cc():
     t = Transmissions('uri', 'key')
     results = t._translate_keys(recipients=['primary@example.com'],
