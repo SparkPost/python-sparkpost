@@ -7,7 +7,7 @@ class SparkPostAPIException(SparkPostException):
     def __init__(self, response, *args, **kwargs):
         self.response_status_code = response.status_code
         self.response_error_codes = []
-        if 'application/json' in response.headers['content-type'].lower():
+        if 'application/json' in response.headers.get('content-type','').lower():
           errors = response.json()['errors']
           self.response_error_codes = [e['code'] for e in errors if 'code' in e]
           errors = [e['message'] + ': ' + e.get('description', '')
