@@ -65,4 +65,4 @@ class SparkPostMessage(dict):
                     'type': mimetype
                 })
 
-        return super(SparkPostMessage, self).__init__(formatted)
+        super(SparkPostMessage, self).__init__(formatted)

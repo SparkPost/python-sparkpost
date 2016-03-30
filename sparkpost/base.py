@@ -1,13 +1,28 @@
-import requests
 import sparkpost
 
 from .exceptions import SparkPostAPIException
 
 
+class RequestsTransport(object):
+    def request(self, method, uri, headers, **kwargs):
+        import requests
+        response = requests.request(method, uri, headers=headers, **kwargs)
+        if response.status_code == 204:
+            return True
+        if not response.ok:
+            raise SparkPostAPIException(response)
+        if 'results' in response.json():
+            return response.json()['results']
+        return response.json()
+
+
 class Resource(object):
-    def __init__(self, base_uri, api_key):
+    key = ""
+
+    def __init__(self, base_uri, api_key, transport_class=RequestsTransport):
         self.base_uri = base_uri
         self.api_key = api_key
+        self.transport = transport_class()
 
     @property
     def uri(self):
@@ -19,14 +34,9 @@ class Resource(object):
             'Content-Type': 'application/json',
             'Authorization': self.api_key
         }
-        response = requests.request(method, uri, headers=headers, **kwargs)
-        if response.status_code == 204:
-            return True
-        if not response.ok:
-            raise SparkPostAPIException(response)
-        if 'results' in response.json():
-            return response.json()['results']
-        return response.json()
+        response = self.transport.request(method, uri, headers=headers,
+                                          **kwargs)
+        return response
 
     def get(self):
         raise NotImplementedError
