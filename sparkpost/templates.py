@@ -175,8 +175,9 @@ class Templates(Resource):
         params = {}
         if draft is not None:
             params['draft'] = str(draft).lower()
+        data = json.dumps({'substitution_data': substitution_data})
         results = self.request('POST',
                                uri,
                                params=params,
-                               data=json.dumps(substitution_data))
+                               data=data)
         return results

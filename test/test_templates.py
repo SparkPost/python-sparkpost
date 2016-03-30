@@ -1,3 +1,8 @@
+try:
+    from urllib.parse import urlparse
+except:
+    from urlparse import urlparse
+
 import pytest
 import responses
 
@@ -175,6 +180,7 @@ def test_success_preview():
     )
     sp = SparkPost('fake-key')
     results = sp.templates.preview('foobar', {})
+    assert responses.calls[0].request.body == '{"substitution_data": {}}'
     assert results == {}
 
 
@@ -190,6 +196,8 @@ def test_success_preview_with_draft():
     )
     sp = SparkPost('fake-key')
     results = sp.templates.preview('foobar', {}, True)
+    parsed = urlparse(responses.calls[0].request.url)
+    assert parsed.query == 'draft=true'
     assert results == {}
 
 
