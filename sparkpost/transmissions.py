@@ -78,6 +78,10 @@ class Transmissions(Resource):
         model['content']['attachments'] = self._extract_attachments(
             attachments)
 
+        inline_images = kwargs.get('inline_images', [])
+        model['content']['inline_images'] = self._extract_attachments(
+            inline_images)
+
         return model
 
     def _format_copies(self, recipients, copies):
