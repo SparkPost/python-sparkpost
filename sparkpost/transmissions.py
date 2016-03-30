@@ -181,6 +181,26 @@ class Transmissions(Resource):
                     name='document.pdf',
                     filename='/full/path/to/document.pdf'
                 )
+        :param inline_images: List of dicts. For example:
+
+            .. code-block:: python
+
+                dict(
+                    type='image/png',
+                    name='imageCID',
+                    data='base64 encoded string'
+                )
+
+            Replace `data` with `filename` if you want the library to perform
+            the base64 conversion. For example:
+
+            .. code-block:: python
+
+                dict(
+                    type='image/png',
+                    name='imageCID',
+                    filename='/full/path/to/image.png'
+                )
 
         :param str start_time: Delay generation of messages until this
             datetime. Format YYYY-MM-DDTHH:MM:SS+-HH:MM. Example:

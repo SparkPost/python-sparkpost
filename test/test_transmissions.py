@@ -189,7 +189,7 @@ def test_success_send_with_inline_images():
     sp = SparkPost('fake-key')
 
     image_data = {
-        "name": "sparkpostdev.png",
+        "name": "sparkpostdev",
         "type": "image/png",
         "filename": image_path
     }
@@ -201,8 +201,8 @@ def test_success_send_with_inline_images():
     assert results == 'yay'
 
     image_data = {
-        "name": "test.txt",
-        "type": "text/plain",
+        "name": "sparkpostdev",
+        "type": "image/png",
         "data": encoded_image
     }
     results = sp.transmission.send(inline_images=[image_data])
