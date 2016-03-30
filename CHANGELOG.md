@@ -4,6 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [1.1.0] - 2016-03-30
+### Added
+- Better extensibility with support for Tornado
+- Support for inline images
+- Support for specifying IP pool
+
+### Fixed
+- Issue where substitution data was being improperly passed to the templates preview endpoint
+- Issue where Django backend was not properly base64 encoding attachments
+
 ## [1.0.5] - 2016-03-18
 ### Fixed
 - Issue where global Django settings object was being modified, causing mixed emails
@@ -65,7 +75,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.5...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.5...v1.1.0
 [1.0.5]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.2...v1.0.3
