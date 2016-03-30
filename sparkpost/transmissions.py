@@ -40,6 +40,7 @@ class Transmissions(Resource):
         model['options']['transactional'] = kwargs.get('transactional')
         model['options']['sandbox'] = kwargs.get('use_sandbox')
         model['options']['skip_suppression'] = kwargs.get('skip_suppression')
+        model['options']['ip_pool'] = kwargs.get('ip_pool')
         model['options']['inline_css'] = kwargs.get('inline_css')
 
         model['content']['use_draft_template'] = \
@@ -76,6 +77,10 @@ class Transmissions(Resource):
         attachments = kwargs.get('attachments', [])
         model['content']['attachments'] = self._extract_attachments(
             attachments)
+
+        inline_images = kwargs.get('inline_images', [])
+        model['content']['inline_images'] = self._extract_attachments(
+            inline_images)
 
         return model
 
@@ -176,6 +181,26 @@ class Transmissions(Resource):
                     name='document.pdf',
                     filename='/full/path/to/document.pdf'
                 )
+        :param inline_images: List of dicts. For example:
+
+            .. code-block:: python
+
+                dict(
+                    type='image/png',
+                    name='imageCID',
+                    data='base64 encoded string'
+                )
+
+            Replace `data` with `filename` if you want the library to perform
+            the base64 conversion. For example:
+
+            .. code-block:: python
+
+                dict(
+                    type='image/png',
+                    name='imageCID',
+                    filename='/full/path/to/image.png'
+                )
 
         :param str start_time: Delay generation of messages until this
             datetime. Format YYYY-MM-DDTHH:MM:SS+-HH:MM. Example:
@@ -192,6 +217,8 @@ class Transmissions(Resource):
         :param bool skip_suppression: Whether or not to ignore customer
             suppression rules, for this transmission only. Only applicable if
             your configuration supports this parameter. (SparkPost Elite only)
+        :param str ip_pool: The name of a dedicated IP pool associated with
+            your account
         :param bool inline_css: Whether or not to perform CSS inlining
         :param dict custom_headers: Used to set any headers associated with
             transmission
