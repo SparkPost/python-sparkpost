@@ -2,21 +2,27 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased][unreleased]
+## Unreleased
+- [Compare to latest release][unreleased]
+
+## [1.1.1] - 2016-04-08
+### Fixed
+- [#99](https://github.com/SparkPost/python-sparkpost/pull/99) Issue where inline images were always passed to the API, which in turn required HTML content
 
 ## [1.1.0] - 2016-03-30
 ### Added
-- Better extensibility with support for Tornado
-- Support for inline images
-- Support for specifying IP pool
+- [#94](https://github.com/SparkPost/python-sparkpost/pull/94) Better extensibility with support for Tornado
+- [#95](https://github.com/SparkPost/python-sparkpost/pull/95) Support for CSS inlining
+- [#98](https://github.com/SparkPost/python-sparkpost/pull/98) Support for inline images
+- [#98](https://github.com/SparkPost/python-sparkpost/pull/98) Support for specifying IP pool
 
 ### Fixed
-- Issue where substitution data was being improperly passed to the templates preview endpoint
-- Issue where Django backend was not properly base64 encoding attachments
+- [#97](https://github.com/SparkPost/python-sparkpost/pull/97) Issue where substitution data was being improperly passed to the templates preview endpoint
+- [#91](https://github.com/SparkPost/python-sparkpost/pull/91) Issue where Django backend was not properly base64 encoding attachments
 
 ## [1.0.5] - 2016-03-18
 ### Fixed
-- Issue where global Django settings object was being modified, causing mixed emails
+- [#89](https://github.com/SparkPost/python-sparkpost/pull/89) Issue where global Django settings object was being modified, causing mixed emails
 
 ## [1.0.4] - 2016-03-10
 ### Added
@@ -75,7 +81,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.5...v1.1.0
 [1.0.5]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.3...v1.0.4

@@ -15,6 +15,7 @@ Patches and suggestions
 - Marko Mrdjenovic `@friedcell <https://github.com/friedcell>`_
 - Zdeněk Softič `@btx <https://github.com/btx>`_
 - Simeon Visser `@svisser <https://github.com/svisser>`_
+- `@amatissart <https://github.com/amatissart>`_
 - `@gnarvaja <https://github.com/gnarvaja>`_
 - `@pegler <https://github.com/pegler>`_
 - `@puttu <https://github.com/puttu>`_
