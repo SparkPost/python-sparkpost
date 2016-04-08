@@ -78,9 +78,10 @@ class Transmissions(Resource):
         model['content']['attachments'] = self._extract_attachments(
             attachments)
 
-        inline_images = kwargs.get('inline_images', [])
-        model['content']['inline_images'] = self._extract_attachments(
-            inline_images)
+        if 'inline_images' in kwargs:
+            inline_images = kwargs['inline_images']
+            model['content']['inline_images'] = self._extract_attachments(
+                inline_images)
 
         return model
 
