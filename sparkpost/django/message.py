@@ -22,12 +22,20 @@ class SparkPostMessage(dict):
     """
 
     def __init__(self, message):
-        formatted = {
-            'recipients': message.to,
-            'from_email': message.from_email,
-            'subject': message.subject,
-            'text': message.body
-        }
+
+        formatted = dict()
+
+        if message.to:
+            formatted['recipients'] = message.to
+
+        if message.from_email:
+            formatted['from_email'] = message.from_email
+
+        if message.subject:
+            formatted['subject'] = message.subject
+
+        if message.body:
+            formatted['text'] = message.body
 
         if message.cc:
             formatted['cc'] = message.cc
@@ -64,5 +72,10 @@ class SparkPostMessage(dict):
                     'data': base64_encoded_content.decode('ascii'),
                     'type': mimetype
                 })
+        if hasattr(message, 'substitution_data'):
+            formatted['substitution_data'] = message.substitution_data
+
+        if hasattr(message, 'template'):
+            formatted['template'] = message.template
 
         super(SparkPostMessage, self).__init__(formatted)

@@ -44,7 +44,26 @@ Django is now configured to use the SparkPost email backend. You can now send ma
         html_message='<p>Hello Rock stars!</p>',
     )
 
-If you need to add cc, bcc, reply to, or attachments, use the `EmailMultiAlternatives` class directly:
+                     
+You can also use `EmailMessage` or `EmailMultiAlternatives` class directly. That will give you access to more specific fileds like `template`:
+
+.. code-block:: python
+    
+    email = EmailMessage(
+        to=[
+            {
+                "address": "to@example.com",
+                "substitution_data": {
+                    "key": "value"
+                }
+            }
+        ],
+        from_email='test@from.com'
+    )
+    email.template = 'template-id'
+    email.send()
+
+Or cc, bcc, reply to, or attachments fields:
 
 .. code-block:: python
 
