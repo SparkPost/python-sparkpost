@@ -4,6 +4,7 @@ from django.core.mail.backends.base import BaseEmailBackend
 from sparkpost import SparkPost
 
 from .message import SparkPostMessage
+from .tasks import send_messages
 
 
 class SparkPostEmailBackend(BaseEmailBackend):
@@ -37,3 +38,12 @@ class SparkPostEmailBackend(BaseEmailBackend):
         params = getattr(settings, 'SPARKPOST_OPTIONS', {}).copy()
         params.update(message)
         return self.client.transmissions.send(**params)
+
+
+class SparkPostCeleryEmailBackend(SparkPostEmailBackend):
+    def send_messages(self, email_messages):
+        """
+        Send emails, returns celery result object (AsyncResult)
+        When task will be complete, it will contain integer representing number of successful emails
+        """
+        return send_messages.delay(self, email_messages)
