@@ -6,6 +6,11 @@ from .message import SparkPostMessage
 
 @task()
 def send_messages(obj, email_messages):
+    """
+    Celery task for 'send_messages' EmailBackend method.
+    It sends all email messages in parallel via 'send_message' task,
+    and then it reduces all results via `send_summary` task (celery chord is convenient)
+    """
     return chord(send_message.s(obj, email_message) for email_message in email_messages)(send_summary.s())
 
 
