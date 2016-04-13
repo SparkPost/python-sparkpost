@@ -22,4 +22,4 @@ def send_message(obj, message):
 
 @task()
 def send_summary(send_results):
-    return sum([send_result.result for send_result in send_results])
+    return sum([send_result for send_result in send_results])
