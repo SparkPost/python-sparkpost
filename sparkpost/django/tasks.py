@@ -1,6 +1,8 @@
 from celery import chord
 from celery.task import task
 
+from .message import SparkPostMessage
+
 
 @task()
 def send_messages(obj, email_messages):
@@ -10,7 +12,7 @@ def send_messages(obj, email_messages):
 @task()
 def send_message(obj, message):
     try:
-        response = obj._send(message)
+        response = obj._send(SparkPostMessage(message))
     except Exception:
         if not obj.fail_silently:
             raise
