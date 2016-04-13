@@ -44,6 +44,7 @@ class SparkPostCeleryEmailBackend(SparkPostEmailBackend):
     def send_messages(self, email_messages):
         """
         Send emails, returns celery result object (AsyncResult)
-        When task will be complete, it will contain integer representing number of successful emails
+        When task will be complete, it will contain integer
+        representing number of successful emails
         """
         return send_messages.delay(self, email_messages)
