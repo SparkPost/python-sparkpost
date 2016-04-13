@@ -107,6 +107,55 @@ def test_attachment_unicode():
     expected.update(base_expected)
     assert actual == expected
 
+
+def test_template():
+    email_message = EmailMessage(
+        to=['to@example.com'],
+        from_email='test@from.com'
+    )
+    email_message.template = 'template-id'
+    actual = SparkPostMessage(email_message)
+    expected = dict(
+        recipients=['to@example.com'],
+        from_email='test@from.com',
+        template='template-id'
+    )
+    assert actual == expected
+
+
+def test_substitution_data():
+    email_message = EmailMessage(
+        to=[
+            {
+                "address": "to@example.com",
+                "substitution_data": {
+                    "key": "value"
+                }
+            }
+        ],
+        from_email='test@from.com'
+    )
+    email_message.template = 'template-id'
+    email_message.substitution_data = {"key2": "value2"}
+    actual = SparkPostMessage(email_message)
+
+    expected = dict(
+        recipients=[
+            {
+                "address": "to@example.com",
+                "substitution_data": {
+                    "key": "value"
+                }
+            }
+        ],
+        from_email='test@from.com',
+        template='template-id',
+        substitution_data={"key2": "value2"}
+    )
+
+    assert actual == expected
+
+
 if at_least_version('1.8'):
     def test_reply_to():
         expected = dict(
