@@ -22,7 +22,6 @@ class SparkPostMessage(dict):
     """
 
     def __init__(self, message):
-
         formatted = dict()
 
         if message.to:
@@ -34,7 +33,9 @@ class SparkPostMessage(dict):
         if message.subject:
             formatted['subject'] = message.subject
 
-        if message.body:
+        if message.content_subtype == 'html':
+            formatted['html'] = message.body
+        else:
             formatted['text'] = message.body
 
         if message.cc:
