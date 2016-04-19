@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.2.0] - 2016-04-19
+### Added
+- [#109](https://github.com/SparkPost/python-sparkpost/pull/109) Support for specifying `template`, `substitution_data` when using the Django email backend
+- [#100](https://github.com/SparkPost/python-sparkpost/pull/100) Support for the `content_subtype` attribute when using the `EmailMessage` class in Django
+
 ## [1.1.1] - 2016-04-08
 ### Fixed
 - [#99](https://github.com/SparkPost/python-sparkpost/pull/99) Issue where inline images were always passed to the API, which in turn required HTML content
@@ -81,7 +86,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.1...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.5...v1.1.0
 [1.0.5]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.4...v1.0.5
