@@ -108,6 +108,22 @@ def test_attachment_unicode():
     assert actual == expected
 
 
+def test_content_subtype():
+    email_message = EmailMessage(
+        to=['to@example.com'],
+        from_email='test@from.com',
+        body='<p>Testing</p>'
+    )
+    email_message.content_subtype = 'html'
+    actual = SparkPostMessage(email_message)
+    expected = dict(
+        recipients=['to@example.com'],
+        from_email='test@from.com',
+        html='<p>Testing</p>'
+    )
+    assert actual == expected
+
+
 def test_template():
     email_message = EmailMessage(
         to=['to@example.com'],

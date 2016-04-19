@@ -33,7 +33,9 @@ class SparkPostMessage(dict):
         if message.subject:
             formatted['subject'] = message.subject
 
-        if message.content_subtype == 'html':
+        if hasattr(message, 'template'):
+            formatted['template'] = message.template
+        elif message.content_subtype == 'html':
             formatted['html'] = message.body
         else:
             formatted['text'] = message.body
@@ -73,10 +75,8 @@ class SparkPostMessage(dict):
                     'data': base64_encoded_content.decode('ascii'),
                     'type': mimetype
                 })
+
         if hasattr(message, 'substitution_data'):
             formatted['substitution_data'] = message.substitution_data
-
-        if hasattr(message, 'template'):
-            formatted['template'] = message.template
 
         super(SparkPostMessage, self).__init__(formatted)
