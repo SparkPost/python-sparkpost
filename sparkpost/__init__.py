@@ -7,6 +7,7 @@ from .recipient_lists import RecipientLists
 from .suppression_list import SuppressionList
 from .templates import Templates
 from .transmissions import Transmissions
+from .message_events import MessageEvents
 
 
 __version__ = '1.2.0'
@@ -39,6 +40,9 @@ class SparkPost(object):
         # Keeping self.transmission for backwards compatibility.
         # Will be removed in a future release.
         self.transmission = self.transmissions
+        
+        self.message_events = MessageEvents(self.base_uri, self.api_key,
+                                            self.TRANSPORT_CLASS)
 
     def get_api_key(self):
         "Get API key from environment variable"
