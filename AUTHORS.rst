@@ -20,3 +20,4 @@ Patches and suggestions
 - `@pegler <https://github.com/pegler>`_
 - `@puttu <https://github.com/puttu>`_
 - Ty Rocca `@tyrocca <https://github.com/tyrocca>`
+- ADD YOURSELF HERE (and link to your github page)
