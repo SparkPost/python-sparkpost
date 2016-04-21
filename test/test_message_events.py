@@ -1,10 +1,10 @@
 import responses
-# import pytest
+import pytest
 from sparkpost import (
     SparkPost,
     MessageEvents
 )
-# from sparkpost.exceptions import SparkPostAPIException
+from sparkpost.exceptions import SparkPostAPIException
 
 
 def test_format_listable_param_list():
@@ -75,6 +75,7 @@ def test_format_request_params():
     }
     formatted_kwargs = mesg._format_request_params(**kwargs)
     assert "to=now&campaign_ids=1,2&per_page=100" == formatted_kwargs
+
 
 @responses.activate
 def test_fail_get():
