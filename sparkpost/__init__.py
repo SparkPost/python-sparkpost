@@ -40,7 +40,7 @@ class SparkPost(object):
         # Keeping self.transmission for backwards compatibility.
         # Will be removed in a future release.
         self.transmission = self.transmissions
-        
+
         self.message_events = MessageEvents(self.base_uri, self.api_key,
                                             self.TRANSPORT_CLASS)
 

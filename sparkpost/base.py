@@ -4,13 +4,16 @@ from .exceptions import SparkPostAPIException
 
 
 class RequestsTransport(object):
-    def request(self, method, uri, headers, **kwargs):
+    def request(self, method, uri, headers, return_all_keys=False, **kwargs):
         import requests
         response = requests.request(method, uri, headers=headers, **kwargs)
         if response.status_code == 204:
             return True
         if not response.ok:
             raise SparkPostAPIException(response)
+        # in case you don't want to return just the results
+        if return_all_keys:
+            return response.json()
         if 'results' in response.json():
             return response.json()['results']
         return response.json()

@@ -2,17 +2,13 @@ from datetime import datetime
 
 from .base import Resource
 
-try:
-    string_types = basestring
-except NameError:
-    string_types = str  # Python 3 doesn't have basestring
-
 
 class MessageEvents(Resource):
     """
     Message class used to get the various states of a of a message.
     for detailed request and response formats, see the `Message Events API
-    Documentation <https://developers.sparkpost.com/api/#/reference/message-events/>`
+    Documentation
+    <https://developers.sparkpost.com/api/#/reference/message-events/>`
     """
     key = "message-events"
 
@@ -27,8 +23,8 @@ class MessageEvents(Resource):
                 mesg_filter
             )
         else:
-            mesg_filter_str = str(mesg_filter)
-        return mesg_filter_str
+            mesg_filter_str = mesg_filter
+        return str(mesg_filter_str)
 
     def _format_datetime_param(self, mesg_filter):
         """
@@ -36,7 +32,7 @@ class MessageEvents(Resource):
         """
         mesg_filter_str = ""
         if type(mesg_filter) is datetime:
-            mesg_filter_str = mesg_filter.strftime("%Y-%m-%d:T%H:%M")
+            mesg_filter_str = mesg_filter.strftime("%Y-%m-%dT%H:%M")
         else:
             mesg_filter_str = str(mesg_filter)
 
@@ -49,20 +45,24 @@ class MessageEvents(Resource):
         param: str/num/list bounce_classes - Comma-delimited
             list of bounce classification codes to search
 
-        params dict is a dict of avaliable params. Each param is keyed to a tuple of the
+        params dict is a dict of avaliable params.
+            Each param is keyed to a tuple of the
             (param type, special validator function (if wanted / needed))
 
-            - Listable are params that can be in a list format(commma seperated)
-            - datetime can be a datetime string, or a datetime object
-            - single_val are params that are only single values (ie not lists or dates)
+            - Listable
+                are params that can be in a list format(commma seperated)
+            - datetime
+                can be a datetime string, or a datetime object
+            - single_val
+                are params that are only single values (ie not lists or dates)
         """
 
         # can only be in a certain range
         def per_page_validator(per_page):
             per_page = int(per_page)
             if per_page > 10000 or per_page < 1:
-                raise ValueError("You entered %d, Per "
-                    "page must be inbetween 1 and 10,000" % per_page)
+                raise ValueError("""You entered, Per \
+                    "page must be inbetween 1 and 10,000""")
             else:
                 return per_page
 
@@ -94,9 +94,9 @@ class MessageEvents(Resource):
             if special_validator is not None:
                 filter_val = special_validator(filter_val)
 
-            if param_type is "listable":
+            if param_type == "listable":
                 filter_val = self._format_listable_param(filter_val)
-            elif param_type is "datetime":
+            elif param_type == "datetime":
                 filter_val = self._format_datetime_param(filter_val)
             else:
                 filter_val = str(filter_val)
@@ -111,7 +111,7 @@ class MessageEvents(Resource):
 
     def _fetch_get(self, request_str):
         uri = "%s?%s" % (self.uri, request_str)
-        results = self.request('GET', uri)
+        results = self.request('GET', uri, return_all_keys=True)
         return results
 
     def get(self, **kwargs):
@@ -120,14 +120,14 @@ class MessageEvents(Resource):
 
         :param message event params
 
-        :returns: the requested messages if found
+        :returns: the requested messages in dict of {
+            results: results list,
+            total_count: count,
+            links: list of links
+        }
         :raises: :exc:`SparkPostAPIException` if transmission is not found
         """
+
         request_str = self._format_request_params(**kwargs)
         results = self._fetch_get(request_str)
         return results
-
-
-
-
-
