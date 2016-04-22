@@ -157,7 +157,7 @@ class Transmissions(Resource):
         :param str reply_to: Reply to of transmission
         :param str description: Description of transmission
         :param str campaign: Campaign of transmission
-        :param dict metatdata: Any data you want to send along with
+        :param dict metadata: Any data you want to send along with
             transmission, used in WebHooks
         :param dict substitution_data: Corresponds to substitutions in
             html/text content. See `substitutions reference
