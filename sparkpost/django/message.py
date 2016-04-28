@@ -1,3 +1,4 @@
+import mimetypes
 from base64 import b64encode
 
 from django.core.mail import EmailMultiAlternatives
@@ -63,6 +64,10 @@ class SparkPostMessage(dict):
             str_encoding = settings.DEFAULT_CHARSET
             for attachment in message.attachments:
                 filename, content, mimetype = attachment
+
+                if mimetype is None:
+                    mimetype, _ = mimetypes.guess_type(filename)
+
                 try:
                     if isinstance(content, unicode):
                         content = content.encode(str_encoding)
