@@ -2,6 +2,7 @@ import mimetypes
 from base64 import b64encode
 
 from django.core.mail import EmailMultiAlternatives
+from django.core.mail.message import DEFAULT_ATTACHMENT_MIME_TYPE
 from django.conf import settings
 
 from .exceptions import UnsupportedContent
@@ -67,6 +68,8 @@ class SparkPostMessage(dict):
 
                 if mimetype is None:
                     mimetype, _ = mimetypes.guess_type(filename)
+                    if mimetype is None:
+                        mimetype = DEFAULT_ATTACHMENT_MIME_TYPE
 
                 try:
                     if isinstance(content, unicode):
