@@ -108,6 +108,42 @@ def test_attachment_unicode():
     assert actual == expected
 
 
+def test_attachment_guess_mimetype():
+    email_message = EmailMessage(**base_options)
+    email_message.attach('file.txt', 'test content')
+
+    actual = SparkPostMessage(email_message)
+    expected = dict(
+        attachments=[
+            {
+                'name': 'file.txt',
+                'data': 'dGVzdCBjb250ZW50',
+                'type': 'text/plain'
+            }
+        ]
+    )
+    expected.update(base_expected)
+    assert actual == expected
+
+
+def test_attachment_guess_mimetype_fallback():
+    email_message = EmailMessage(**base_options)
+    email_message.attach('file', 'test content')
+
+    actual = SparkPostMessage(email_message)
+    expected = dict(
+        attachments=[
+            {
+                'name': 'file',
+                'data': 'dGVzdCBjb250ZW50',
+                'type': 'application/octet-stream'
+            }
+        ]
+    )
+    expected.update(base_expected)
+    assert actual == expected
+
+
 def test_content_subtype():
     email_message = EmailMessage(
         to=['to@example.com'],

@@ -15,7 +15,7 @@ SparkPost Python API client
     :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/python-sparkpost/badge/?version=latest
-    :target: http://python-sparkpost.readthedocs.org/en/latest/
+    :target: https://python-sparkpost.readthedocs.io/en/latest/
     :alt: Documentation Status
 
 .. image:: https://coveralls.io/repos/SparkPost/python-sparkpost/badge.svg?branch=master&service=github
@@ -97,7 +97,7 @@ The SparkPost python library comes with an email backend for Django. Put the fol
 
 Replace *API_KEY* with an actual API key that you've generated in `Get a Key`_ section. Check out the `full documentation`_ on the Django email backend.
 
-.. _full documentation: http://python-sparkpost.readthedocs.org/en/latest/django/backend.html
+.. _full documentation: https://python-sparkpost.readthedocs.io/en/latest/django/backend.html
 
 Documentation
 -------------
@@ -105,7 +105,7 @@ Documentation
 * Documentation for `python-sparkpost`_
 * `SparkPost API Reference`_
 
-.. _python-sparkpost: http://python-sparkpost.readthedocs.org/
+.. _python-sparkpost: https://python-sparkpost.readthedocs.io/
 .. _SparkPost API Reference: https://www.sparkpost.com/api
 
 
