@@ -70,7 +70,7 @@ def test_format_request_params():
     # test normal
     kwargs = {
         "campaign_ids": [1, 2],
-        "to": "now",
+        "to_date": "now",
         "per_page": "100"
     }
     formatted_kwargs = mesg._format_request_params(**kwargs)
@@ -81,7 +81,7 @@ def test_format_request_params():
 def test_fail_get():
     responses.add(
         responses.GET,
-        url="""https://api.sparkpost.com/api/v1/message-events?transmission_ids=8675309""",  # noqa
+        url="""https://api.sparkpost.com/api/v1/message-events?""",
         status=404,
         content_type='application/json',
         body="""
@@ -97,10 +97,10 @@ def test_fail_get():
 def test_success_get():
     responses.add(
         responses.GET,
-        url="""https://api.sparkpost.com/api/v1/message-events?transmission_ids=8675309""",  # noqa
+        url="""https://api.sparkpost.com/api/v1/message-events?""",
         status=200,
         content_type='application/json',
-        body='{"results":[], "total_count": 0, "links":[]}'
+        body='[]'
     )
     result_dict = {
         "results": [],
