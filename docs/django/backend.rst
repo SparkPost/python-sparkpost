@@ -38,7 +38,7 @@ Django is now configured to use the SparkPost email backend. You can now send ma
 
     send_mail(
         subject='Hello from SparkPost',
-        message='Woo hoo! Sent from Django!'
+        message='Woo hoo! Sent from Django!',
         from_email='from@yourdomain.com',
         recipient_list=['to@example.com'],
         html_message='<p>Hello Rock stars!</p>',
