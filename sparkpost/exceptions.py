@@ -8,7 +8,10 @@ class SparkPostAPIException(SparkPostException):
         errors = None
         try:
             errors = response.json()['errors']
-            errors = [e['message'] + ': ' + e.get('description', '')
+            errors = [e['message'] +
+                      ' Code: ' + e.get('code', '') +
+                      ' Description: ' + e.get('description', '') +
+                      '\n'
                       for e in errors]
         except:
             pass
@@ -20,6 +23,7 @@ class SparkPostAPIException(SparkPostException):
         message = """Call to {uri} returned {status_code}, errors:
 
         {errors}
+
         """.format(
             uri=response.url,
             status_code=response.status_code,
