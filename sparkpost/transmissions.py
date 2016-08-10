@@ -250,6 +250,19 @@ class Transmissions(Resource):
         results = self._fetch_get(transmission_id)
         return results['transmission']
 
+    def _fetch_delete(self, transmission_id):
+        uri = "%s/%s" % (self.uri, transmission_id)
+        results = self.request('DELETE', uri)
+        return results
+
+    def delete(self, transmission_id):
+        """
+        Delete a transmission ID
+        """
+        results = self._fetch_delete(transmission_id)
+        return results
+
+
     def list(self):
         """
         Get a list of your transmissions
