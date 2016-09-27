@@ -271,3 +271,34 @@ def test_success_list():
     sp = SparkPost('fake-key')
     response = sp.transmission.list()
     assert response == []
+
+
+@responses.activate
+def test_success_delete():
+    responses.add(
+        responses.DELETE,
+        'https://api.sparkpost.com/api/v1/transmissions/foobar',
+        status=200,
+        content_type='application/json',
+        body='{}'
+    )
+    sp = SparkPost('fake-key')
+    results = sp.transmission.delete('foobar')
+    assert results == {}
+
+
+@responses.activate
+def test_fail_delete():
+    responses.add(
+        responses.DELETE,
+        'https://api.sparkpost.com/api/v1/transmissions/foobar',
+        status=404,
+        content_type='application/json',
+        body="""
+        {"errors": [{"message": "resource not found",
+            "description": "Resource not found:transmission id foobar""}]}
+        """
+    )
+    with pytest.raises(SparkPostAPIException):
+        sp = SparkPost('fake-key')
+        sp.transmission.delete('foobar')
