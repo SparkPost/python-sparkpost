@@ -4,9 +4,12 @@ from .exceptions import SparkPostAPIException
 
 
 class RequestsTransport(object):
-    def request(self, method, uri, headers, **kwargs):
+    def __init__(self):
         import requests
-        response = requests.request(method, uri, headers=headers, **kwargs)
+        self.sess = requests.Session()
+
+    def request(self, method, uri, headers, **kwargs):
+        response = self.sess.request(method, uri, headers=headers, **kwargs)
         if response.status_code == 204:
             return True
         if not response.ok:
