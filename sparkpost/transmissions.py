@@ -267,7 +267,8 @@ class Transmissions(Resource):
         :param str transmission_id: ID of the transmission you want to delete
 
         :returns: {}  if transmission is deleted
-        :raises: :exc:`SparkPostAPIException` if transmission is not found or Canceled
+        :raises: :exc:`SparkPostAPIException` if transmission is not found
+            or Canceled
         """
         uri = "%s/%s" % (self.uri, transmission_id)
         results = self.request('DELETE', uri)

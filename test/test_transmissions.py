@@ -295,7 +295,8 @@ def test_fail_delete():
         status=404,
         content_type='application/json',
         body="""
-        {"errors": [{"message": "resource not found", "description": "Resource not found:transmission id foobar""}]}
+        {"errors": [{"message": "resource not found",
+            "description": "Resource not found:transmission id foobar""}]}
         """
     )
     with pytest.raises(SparkPostAPIException):
