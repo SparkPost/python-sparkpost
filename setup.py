@@ -6,7 +6,7 @@ with open('README.rst', 'r', 'utf-8') as f:
 
 setup(
     name='sparkpost',
-    version='1.2.0',
+    version='1.3.0',
     author='SparkPost',
     author_email='developers@sparkpost.com',
     packages=find_packages(),
@@ -16,7 +16,7 @@ setup(
     long_description=readme,
     install_requires=['requests>=2.5.1'],
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Topic :: Communications :: Email',
         'License :: OSI Approved :: Apache Software License',
@@ -24,5 +24,6 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ],
 )
