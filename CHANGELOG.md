@@ -5,6 +5,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.0] - 2016-10-01
+### Added
+- [#121](https://github.com/SparkPost/python-sparkpost/pull/121) Added extended error code to `SparkPostAPIException` class
+- [#124](https://github.com/SparkPost/python-sparkpost/pull/124) Added `delete` method to `Transmission` class
+- CI tests now also run against Python 3.5
+
+### Changed
+- [#123](https://github.com/SparkPost/python-sparkpost/pull/123) Updated RequestsTransport to use a requests session so HTTP Keep Alive is honored
+
+### Fixed
+- [#115](https://github.com/SparkPost/python-sparkpost/pull/115) Guess attachment mimetype in Django email backend if not provided
+
 ## [1.2.0] - 2016-04-19
 ### Added
 - [#109](https://github.com/SparkPost/python-sparkpost/pull/109) Support for specifying `template`, `substitution_data` when using the Django email backend
@@ -86,7 +98,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.0...HEAD
+[1.2.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.5...v1.1.0
