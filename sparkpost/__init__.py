@@ -9,7 +9,7 @@ from .templates import Templates
 from .transmissions import Transmissions
 
 
-__version__ = '1.3.0'
+__version__ = '1.3.1'
 
 
 class SparkPost(object):

@@ -5,6 +5,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.1] - 2016-11-13
+### Added
+- Instructions for use with Google Cloud
+
+### Fixed
+- [#114](https://github.com/SparkPost/python-sparkpost/pull/114) Issue where emojis in the body of a message were being forced to ASCII
+- [#118](https://github.com/SparkPost/python-sparkpost/pull/118) Fixed improper setting of header_to value when using cc and primary recipient has substitution data
+- [#119](https://github.com/SparkPost/python-sparkpost/pull/119) Added missing `sources` to suppression list key map
+
+
 ## [1.3.0] - 2016-10-01
 ### Added
 - [#121](https://github.com/SparkPost/python-sparkpost/pull/121) Added extended error code to `SparkPostAPIException` class
@@ -98,8 +108,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.0...HEAD
-[1.2.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.2.0...v1.3.0
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.0.5...v1.1.0
