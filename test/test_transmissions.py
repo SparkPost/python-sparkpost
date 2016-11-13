@@ -58,6 +58,42 @@ def test_translate_keys_for_from_email():
     }
 
 
+def test_format_header_to():
+    t = Transmissions('uri', 'key')
+    formatted = t._format_header_to(recipient={
+        'address': {'email': 'primary@example.com'}
+    })
+    assert formatted == 'primary@example.com'
+
+    formatted = t._format_header_to(recipient={
+        'address': {'name': 'Testing', 'email': 'primary@example.com'}
+    })
+    assert formatted == '"Testing" <primary@example.com>'
+
+
+def test_cc_with_sub_data():
+    t = Transmissions('uri', 'key')
+    results = t._translate_keys(
+        recipients=[{
+            'address': {'email': 'primary@example.com'},
+            'substitution_data': {'fake': 'data'}
+        }],
+        cc=['ccone@example.com']
+    )
+    assert results['recipients'] == [
+        {
+            'address': {'email': 'primary@example.com'},
+            'substitution_data': {'fake': 'data'}
+        },
+        {
+            'address': {
+                'email': 'ccone@example.com',
+                'header_to': 'primary@example.com'
+            }
+        }
+    ]
+
+
 def test_translate_keys_with_cc():
     t = Transmissions('uri', 'key')
     results = t._translate_keys(recipients=['primary@example.com'],

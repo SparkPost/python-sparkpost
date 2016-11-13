@@ -61,6 +61,7 @@ class Transmissions(Resource):
             model['recipients']['list_id'] = recipient_list
         else:
             recipients = kwargs.get('recipients', [])
+            recipients = self._extract_recipients(recipients)
             cc = kwargs.get('cc')
             bcc = kwargs.get('bcc')
 
@@ -72,7 +73,7 @@ class Transmissions(Resource):
                 bcc_copies = self._format_copies(recipients, bcc)
                 recipients = recipients + bcc_copies
 
-            model['recipients'] = self._extract_recipients(recipients)
+            model['recipients'] = recipients
 
         attachments = kwargs.get('attachments', [])
         model['content']['attachments'] = self._extract_attachments(
@@ -90,8 +91,18 @@ class Transmissions(Resource):
         if len(recipients) > 0:
             formatted_copies = self._extract_recipients(copies)
             for recipient in formatted_copies:
-                recipient['address'].update({'header_to': recipients[0]})
+                recipient['address'].update({
+                    'header_to': self._format_header_to(recipients[0])
+                })
         return formatted_copies
+
+    def _format_header_to(self, recipient):
+        if 'name' in recipient['address']:
+            return '"{name}" <{email}>'.format(
+                name=recipient['address']['name'],
+                email=recipient['address']['email']
+            )
+        return recipient['address']['email']
 
     def _extract_attachments(self, attachments):
         formatted_attachments = []
@@ -230,7 +241,8 @@ class Transmissions(Resource):
         """
 
         payload = self._translate_keys(**kwargs)
-        results = self.request('POST', self.uri, data=json.dumps(payload))
+        results = self.request('POST', self.uri,
+                               data=json.dumps(payload, ensure_ascii=False))
         return results
 
     def _fetch_get(self, transmission_id):
