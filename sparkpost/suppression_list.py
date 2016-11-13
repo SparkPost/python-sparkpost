@@ -29,6 +29,7 @@ class SuppressionList(Resource):
             'from_date': 'from',
             'to_date': 'to',
             'types': 'types',
+            'sources': 'sources',
             'limit': 'limit'
         }
         params = dict([(key_map[i], kwargs[i]) for i in list(key_map.keys())
