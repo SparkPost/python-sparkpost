@@ -99,6 +99,26 @@ Replace *API_KEY* with an actual API key that you've generated in `Get a Key`_ s
 
 .. _full documentation: https://python-sparkpost.readthedocs.io/en/latest/django/backend.html
 
+Using with Google Cloud
+-----------------------
+There are a few simple modifications necessary to enable the use of the underlying ``requests`` library that python-sparkpost uses. First, add the ``requests`` and ``requests-toolbelt`` to your project's ``requirements.txt``:
+
+.. code-block::
+
+    requests
+    requests-toolbelt
+
+Then create or update your ``appengine_config.py`` file to include the following:
+
+.. code-block:: python
+
+    import requests
+    import requests_toolbelt.adapters.appengine
+    
+    requests_toolbelt.adapters.appengine.monkeypatch()
+
+Then deploy your app and you should be able to send using python-sparkpost on Google Cloud.
+
 Documentation
 -------------
 
