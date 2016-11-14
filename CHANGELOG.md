@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.2] - 2016-11-14
+### Fixed
+- [#129](https://github.com/SparkPost/python-sparkpost/pull/129) Reverted change for emojis in the body of a message, needs further investigation
+- [#129](https://github.com/SparkPost/python-sparkpost/pull/129) `substitution_data`, `metadata`, and `tags` are now supplied properly for cc/bcc recipients
+
+
 ## [1.3.1] - 2016-11-13
 ### Added
 - Instructions for use with Google Cloud
@@ -108,7 +114,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.1...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.1.1...v1.2.0
