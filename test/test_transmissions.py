@@ -89,7 +89,8 @@ def test_cc_with_sub_data():
             'address': {
                 'email': 'ccone@example.com',
                 'header_to': 'primary@example.com'
-            }
+            },
+            'substitution_data': {'fake': 'data'}
         }
     ]
 

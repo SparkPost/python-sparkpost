@@ -1,4 +1,5 @@
 import base64
+import copy
 import json
 from email.utils import parseaddr
 
@@ -90,10 +91,13 @@ class Transmissions(Resource):
         formatted_copies = []
         if len(recipients) > 0:
             formatted_copies = self._extract_recipients(copies)
+            main_recipient = copy.deepcopy(recipients[0])
+            main_recipient.pop('address')
             for recipient in formatted_copies:
                 recipient['address'].update({
                     'header_to': self._format_header_to(recipients[0])
                 })
+                recipient.update(**main_recipient)
         return formatted_copies
 
     def _format_header_to(self, recipient):
