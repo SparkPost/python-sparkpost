@@ -5,7 +5,6 @@ class SparkPostException(Exception):
 class SparkPostAPIException(SparkPostException):
     "Handle 4xx and 5xx errors from the SparkPost API"
     def __init__(self, response, *args, **kwargs):
-        errors = None
         try:
             errors = response.json()['errors']
             error_template = "{message} Code: {code} Description: {desc} \n"
@@ -13,7 +12,7 @@ class SparkPostAPIException(SparkPostException):
                                             code=e.get('code', 'none'),
                                             desc=e.get('description', 'none'))
                       for e in errors]
-        except ValueError:
+        except:
             errors = [response.text or ""]
         self.status = response.status_code
         self.response = response
