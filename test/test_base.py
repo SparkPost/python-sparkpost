@@ -92,6 +92,20 @@ def test_fail_nojson_request():
         resource.request('GET', resource.uri)
 
 
+@responses.activate
+def test_fail_no_errors():
+    responses.add(
+        responses.GET,
+        fake_uri,
+        status=500,
+        content_type='application/json',
+        body='no errors'
+    )
+    resource = create_resource()
+    with pytest.raises(SparkPostAPIException):
+        resource.request('GET', resource.uri)
+
+
 def test_fail_get():
     resource = create_resource()
     with pytest.raises(NotImplementedError):
