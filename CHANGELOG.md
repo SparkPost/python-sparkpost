@@ -5,11 +5,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.3] - 2017-01-13
+### Fixed
+- [#135](https://github.com/SparkPost/python-sparkpost/pull/135) Issue where exceptions were not returning properly for some underlying API errors
+
 ## [1.3.2] - 2016-11-14
 ### Fixed
 - [#129](https://github.com/SparkPost/python-sparkpost/pull/129) Reverted change for emojis in the body of a message, needs further investigation
 - [#129](https://github.com/SparkPost/python-sparkpost/pull/129) `substitution_data`, `metadata`, and `tags` are now supplied properly for cc/bcc recipients
-
 
 ## [1.3.1] - 2016-11-13
 ### Added
@@ -19,7 +22,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - [#114](https://github.com/SparkPost/python-sparkpost/pull/114) Issue where emojis in the body of a message were being forced to ASCII
 - [#118](https://github.com/SparkPost/python-sparkpost/pull/118) Fixed improper setting of header_to value when using cc and primary recipient has substitution data
 - [#119](https://github.com/SparkPost/python-sparkpost/pull/119) Added missing `sources` to suppression list key map
-
 
 ## [1.3.0] - 2016-10-01
 ### Added
@@ -114,7 +116,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.2...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.3...HEAD
+[1.3.2]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.2.0...v1.3.0
