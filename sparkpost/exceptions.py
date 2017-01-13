@@ -8,7 +8,7 @@ class SparkPostAPIException(SparkPostException):
         try:
             errors = response.json()['errors']
             error_template = "{message} Code: {code} Description: {desc} \n"
-            errors = [error_template.format(message=e['message'],
+            errors = [error_template.format(message=e.get('message', ''),
                                             code=e.get('code', 'none'),
                                             desc=e.get('description', 'none'))
                       for e in errors]
