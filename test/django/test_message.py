@@ -175,6 +175,17 @@ def test_template():
     assert actual == expected
 
 
+def test_campaign():
+    email_message = EmailMessage(**base_options)
+    email_message.campaign = 'campaign-id'
+    actual = SparkPostMessage(email_message)
+    expected = dict(
+        campaign='campaign-id'
+    )
+    expected.update(base_expected)
+    assert actual == expected
+
+
 def test_substitution_data():
     email_message = EmailMessage(
         to=[

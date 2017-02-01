@@ -87,4 +87,7 @@ class SparkPostMessage(dict):
         if hasattr(message, 'substitution_data'):
             formatted['substitution_data'] = message.substitution_data
 
+        if hasattr(message, 'campaign'):
+            formatted['campaign'] = message.campaign
+
         super(SparkPostMessage, self).__init__(formatted)
