@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.4] - 2017-02-16
+### Added
+- Examples for exception handling and using the base resource class
+
+### Fixed
+- [#137](https://github.com/SparkPost/python-sparkpost/pull/137) Added missing `campaign` support for Django backend
+
 ## [1.3.3] - 2017-01-13
 ### Fixed
 - [#135](https://github.com/SparkPost/python-sparkpost/pull/135) Issue where exceptions were not returning properly for some underlying API errors
@@ -116,8 +123,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.3...HEAD
-[1.3.2]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.2...v1.3.3
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.4...HEAD
+[1.3.4]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.3...v1.3.4
+[1.3.3]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/sparkpost/python-sparkpost/compare/v1.2.0...v1.3.0
