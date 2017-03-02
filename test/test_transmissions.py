@@ -28,13 +28,18 @@ def test_translate_keys_with_recips():
                                      {'key': 'value'},
                                      {'address': {'email': 'foobar'}}]
 
-    results = t._translate_keys(recipients=[{'address': {'name': 'foo', 'email': 'bar'}}])
-    assert results['recipients'] == [{'address': {'name': 'foo', 'email': 'bar'}}]
+    results = t._translate_keys(
+        recipients=[{'address': {'name': 'foo', 'email': 'bar'}}]
+    )
+    assert results['recipients'] == [
+            {'address': {'name': 'foo', 'email': 'bar'}}
+    ]
+
 
 def test_exceptions_for_recipients():
     t = Transmissions('uri', 'key')
     with pytest.raises(SparkPostException):
-        results = t._translate_keys(recipients='test')
+        t._translate_keys(recipients='test')
 
 
 def test_translate_keys_with_unicode_recips():

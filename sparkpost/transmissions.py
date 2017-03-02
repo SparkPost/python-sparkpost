@@ -140,7 +140,10 @@ class Transmissions(Resource):
 
     def _extract_recipients(self, recipients):
 
-        if not (isinstance(recipients, types.ListType) or isinstance(recipients, types.DictType)):
+        if not (
+            isinstance(recipients, types.ListType) or
+            isinstance(recipients, types.DictType)
+        ):
             raise SparkPostException('recipients must be a list or dict')
 
         formatted_recipients = []
