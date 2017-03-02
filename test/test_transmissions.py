@@ -311,6 +311,22 @@ def test_success_list():
 
 
 @responses.activate
+def test_success_list_with_params():
+    responses.add(
+        responses.GET,
+        'https://api.sparkpost.com/api/v1/transmissions?template_id=abcd',
+        status=200,
+        content_type='application/json',
+        body='{"results": []}',
+        match_querystring=True
+
+    )
+    sp = SparkPost('fake-key')
+    response = sp.transmission.list(template_id='abcd')
+    assert response == []
+
+
+@responses.activate
 def test_success_delete():
     responses.add(
         responses.DELETE,

@@ -265,15 +265,17 @@ class Transmissions(Resource):
         results = self._fetch_get(transmission_id)
         return results['transmission']
 
-    def list(self):
+    def list(self, **kwargs):
         """
         Get a list of your transmissions
+
+        :param campaign_id: ID of the campaign used by the transmissions
+        :param template_id: ID of the template used by the transmissions
 
         :returns: list of transmissions
         :raises: :exc:`SparkPostAPIException` if API call fails
         """
-        results = self.request('GET', self.uri)
-        return results
+        return self.request('GET', self.uri, params=kwargs)
 
     def delete(self, transmission_id):
         """
