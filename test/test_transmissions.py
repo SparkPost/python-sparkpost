@@ -2,6 +2,7 @@ import base64
 import json
 import os
 import tempfile
+import warnings
 
 import pytest
 import responses
@@ -306,8 +307,12 @@ def test_success_list():
         body='{"results": []}'
     )
     sp = SparkPost('fake-key')
-    response = sp.transmission.list()
-    assert response == []
+    with warnings.catch_warnings(record=True) as warns:
+        warnings.simplefilter("always")
+        response = sp.transmission.list()
+        assert response == []
+        assert len(warns) == 1
+        assert "deprecated" in str(warns[-1].message)
 
 
 @responses.activate

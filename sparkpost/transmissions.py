@@ -1,6 +1,7 @@
 import base64
 import copy
 import json
+import warnings
 from email.utils import parseaddr
 
 from .base import Resource
@@ -275,6 +276,7 @@ class Transmissions(Resource):
         :returns: list of transmissions
         :raises: :exc:`SparkPostAPIException` if API call fails
         """
+        warnings.warn('deprecated', DeprecationWarning)
         return self.request('GET', self.uri, params=kwargs)
 
     def delete(self, transmission_id):
