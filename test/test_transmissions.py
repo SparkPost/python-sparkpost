@@ -3,6 +3,7 @@ import json
 import os
 import tempfile
 import warnings
+from mock import patch
 
 import pytest
 import responses
@@ -298,7 +299,8 @@ def test_fail_get():
 
 
 @responses.activate
-def test_success_list():
+@patch.object(warnings, 'warn')
+def test_success_list(mock_warn):
     responses.add(
         responses.GET,
         'https://api.sparkpost.com/api/v1/transmissions',
@@ -307,12 +309,9 @@ def test_success_list():
         body='{"results": []}'
     )
     sp = SparkPost('fake-key')
-    with warnings.catch_warnings(record=True) as warns:
-        warnings.simplefilter("always")
-        response = sp.transmission.list()
-        assert response == []
-        assert len(warns) == 1
-        assert "deprecated" in str(warns[-1].message)
+    response = sp.transmission.list()
+    assert mock_warn.called
+    assert response == []
 
 
 @responses.activate
