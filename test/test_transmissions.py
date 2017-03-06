@@ -28,13 +28,6 @@ def test_translate_keys_with_recips():
                                      {'key': 'value'},
                                      {'address': {'email': 'foobar'}}]
 
-    results = t._translate_keys(
-        recipients=[{'address': {'name': 'foo', 'email': 'bar'}}]
-    )
-    assert results['recipients'] == [
-            {'address': {'name': 'foo', 'email': 'bar'}}
-    ]
-
 
 def test_exceptions_for_recipients():
     t = Transmissions('uri', 'key')
