@@ -128,7 +128,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.4...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.5...HEAD
 [1.3.5]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.4...v1.3.5
 [1.3.4]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.2...v1.3.3
