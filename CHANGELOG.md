@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.5] - 2017-03-07
+### Added
+- [#141](https://github.com/SparkPost/python-sparkpost/pull/141) Validation for recipients parameter for transmissions
+- [#142](https://github.com/SparkPost/python-sparkpost/pull/142) URI parameter support for transmissions list endpoint. Also added deprecation warning
+
 ## [1.3.4] - 2017-02-16
 ### Added
 - Examples for exception handling and using the base resource class
@@ -123,7 +128,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.4...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.5...HEAD
+[1.3.5]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.4...v1.3.5
 [1.3.4]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.1...v1.3.2
