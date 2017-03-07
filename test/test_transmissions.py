@@ -3,11 +3,11 @@ import json
 import os
 import tempfile
 import warnings
-from mock import patch
 
 import pytest
 import responses
 import six
+from mock import patch
 
 from sparkpost import SparkPost
 from sparkpost import Transmissions

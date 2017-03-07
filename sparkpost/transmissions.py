@@ -276,7 +276,10 @@ class Transmissions(Resource):
         :returns: list of transmissions
         :raises: :exc:`SparkPostAPIException` if API call fails
         """
-        warnings.warn('deprecated', DeprecationWarning)
+        warn_msg = 'This endpoint is deprecated. For details, '
+        'check https://sparkpo.st/5qcj4.'
+
+        warnings.warn(warn_msg, DeprecationWarning)
         return self.request('GET', self.uri, params=kwargs)
 
     def delete(self, transmission_id):
