@@ -4,6 +4,7 @@ import json
 from email.utils import parseaddr
 
 from .base import Resource
+from .exceptions import SparkPostException
 
 
 try:
@@ -137,6 +138,10 @@ class Transmissions(Resource):
         return parsed_address
 
     def _extract_recipients(self, recipients):
+
+        if not (isinstance(recipients, (list, dict))):
+            raise SparkPostException('recipients must be a list or dict')
+
         formatted_recipients = []
         for recip in recipients:
             if isinstance(recip, string_types):

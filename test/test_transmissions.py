@@ -9,7 +9,7 @@ import six
 
 from sparkpost import SparkPost
 from sparkpost import Transmissions
-from sparkpost.exceptions import SparkPostAPIException
+from sparkpost.exceptions import SparkPostAPIException, SparkPostException
 
 
 def test_translate_keys_with_list():
@@ -27,6 +27,12 @@ def test_translate_keys_with_recips():
     assert results['recipients'] == [{'address': {'email': 'test'}},
                                      {'key': 'value'},
                                      {'address': {'email': 'foobar'}}]
+
+
+def test_exceptions_for_recipients():
+    t = Transmissions('uri', 'key')
+    with pytest.raises(SparkPostException):
+        t._translate_keys(recipients='test')
 
 
 def test_translate_keys_with_unicode_recips():
