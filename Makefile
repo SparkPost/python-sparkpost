@@ -1,4 +1,4 @@
-.PHONY: analysis all build clean docs docs-install docs-open install release release-test test venv 
+.PHONY: analysis all build clean docs docs-install docs-open install release release-test test venv
 
 all: clean venv install
 
