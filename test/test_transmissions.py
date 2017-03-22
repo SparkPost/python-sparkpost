@@ -1,3 +1,4 @@
+# coding: utf-8
 import base64
 import json
 import os
@@ -365,3 +366,50 @@ def test_fail_delete():
     with pytest.raises(SparkPostAPIException):
         sp = SparkPost('fake-key')
         sp.transmission.delete('foobar')
+
+
+@responses.activate
+def test_json_serialize_with_a_non_ascii_unicode_from_substitution_data():
+    responses.add(
+        responses.POST,
+        'https://api.sparkpost.com/api/v1/transmissions',
+        status=200,
+        content_type='application/json',
+        body='{"results": "yay"}'
+    )
+    sp = SparkPost('fake-key')
+    results = sp.transmission.send(recipients=[{
+        'address': {'email': 'unicode_email@example.com'},
+        'substitution_data': {'name': u'João'}
+    }])
+    assert results == 'yay'
+
+    results = sp.transmission.send(recipients=[{
+        'address': {'email': 'unicode_email@example.com'},
+        'substitution_data': {'name': u'😄'}
+    }])
+    assert results == 'yay'
+
+    results = sp.transmission.send(recipients=[{
+        'address': {'email': 'unicode_email@example.com'},
+        'substitution_data': {'name': u'漢字'}
+    }])
+    assert results == 'yay'
+
+
+@responses.activate
+def test_json_serialize_with_a_non_ascii_unicode_from_body():
+    responses.add(
+        responses.POST,
+        'https://api.sparkpost.com/api/v1/transmissions',
+        status=200,
+        content_type='application/json',
+        body='{"results": "yay"}'
+    )
+    sp = SparkPost('fake-key')
+    results = sp.transmission.send(recipients=[{
+        'address': {'email': 'unicode_email@example.com'},
+        'substitution_data': {'name': u'João 漢字'},
+        'text': u'Hello!!! 😄 my name is {{ name }}'
+    }])
+    assert results == 'yay'

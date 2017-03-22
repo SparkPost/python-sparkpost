@@ -251,7 +251,8 @@ class Transmissions(Resource):
         """
 
         payload = self._translate_keys(**kwargs)
-        results = self.request('POST', self.uri, data=json.dumps(payload))
+        data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+        results = self.request('POST', self.uri, data=data)
         return results
 
     def _fetch_get(self, transmission_id):
