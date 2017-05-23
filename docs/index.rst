@@ -1,3 +1,4 @@
+===========================
 SparkPost Python API client
 ===========================
 
@@ -5,7 +6,7 @@ The super-mega-official Python package for using the SparkPost API.
 
 
 Installation
-------------
+============
 
 Install from PyPI using `pip`_:
 
@@ -16,10 +17,10 @@ Install from PyPI using `pip`_:
 .. _pip: http://www.pip-installer.org/en/latest/
 
 
-Authorization
--------------
+Initialization
+==============
 
-Go to `API & SMTP`_ in the SparkPost app and create an API key. We recommend using the ``SPARKPOST_API_KEY`` environment variable:
+Go to `API Keys`_ in the SparkPost app and create an API key. We recommend using the ``SPARKPOST_API_KEY`` environment variable:
 
 .. code-block:: python
 
@@ -33,11 +34,158 @@ Alternatively, you can pass the API key to the SparkPost class:
     from sparkpost import SparkPost
     sp = SparkPost('YOUR API KEY')
 
-.. _API & SMTP: https://app.sparkpost.com/configuration/credentials
+.. _API Keys: https://app.sparkpost.com/account/credentials
+
+Send a message
+==============
+
+Here at SparkPost, our messages are known as transmissions. Let's use the underlying `transmissions API`_ to send a friendly test message:
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+
+    sp = SparkPost()
+
+    response = sp.transmissions.post({
+      options: {
+        'sandbox': True,
+        'open_tracking': True,
+        'click_tracking': True,
+      },
+      recipients: ['someone@somedomain.com'],
+      content: {
+        'from': 'test@sparkpostbox.com',
+        'subject': 'Hello from python-sparkpost',
+        'text': 'Hello world!',
+        'html': '<p>Hello world!</p>',
+      },
+    })
+
+    print(response)
+    # outputs {u'total_accepted_recipients': 1, u'id': u'47960765679942446', u'total_rejected_recipients': 0}
+
+.. _transmissions API: https://developers.sparkpost.com/api/transmissions.html
+
+Custom wrappers
+===============
+
+The ``sp.transmissions`` object is a wrapper around the library's `base resource`_. We create wrappers to add some syntactic sugar on top of our API. For example, adding ``cc`` and ``bcc`` to a transmission.
+
+.. _base resource: https://github.com/SparkPost/python-sparkpost/blob/master/sparkpost/base.py
+
+Using the base resource
+=======================
+
+The base resource can be used to access any of our endpoints through a common interface. Examples for each type of HTTP method follow.
+
+Get a list of all webhooks (GET):
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+
+    sp = SparkPost()
+
+    response = sp.get(uri='webhooks')
+
+Get a specific webhook (GET):
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+
+    sp = SparkPost()
+
+    # or get a specific webhook
+    response = sp.get(
+        uri='webhooks/12affc24-f183-11e3-9234-3c15c2c818c2'
+    )
+
+Create a webhook (POST):
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+
+    sp = SparkPost()
+
+    response = sp.post(
+        uri='webhooks',
+        payload={
+          'name': 'Example webhook',
+          'target': 'http://client.example.com/example-webhook',
+          'events': [
+            'delivery',
+            'injection',
+            'open',
+            'click'
+          ]
+        }
+    )
+
+Update a webhook (PUT):
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+
+    sp = SparkPost()
+
+    response = sp.put(
+        uri='webhooks/12affc24-f183-11e3-9234-3c15c2c818c2',
+        payload={
+          'target': 'http://client.example.com/different-endpoint'
+        }
+    )
+
+Delete a webhook (DELETE):
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+
+    sp = SparkPost()
+
+    response = sp.delete(
+        uri='webhooks/12affc24-f183-11e3-9234-3c15c2c818c2'
+    )
+
+
+Integrations
+============
+
+Django Integration
+------------------
+
+We recommend the `django-anymail`_ package for using SparkPost with Django.
+
+.. _django-anymail: https://github.com/anymail/django-anymail
+
+Using with Google Cloud
+-----------------------
+There are a few simple modifications necessary to enable the use of the underlying ``requests`` library that python-sparkpost uses. First, add the ``requests`` and ``requests-toolbelt`` to your project's ``requirements.txt``:
+
+.. code-block:: text
+
+    requests
+    requests-toolbelt
+
+Then create or update your ``appengine_config.py`` file to include the following:
+
+.. code-block:: python
+
+    import requests
+    import requests_toolbelt.adapters.appengine
+
+    requests_toolbelt.adapters.appengine.monkeypatch()
+
+Then deploy your app and you should be able to send using python-sparkpost on Google Cloud.
+
 
 
 Resources
----------
+=========
 
 The following resources are available in python-sparkpost:
 
@@ -49,7 +197,7 @@ The following resources are available in python-sparkpost:
 
 
 API reference
--------------
+=============
 
 Auto-generated API reference for python-sparkpost:
 
@@ -57,17 +205,6 @@ Auto-generated API reference for python-sparkpost:
     :maxdepth: 2
 
     api
-
-Using in Django
----------------
-
-Configure Django to use SparkPost email backend
-
-.. toctree::
-    :maxdepth: 2
-
-    django/backend
-
 
 Additional documentation
 ------------------------
@@ -78,7 +215,7 @@ The underlying SparkPost API is documented at the official `SparkPost API Refere
 
 
 Contribute
-----------
+==========
 
 #. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug.
 #. Fork `the repository`_ on GitHub and make your changes in a branch on your fork
