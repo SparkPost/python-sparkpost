@@ -2,8 +2,12 @@ from sparkpost import SparkPost
 
 sp = SparkPost()
 
-response = sp.transmissions.send(
-    recipients=[
+response = sp.transmissions.post({
+    'options': {
+        'sandbox': True,
+        'start_time': '2015-11-06T09:10:00-05:00',
+    },
+    'recipients': [
         'postmaster@example.com',
         'you@me.com',
         {
@@ -13,25 +17,13 @@ response = sp.transmissions.send(
             }
         }
     ],
-    html='<p>Hello world {{name}}</p>',
-    text='Hello world {{name}}',
-    from_email='test@sparkpostbox.com',
-    subject='Example Script',
-    description='contrived example',
-    custom_headers={
-        'X-CUSTOM-HEADER': 'foo bar'
+    'content': {
+        'from': '"Test User" <test@sparkpostbox.com>',
+        'subject': 'Hello from python-sparkpost',
+        'text': 'Hello world!',
+        'html': '<p>Hello world!</p>',
     },
-    track_opens=True,
-    track_clicks=True,
-    start_time='2015-11-06T09:10:00-05:00',
-    campaign='python-sparkpost example',
-    metadata={
-        'key': 'value',
-        'arbitrary': 'values'
-    },
-    substitution_data={
-        'name': 'Example User'
-    }
-)
+    'campaign_id': 'python-sparkpost example',
+})
 
 print(response)

@@ -42,7 +42,7 @@ response = sp.transmissions.post({
             'X-CUSTOM-HEADER': 'foo bar'
         },
     },
-    'campaign_id': 'sdk example',
+    'campaign_id': 'python-sparkpost example',
     'metadata': {
         'key': 'value',
         'arbitrary': 'values'

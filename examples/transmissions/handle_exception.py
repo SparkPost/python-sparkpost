@@ -16,12 +16,16 @@ from sparkpost.exceptions import SparkPostAPIException
 sp = SparkPost()
 
 try:
-    response = sp.transmissions.send(
-        recipients=['john.doe@example.com'],
-        text='Hello there',
-        from_email='Testing <test@some-domain-you-havent-configured.com>',
-        subject='Testing python-sparkpost exceptions'
-    )
+    response = sp.transmissions.post({
+        'recipients': ['john.doe@example.com'],
+        'content': {
+            'from': 'Testing <test@some-domain-you-havent-configured.com>',
+            'subject': 'Testing python-sparkpost exceptions',
+            'text': 'Hello world!',
+            'html': '<p>Hello world!</p>',
+        },
+        'campaign_id': 'python-sparkpost example',
+    })
 except SparkPostAPIException as err:
     # http response status code
     print(err.status)
