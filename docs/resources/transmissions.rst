@@ -10,13 +10,13 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
     sp = SparkPost()
 
     response = sp.transmissions.post({
-      options: {
+      'options': {
         'sandbox': True,
         'open_tracking': True,
         'click_tracking': True,
       },
-      recipients: ['someone@somedomain.com'],
-      content: {
+      'recipients': ['someone@somedomain.com'],
+      'content': {
         'from': 'test@sparkpostbox.com',
         'subject': 'Hello from python-sparkpost',
         'text': 'Hello world!',
@@ -43,13 +43,13 @@ Using inline templates and/or recipients
     sp = SparkPost()
 
     response = sp.transmissions.post({
-      options: {
+      'options': {
         'sandbox': True,
         'open_tracking': True,
         'click_tracking': True,
       },
-      recipients: ['someone@somedomain.com'],
-      content: {
+      'recipients': ['someone@somedomain.com'],
+      'content': {
         'from': 'test@sparkpostbox.com',
         'subject': 'Hello from python-sparkpost',
         'text': 'Hello world!',
@@ -68,15 +68,15 @@ Including cc, bcc
     sp = SparkPost()
 
     response = sp.transmissions.post({
-      options: {
+      'options': {
         'sandbox': True,
         'open_tracking': True,
         'click_tracking': True,
       },
-      recipients: ['someone@somedomain.com'],
-      cc: ['carboncopy@somedomain.com'],
-      bcc: ['blindcarboncopy@somedomain.com'],
-      content: {
+      'recipients': ['someone@somedomain.com'],
+      'cc': ['carboncopy@somedomain.com'],
+      'bcc': ['blindcarboncopy@somedomain.com'],
+      'content': {
         'from': 'test@sparkpostbox.com',
         'subject': 'Hello from python-sparkpost',
         'text': 'Hello world!',
@@ -95,13 +95,13 @@ Sending an attachment
     sp = SparkPost()
 
     response = sp.transmissions.post({
-      options: {
+      'options': {
         'sandbox': True,
         'open_tracking': True,
         'click_tracking': True,
       },
-      recipients: ['someone@somedomain.com'],
-      content: {
+      'recipients': ['someone@somedomain.com'],
+      'content': {
         'from': 'test@sparkpostbox.com',
         'subject': 'Hello from python-sparkpost',
         'text': 'Hello world!',
@@ -131,19 +131,19 @@ Using substitution data
     sp = SparkPost()
 
     response = sp.transmissions.post({
-      options: {
+      'options': {
         'sandbox': True,
         'open_tracking': True,
         'click_tracking': True,
       },
-      recipients: ['someone@somedomain.com'],
-      content: {
+      'recipients': ['someone@somedomain.com'],
+      'content': {
         'from': 'test@sparkpostbox.com',
         'subject': 'Hello from python-sparkpost',
         'text': 'Hello {{name}}!',
         'html': '<p>Hello {{name}}!</p>',
       },
-      substitution_data: {
+      'substitution_data': {
         'name': 'Sparky'
       },
     })
@@ -159,8 +159,8 @@ Using a stored template
     sp = SparkPost()
 
     response = sp.transmissions.post({
-      recipients: ['someone@somedomain.com'],
-      template_id: 'my-template-id',
+      'recipients': ['someone@somedomain.com'],
+      'template_id': 'my-template-id',
     })
 
 
@@ -174,8 +174,8 @@ Using a stored recipient list
     sp = SparkPost()
 
     response = sp.transmissions.post({
-      recipients: 'my-recipient-list',
-      template_id: 'my-template-id',
+      'recipients': 'my-recipient-list',
+      'template_id': 'my-template-id',
     })
 
 

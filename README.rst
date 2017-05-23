@@ -74,13 +74,13 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
     sp = SparkPost()
 
     response = sp.transmissions.post({
-      options: {
+      'options': {
         'sandbox': True,
         'open_tracking': True,
         'click_tracking': True,
       },
-      recipients: ['someone@somedomain.com'],
-      content: {
+      'recipients': ['someone@somedomain.com'],
+      'content': {
         'from': 'test@sparkpostbox.com',
         'subject': 'Hello from python-sparkpost',
         'text': 'Hello world!',
