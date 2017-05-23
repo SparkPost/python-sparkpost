@@ -59,7 +59,7 @@ Alternatively, you can pass the API key to the SparkPost class:
     from sparkpost import SparkPost
     sp = SparkPost('YOUR API KEY')
 
-.. _API & SMTP: https://app.sparkpost.com/account/credentials
+.. _API Keys: https://app.sparkpost.com/account/credentials
 
 
 Send a message
@@ -182,17 +182,17 @@ Integrations
 ============
 
 Django Integration
-~~~~~~~~~~~~~~~~~~
+------------------
 
 We recommend the `django-anymail`_ package for using SparkPost with Django.
 
 .. _django-anymail: https://github.com/anymail/django-anymail
 
 Using with Google Cloud
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 There are a few simple modifications necessary to enable the use of the underlying ``requests`` library that python-sparkpost uses. First, add the ``requests`` and ``requests-toolbelt`` to your project's ``requirements.txt``:
 
-.. code-block::
+.. code-block:: text
 
     requests
     requests-toolbelt
