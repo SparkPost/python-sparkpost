@@ -7,8 +7,13 @@ attachment_path = os.path.abspath(os.path.join(parent_dir, "a-file.txt"))
 
 sp = SparkPost()
 
-response = sp.transmissions.send(
-    recipients=[
+response = sp.transmissions.post({
+    'options': {
+        'sandbox': True,
+        'open_tracking': True,
+        'click_tracking': True,
+    },
+    'recipients': [
         'postmaster@example.com',
         'you@me.com',
         {
@@ -18,32 +23,31 @@ response = sp.transmissions.send(
             }
         }
     ],
-    cc=['carboncopy@example.com'],
-    bcc=['blindcarboncopy@example.com'],
-    html='<p>Hello {{name}}</p>',
-    text='Hello {{name}}',
-    from_email='Test User <test@sparkpostbox.com>',
-    subject='Example Script',
-    description='contrived example',
-    custom_headers={
-        'X-CUSTOM-HEADER': 'foo bar'
+    'cc': ['carboncopy@example.com'],
+    'bcc': ['blindcarboncopy@example.com'],
+    'content': {
+        'from': '"Test User" <test@sparkpostbox.com>',
+        'reply_to': 'no-reply@sparkpostmail.com',
+        'subject': 'Hello from python-sparkpost',
+        'text': 'Hello world!',
+        'html': '<p>Hello world!</p>',
+        'attachments': [
+            {
+                'name': 'test.txt',
+                'type': 'text/plain',
+                'filename': attachment_path
+            }
+        ],
+        'headers': {
+            'X-CUSTOM-HEADER': 'foo bar'
+        },
     },
-    track_opens=True,
-    track_clicks=True,
-    attachments=[
-        {
-            "name": "test.txt",
-            "type": "text/plain",
-            "filename": attachment_path
-        }
-    ],
-    campaign='sdk example',
-    metadata={
+    'campaign_id': 'sdk example',
+    'metadata': {
         'key': 'value',
         'arbitrary': 'values'
     },
-    substitution_data={
+    'substitution_data': {
         'name': 'Example User'
     },
-    reply_to='no-reply@sparkpostmail.com'
-)
+})
