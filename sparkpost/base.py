@@ -32,10 +32,12 @@ class Resource(object):
         return "%s/%s" % (self.base_uri, self.key)
 
     def request(self, method, uri, **kwargs):
+        subaccount = kwargs.pop('subaccount', 0)
         headers = {
             'User-Agent': 'python-sparkpost/' + sparkpost.__version__,
             'Content-Type': 'application/json',
-            'Authorization': self.api_key
+            'Authorization': self.api_key,
+            'X-MSYS-SUBACCOUNT': subaccount
         }
         response = self.transport.request(method, uri, headers=headers,
                                           **kwargs)
