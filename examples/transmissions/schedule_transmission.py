@@ -1,11 +1,20 @@
+"""
+This example use the pendulum python package, which has a nice API for
+datetime/timezone handling. You can use pytz or prepare your own datetimes.
+"""
+import pendulum
 from sparkpost import SparkPost
+
+# create a datetime for two days from now
+now = pendulum.now('Europe/Paris')
+now = now.add(days=2)
 
 sp = SparkPost()
 
 response = sp.transmissions.post({
     'options': {
         'sandbox': True,
-        'start_time': '2015-11-06T09:10:00-05:00',
+        'start_time': now.to_iso8601_string(),
     },
     'recipients': [
         'postmaster@example.com',
