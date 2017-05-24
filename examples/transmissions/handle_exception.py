@@ -29,8 +29,14 @@ try:
 except SparkPostAPIException as err:
     # http response status code
     print(err.status)
+    # list of formatted errors
+    print(err.errors)
     # python requests library response object
     # http://docs.python-requests.org/en/master/api/#requests.Response
     print(err.response.json())
-    # list of formatted errors
-    print(err.errors)
+    # you can loop through the errors and extract message, code, description
+    for e in err.response.json()['errors']:
+        error_template = "{message} Code: {code} Description: {desc} \n"
+        print(error_template.format(message=e.get('message', ''),
+                                    code=e.get('code', 'none'),
+                                    desc=e.get('description', 'none')))
