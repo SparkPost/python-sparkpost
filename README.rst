@@ -96,7 +96,7 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 Custom wrappers
 ===============
 
-The ``sp.transmissions`` object is a wrapper around the library's `base resource`_. We create wrappers to add some syntactic sugar on top of our API. For example, adding ``cc`` and ``bcc`` to a transmission.
+We use custom wrappers to add some syntactic sugar on top of our API. For example the ``sp.transmissions`` wrapper adds a simple way to define ``cc``, ``bcc``, and ``attachments`` for a transmission. These wrappers use the library's `base resource`_. 
 
 .. _base resource: https://github.com/SparkPost/python-sparkpost/blob/master/sparkpost/base.py
 
@@ -206,7 +206,9 @@ Then create or update your ``appengine_config.py`` file to include the following
 
     requests_toolbelt.adapters.appengine.monkeypatch()
 
-Then deploy your app and you should be able to send using python-sparkpost on Google Cloud.
+Then deploy your app and you should be able to send using python-sparkpost on Google Cloud. We've also set up `some sample applications`_ on Github as a reference.
+
+.. _some sample applications: https://github.com/search?q=org%3ASparkPost+google
 
 Documentation
 =============
