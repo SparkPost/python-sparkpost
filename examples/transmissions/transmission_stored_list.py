@@ -2,23 +2,18 @@ from sparkpost import SparkPost
 
 sp = SparkPost()
 
-response = sp.transmissions.send(
-    recipient_list='my_list',
-    html='<p>Hello world {{name}}</p>',
-    text='Hello world {{name}}',
-    from_email='test@sparkpostbox.com',
-    subject='Example Script',
-    description='contrived example',
-    custom_headers={
-        'X-CUSTOM-HEADER': 'foo bar'
+response = sp.transmissions.post({
+    'options': {
+        'sandbox': True,
+        'open_tracking': True,
+        'click_tracking': True,
     },
-    campaign='sdk example',
-    metadata={
-        'key': 'value',
-        'arbitrary': 'values'
+    'recipients': 'my_list',
+    'content': {
+        'from': '"Test User" <test@sparkpostbox.com>',
+        'subject': 'Hello from python-sparkpost',
+        'text': 'Hello world!',
+        'html': '<p>Hello world!</p>',
     },
-    substitution_data={
-        'name': 'Example User'
-    },
-    reply_to='no-reply@sparkpostmail.com'
-)
+    'campaign_id': 'python-sparkpost example',
+})

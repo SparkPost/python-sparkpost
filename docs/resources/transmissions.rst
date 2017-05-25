@@ -9,19 +9,25 @@ Here at SparkPost, our messages are known as transmissions. Let's use the underl
 
     sp = SparkPost()
 
-    response = sp.transmissions.send(
-        recipients=['someone@somedomain.com'],
-        html='<p>Hello world</p>',
-        from_email='test@sparkpostbox.com',
-        subject='Hello from python-sparkpost',
-        track_opens=True,
-        track_clicks=True
-    )
+    response = sp.transmissions.post({
+      'options': {
+        'sandbox': True,
+        'open_tracking': True,
+        'click_tracking': True,
+      },
+      'recipients': ['someone@somedomain.com'],
+      'content': {
+        'from': 'test@sparkpostbox.com',
+        'subject': 'Hello from python-sparkpost',
+        'text': 'Hello world!',
+        'html': '<p>Hello world!</p>',
+      },
+    })
 
     print(response)
     # outputs {u'total_accepted_recipients': 1, u'id': u'47960765679942446', u'total_rejected_recipients': 0}
 
-.. _transmissions API: https://www.sparkpost.com/api#/reference/transmissions
+.. _transmissions API: https://developers.sparkpost.com/api/transmissions.html
 
 
 Send a transmission
@@ -36,15 +42,20 @@ Using inline templates and/or recipients
 
     sp = SparkPost()
 
-    sp.transmissions.send(
-        recipients=['someone@somedomain.com'],
-        text="Hello world",
-        html='<p>Hello world</p>',
-        from_email='test@sparkpostbox.com',
-        subject='Hello from python-sparkpost',
-        track_opens=True,
-        track_clicks=True
-    )
+    response = sp.transmissions.post({
+      'options': {
+        'sandbox': True,
+        'open_tracking': True,
+        'click_tracking': True,
+      },
+      'recipients': ['someone@somedomain.com'],
+      'content': {
+        'from': 'test@sparkpostbox.com',
+        'subject': 'Hello from python-sparkpost',
+        'text': 'Hello world!',
+        'html': '<p>Hello world!</p>',
+      },
+    })
 
 
 Including cc, bcc
@@ -56,17 +67,22 @@ Including cc, bcc
 
     sp = SparkPost()
 
-    sp.transmissions.send(
-        recipients=['someone@somedomain.com'],
-        cc=['carboncopy@somedomain.com'],
-        bcc=['blindcarboncopy@somedomain.com'],
-        text="Hello world",
-        html='<p>Hello world</p>',
-        from_email='test@sparkpostbox.com',
-        subject='Hello from python-sparkpost',
-        track_opens=True,
-        track_clicks=True
-    )
+    response = sp.transmissions.post({
+      'options': {
+        'sandbox': True,
+        'open_tracking': True,
+        'click_tracking': True,
+      },
+      'recipients': ['someone@somedomain.com'],
+      'cc': ['carboncopy@somedomain.com'],
+      'bcc': ['blindcarboncopy@somedomain.com'],
+      'content': {
+        'from': 'test@sparkpostbox.com',
+        'subject': 'Hello from python-sparkpost',
+        'text': 'Hello world!',
+        'html': '<p>Hello world!</p>',
+      },
+    })
 
 
 Sending an attachment
@@ -78,22 +94,27 @@ Sending an attachment
 
     sp = SparkPost()
 
-    sp.transmissions.send(
-        recipients=['someone@somedomain.com'],
-        text="Hello world",
-        html='<p>Hello world</p>',
-        from_email='test@sparkpostbox.com',
-        subject='Hello from python-sparkpost',
-        track_opens=True,
-        track_clicks=True,
-        attachments=[
-            {
-                "name": "test.txt",
-                "type": "text/plain",
-                "filename": "/home/sparkpost/a-file.txt"
-            }
+    response = sp.transmissions.post({
+      'options': {
+        'sandbox': True,
+        'open_tracking': True,
+        'click_tracking': True,
+      },
+      'recipients': ['someone@somedomain.com'],
+      'content': {
+        'from': 'test@sparkpostbox.com',
+        'subject': 'Hello from python-sparkpost',
+        'text': 'Hello world!',
+        'html': '<p>Hello world!</p>',
+        'attachments': [
+          {
+              'name': 'test.txt',
+              'type': 'text/plain',
+              'filename': '/home/sparkpost/a-file.txt'
+          }
         ]
-    )
+      },
+    })
 
 
 Using substitution data
@@ -109,18 +130,23 @@ Using substitution data
 
     sp = SparkPost()
 
-    sp.transmissions.send(
-        recipients=['someone@somedomain.com'],
-        text="Hello {{name}}",
-        html='<p>Hello {{name}}</p>',
-        from_email='test@sparkpostbox.com',
-        subject='Hello from python-sparkpost',
-        track_opens=True,
-        track_clicks=True,
-        substitution_data={
-            'name': 'Sparky'
-        }
-    )
+    response = sp.transmissions.post({
+      'options': {
+        'sandbox': True,
+        'open_tracking': True,
+        'click_tracking': True,
+      },
+      'recipients': ['someone@somedomain.com'],
+      'content': {
+        'from': 'test@sparkpostbox.com',
+        'subject': 'Hello from python-sparkpost',
+        'text': 'Hello {{name}}!',
+        'html': '<p>Hello {{name}}!</p>',
+      },
+      'substitution_data': {
+        'name': 'Sparky'
+      },
+    })
 
 
 Using a stored template
@@ -132,10 +158,10 @@ Using a stored template
 
     sp = SparkPost()
 
-    sp.transmissions.send(
-        recipients=['someone@somedomain.com'],
-        template='my-template-id'
-    )
+    response = sp.transmissions.post({
+      'recipients': ['someone@somedomain.com'],
+      'template_id': 'my-template-id',
+    })
 
 
 Using a stored recipient list
@@ -147,10 +173,10 @@ Using a stored recipient list
 
     sp = SparkPost()
 
-    sp.transmissions.send(
-        recipient_list='my-recipient-list',
-        template='my-template-id'
-    )
+    response = sp.transmissions.post({
+      'recipients': 'my-recipient-list',
+      'template_id': 'my-template-id',
+    })
 
 
 Retrieve a transmission
@@ -174,7 +200,7 @@ List all transmissions
 
     sp = SparkPost()
 
-    sp.transmissions.list()
+    sp.transmissions.get()
 
 
 API reference
@@ -196,5 +222,5 @@ Additional documentation
 
 See the `SparkPost Transmissions API Reference`_.
 
-.. _SparkPost Transmissions API Reference: https://www.sparkpost.com/api#/reference/transmissions
+.. _SparkPost Transmissions API Reference: https://developers.sparkpost.com/api/transmissions.html
 
