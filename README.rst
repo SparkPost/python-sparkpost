@@ -4,7 +4,7 @@
 
 `Sign up`_ for a SparkPost account and visit our `Developer Hub`_ for even more content.
 
-.. _Sign up: https://app.sparkpost.com/sign-up?src=Dev-Website&sfdcid=70160000000pqBb
+.. _Sign up: https://app.sparkpost.com/join?plan=free-0817?src=Social%20Media&sfdcid=70160000000pqBb&pc=GitHubSignUp&utm_source=github&utm_medium=social-media&utm_campaign=github&utm_content=sign-up
 .. _Developer Hub: https://developers.sparkpost.com
 
 SparkPost Python API client
