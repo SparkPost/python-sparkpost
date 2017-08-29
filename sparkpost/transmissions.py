@@ -251,15 +251,18 @@ class Transmissions(Resource):
         """
 
         payload = self._translate_keys(**kwargs)
-        results = self.request('POST', self.uri, data=json.dumps(payload))
+        subaccount = kwargs.pop('subaccount', 0)
+        results = self.request('POST', self.uri, data=json.dumps(payload),
+                               subaccount=subaccount)
         return results
 
-    def _fetch_get(self, transmission_id):
+    def _fetch_get(self, transmission_id, **kwargs):
         uri = "%s/%s" % (self.uri, transmission_id)
-        results = self.request('GET', uri)
+        subaccount = kwargs.pop('subaccount', 0)
+        results = self.request('GET', uri, subaccount=subaccount)
         return results
 
-    def get(self, transmission_id):
+    def get(self, transmission_id, **kwargs):
         """
         Get a transmission by ID
 
@@ -268,7 +271,7 @@ class Transmissions(Resource):
         :returns: the requested transmission if found
         :raises: :exc:`SparkPostAPIException` if transmission is not found
         """
-        results = self._fetch_get(transmission_id)
+        results = self._fetch_get(transmission_id, **kwargs)
         return results['transmission']
 
     def list(self, **kwargs):
@@ -285,9 +288,11 @@ class Transmissions(Resource):
         'check https://sparkpo.st/5qcj4.'
 
         warnings.warn(warn_msg, DeprecationWarning)
-        return self.request('GET', self.uri, params=kwargs)
+        subaccount = kwargs.pop('subaccount', 0)
+        return self.request('GET', self.uri, params=kwargs,
+                            subaccount=subaccount)
 
-    def delete(self, transmission_id):
+    def delete(self, transmission_id, **kwargs):
         """
         Delete a transmission by ID
 
@@ -298,5 +303,6 @@ class Transmissions(Resource):
             or Canceled
         """
         uri = "%s/%s" % (self.uri, transmission_id)
-        results = self.request('DELETE', uri)
+        subaccount = kwargs.pop('subaccount', 0)
+        results = self.request('DELETE', uri, subaccount=subaccount)
         return results

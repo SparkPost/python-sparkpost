@@ -1,7 +1,9 @@
 import pytest
 import responses
+from mock import patch
 
-from sparkpost.base import Resource
+import sparkpost
+from sparkpost.base import Resource, RequestsTransport
 from sparkpost.exceptions import SparkPostAPIException
 
 
@@ -20,6 +22,40 @@ def create_resource():
 def test_uri():
     resource = create_resource()
     assert resource.uri == fake_uri
+
+
+def test_default_headers():
+    expected_headers = {
+        'User-Agent': 'python-sparkpost/' + sparkpost.__version__,
+        'Content-Type': 'application/json',
+        'Authorization': fake_api_key,
+        'X-MSYS-SUBACCOUNT': 0
+    }
+
+    with patch.object(RequestsTransport,
+                      'request',
+                      return_value=None) as request_mock:
+        resource = create_resource()
+        resource.request('GET', resource.uri)
+        request_mock.assert_called_with('GET', resource.uri,
+                                        headers=expected_headers)
+
+
+def test_subaccount_header():
+    expected_headers = {
+        'User-Agent': 'python-sparkpost/' + sparkpost.__version__,
+        'Content-Type': 'application/json',
+        'Authorization': fake_api_key,
+        'X-MSYS-SUBACCOUNT': 123
+    }
+
+    with patch.object(RequestsTransport,
+                      'request',
+                      return_value=None) as request_mock:
+        resource = create_resource()
+        resource.request('GET', resource.uri, subaccount=123)
+        request_mock.assert_called_with('GET', resource.uri,
+                                        headers=expected_headers)
 
 
 @responses.activate
