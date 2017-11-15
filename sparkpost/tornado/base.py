@@ -20,9 +20,11 @@ class TornadoTransport(object):
             raise gen.Return(True)
         if response.code == 200:
             result = None
+            # noinspection PyBroadException
             try:
                 result = json.loads(response.body.decode("utf-8"))
-            except:
+            # TODO: select exception to catch here
+            except:  # noqa: E722
                 pass
             if result:
                 if 'results' in result:
