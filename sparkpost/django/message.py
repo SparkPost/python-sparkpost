@@ -90,4 +90,12 @@ class SparkPostMessage(dict):
         if hasattr(message, 'campaign'):
             formatted['campaign'] = message.campaign
 
+        if message.extra_headers:
+            formatted['custom_headers'] = message.extra_headers
+            if 'X-MSYS-API' in message.extra_headers:
+                import json
+                msys_api = json.loads(message.extra_headers['X-MSYS-API'])
+                if msys_api and msys_api.get('options', {}).get('transactional', False):  # noqa: E501
+                    formatted['transactional'] = True
+
         super(SparkPostMessage, self).__init__(formatted)
