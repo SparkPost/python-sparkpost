@@ -3,12 +3,10 @@ import copy
 import json
 import warnings
 from email.utils import parseaddr
-import logging
 
 from .base import Resource
 from .exceptions import SparkPostException
 
-log = logging.getLogger(__name__)
 
 try:
     string_types = basestring
@@ -254,11 +252,6 @@ class Transmissions(Resource):
 
         payload = self._translate_keys(**kwargs)
         data = json.dumps(payload)
-        # payload log dumping was added per request from Steve from Sparkpost
-        # support, during debugging of DKIM signature validation problem with
-        # some messages Case ID# 203488
-        # Payload dumping can be disabled with usual python log configuration
-        log.debug("Payload data: %s", data)
         results = self.request('POST', self.uri, data=data)
         return results
 
