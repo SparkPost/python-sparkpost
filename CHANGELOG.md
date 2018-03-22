@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.6] - 2018-03-23
+### Added
+- [#160](https://github.com/SparkPost/python-sparkpost/pull/160) Extra header support for Django messages
+
 ## [1.3.5] - 2017-03-07
 ### Added
 - [#141](https://github.com/SparkPost/python-sparkpost/pull/141) Validation for recipients parameter for transmissions
@@ -128,7 +132,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Metrics class for getting a list of campaigns and domains
 - Docs on readthedocs.org
 
-[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.5...HEAD
+[unreleased]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.6...HEAD
+[1.3.6]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.5...v1.3.6
 [1.3.5]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.4...v1.3.5
 [1.3.4]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/sparkpost/python-sparkpost/compare/v1.3.2...v1.3.3
