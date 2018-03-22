@@ -6,13 +6,15 @@ from ..exceptions import SparkPostAPIException as RequestsSparkPostAPIException
 class SparkPostAPIException(RequestsSparkPostAPIException):
     def __init__(self, response, *args, **kwargs):
         errors = None
+        # noinspection PyBroadException
         try:
             data = json.loads(response.body.decode("utf-8"))
             if data:
                 errors = data['errors']
                 errors = [e['message'] + ': ' + e.get('description', '')
                           for e in errors]
-        except:
+        # TODO: select exception to catch here
+        except:  # noqa: E722
             pass
         if not errors:
             errors = [response.body.decode("utf-8") or ""]

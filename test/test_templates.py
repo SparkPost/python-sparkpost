@@ -1,6 +1,7 @@
 try:
     from urllib.parse import urlparse
-except:
+# TODO: select exception to catch here
+except:  # noqa: E722
     from urlparse import urlparse
 
 import pytest

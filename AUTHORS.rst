@@ -21,4 +21,5 @@ Patches and suggestions
 - `@gnarvaja <https://github.com/gnarvaja>`_
 - `@pegler <https://github.com/pegler>`_
 - `@puttu <https://github.com/puttu>`_
+- Janusz Skonieczny `@wooyek <https://github.com/wooyek>`_
 - ADD YOURSELF HERE (and link to your github page)

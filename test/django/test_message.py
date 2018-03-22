@@ -228,3 +228,30 @@ if at_least_version('1.8'):
 
         assert message(reply_to=['replyone@example.com',
                                  'replytwo@example.com']) == expected
+
+
+def test_extra_headers():
+    email_message = EmailMessage(**base_options)
+    email_message.extra_headers['FOO'] = 'bar'
+
+    actual = SparkPostMessage(email_message)
+    expected = dict(
+        custom_headers={'FOO': 'bar'},
+    )
+    expected.update(base_expected)
+    assert actual == expected
+
+
+def test_transactional():
+    email_message = EmailMessage(**base_options)
+    import json
+    msys_api = json.dumps({'options': {'transactional': True}})
+    email_message.extra_headers['X-MSYS-API'] = msys_api
+
+    actual = SparkPostMessage(email_message)
+    expected = dict(
+        custom_headers={'X-MSYS-API': msys_api},
+        transactional=True,
+    )
+    expected.update(base_expected)
+    assert actual == expected
