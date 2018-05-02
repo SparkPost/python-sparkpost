@@ -26,7 +26,7 @@ SparkPost Python API client
     :target: http://slack.sparkpost.com
     :alt: Slack Community
 
-The super-mega-official Python package for using the SparkPost API.
+The official Python package for using the SparkPost API.
 
 Documentation
 -------------
@@ -67,6 +67,13 @@ Alternatively, you can pass the API key to the SparkPost class:
 
     from sparkpost import SparkPost
     sp = SparkPost('YOUR API KEY')
+
+For SparkPost EU and Enterprise accounts, pass in a second parameter to set the API host.
+
+.. code-block:: python
+
+    from sparkpost import SparkPost
+    sp = SparkPost('YOUR API KEY', 'https://api.eu.sparkpost.com/api')
 
 .. _API & SMTP: https://app.sparkpost.com/#/configuration/credentials
 
@@ -123,7 +130,7 @@ Then create or update your ``appengine_config.py`` file to include the following
 
     import requests
     import requests_toolbelt.adapters.appengine
-    
+
     requests_toolbelt.adapters.appengine.monkeypatch()
 
 Then deploy your app and you should be able to send using python-sparkpost on Google Cloud.
