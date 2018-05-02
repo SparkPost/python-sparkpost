@@ -28,6 +28,14 @@ SparkPost Python API client
 
 The official Python package for using the SparkPost API.
 
+Documentation
+-------------
+
+* Documentation for `python-sparkpost`_
+* `SparkPost API Reference`_
+
+.. _python-sparkpost: https://python-sparkpost.readthedocs.io/
+.. _SparkPost API Reference: https://www.sparkpost.com/api
 
 Installation
 ------------
@@ -126,17 +134,6 @@ Then create or update your ``appengine_config.py`` file to include the following
     requests_toolbelt.adapters.appengine.monkeypatch()
 
 Then deploy your app and you should be able to send using python-sparkpost on Google Cloud.
-
-
-Documentation
--------------
-
-* Documentation for `python-sparkpost`_
-* `SparkPost API Reference`_
-
-.. _python-sparkpost: https://python-sparkpost.readthedocs.io/
-.. _SparkPost API Reference: https://www.sparkpost.com/api
-
 
 Contribute
 ----------
