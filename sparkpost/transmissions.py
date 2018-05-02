@@ -182,7 +182,7 @@ class Transmissions(Resource):
             transmission, used in WebHooks
         :param dict substitution_data: Corresponds to substitutions in
             html/text content. See `substitutions reference
-            <https://www.sparkpost.com/docs/substitutions-reference>`_.
+            <https://developers.sparkpost.com/api/substitutions-reference.html>`_.
         :param attachments: List of dicts. For example:
 
             .. code-block:: python
