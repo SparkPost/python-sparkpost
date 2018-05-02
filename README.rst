@@ -60,7 +60,7 @@ Alternatively, you can pass the API key to the SparkPost class:
     from sparkpost import SparkPost
     sp = SparkPost('YOUR API KEY')
 
-For SparkPost EU and Enterprise customers, you can pass in a second parameter to set the API host.
+For SparkPost EU and Enterprise accounts, pass in a second parameter to set the API host.
 
 .. code-block:: python
 
