@@ -159,30 +159,34 @@ class Transmissions(Resource):
 
         :param list|dict recipients: If list, it is a list of email addresses,
             if dict: ``{'address': {'name': 'Name', 'email': 'me' }}``
-        :param str recipient_list: ID of recipient list. If this is set, the `recipients`
+        :param str recipient_list: ID of recipient list. If this is set,
+            the `recipients`
             param will be ignored
         :param cc: List of email addresses to send carbon copy to
         :param bcc: List of email addresses to send blind carbon copy to
-        :param str template: ID of template to be used. Setting a template overrides
-            set the HTML and text params
-        :param bool use_draft_template: Default to False. Set to true if you
+        :param str template: ID of template to be used. Setting a template
+            overrides set the HTML and text params
+        :param bool use_draft_template: Defaults to False. Set to true if you
             want to send a template that is a draft
         :param str html: HTML part of transmission
         :param str text: Text part of transmission
         :param str subject: Subject of transmission
         :param str from_email: Email that the transmission comes from. The
-            domain must be a verified sending domain belonging to your account or
-            the transmission will fail. You can pass a from email or both
+            domain must be a verified sending domain belonging to your account
+            or the transmission will fail. You can pass a from email or both
             from name and from email - `testing@example.com` or
             `Test Email <testing@example.com>` will both work.
         :param str reply_to: Reply to of transmission
+        :param str return_path: Email address to use for envelope FROM. The
+            domain part of the return_path address must be a
+            CNAME-verified sending domain.
         :param str description: Description of transmission
         :param str campaign: Campaign of transmission
         :param dict metadata: Any data you want to send along with
             transmission, used in WebHooks
         :param dict substitution_data: Corresponds to substitutions in
             html/text content. See `substitutions reference
-            <https://developers.sparkpost.com/api/substitutions-reference.html>`_.
+            <https://developers.sparkpost.com/api/substitutions-reference>`_.
         :param attachments: List of dicts. For example:
 
             .. code-block:: python
@@ -243,7 +247,8 @@ class Transmissions(Resource):
             your account
         :param bool inline_css: Whether or not to perform CSS inlining
         :param dict custom_headers: Used to set any headers associated with
-            transmission. See `header notes <https://developers.sparkpost.com/api/transmissions.html#header-header-notes>`_
+            transmission. See `header notes
+            <https://developers.sparkpost.com/api/transmissions.html#header-header-notes>`_
 
         :returns: a ``dict`` with the transmission ID and number of accepted and rejected
             recipients
