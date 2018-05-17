@@ -157,21 +157,21 @@ class Transmissions(Resource):
         """
         Send a transmission based on the supplied parameters
 
-        :param list|dict recipients: If list it is an list of email addresses,
-            if dict ``{'address': {'name': 'Name', 'email': 'me' }}``
-        :param str recipient_list: ID of recipient list, if set recipients
-            above will be ignored
+        :param list|dict recipients: If list, it is a list of email addresses,
+            if dict: ``{'address': {'name': 'Name', 'email': 'me' }}``
+        :param str recipient_list: ID of recipient list. If this is set, the `recipients`
+            param will be ignored
         :param cc: List of email addresses to send carbon copy to
         :param bcc: List of email addresses to send blind carbon copy to
-        :param str template: ID of template. If set HTML or text will not be
-            used
+        :param str template: ID of template to be used. Setting a template overrides
+            set the HTML and text params
         :param bool use_draft_template: Default to False. Set to true if you
             want to send a template that is a draft
         :param str html: HTML part of transmission
         :param str text: Text part of transmission
         :param str subject: Subject of transmission
         :param str from_email: Email that the transmission comes from. The
-            domain must be a verified sending domain to your account or
+            domain must be a verified sending domain belonging to your account or
             the transmission will fail. You can pass a from email or both
             from name and from email - `testing@example.com` or
             `Test Email <testing@example.com>` will both work.
@@ -238,14 +238,14 @@ class Transmissions(Resource):
             non-transactional for unsubscribe and suppression purposes
         :param bool skip_suppression: Whether or not to ignore customer
             suppression rules, for this transmission only. Only applicable if
-            your configuration supports this parameter. (SparkPost Elite only)
-        :param str ip_pool: The name of a dedicated IP pool associated with
+            your configuration supports this parameter. (Enterprise only)
+        :param str ip_pool: The ID of an IP pool associated with
             your account
         :param bool inline_css: Whether or not to perform CSS inlining
         :param dict custom_headers: Used to set any headers associated with
-            transmission
+            transmission. See `header notes <https://developers.sparkpost.com/api/transmissions.html#header-header-notes>`_
 
-        :returns: a ``dict`` with the ID and number of accepted and rejected
+        :returns: a ``dict`` with the transmission ID and number of accepted and rejected
             recipients
         :raises: :exc:`SparkPostAPIException` if transmission cannot be sent
         """
@@ -266,7 +266,7 @@ class Transmissions(Resource):
 
         :param str transmission_id: ID of the transmission you want to retrieve
 
-        :returns: the requested transmission if found
+        :returns: the requested transmission, if found
         :raises: :exc:`SparkPostAPIException` if transmission is not found
         """
         results = self._fetch_get(transmission_id)
@@ -274,7 +274,7 @@ class Transmissions(Resource):
 
     def list(self, **kwargs):
         """
-        Get a list of your transmissions
+        Get a list of your transmissions. This method is deprecated.
 
         :param campaign_id: ID of the campaign used by the transmissions
         :param template_id: ID of the template used by the transmissions
@@ -282,8 +282,7 @@ class Transmissions(Resource):
         :returns: list of transmissions
         :raises: :exc:`SparkPostAPIException` if API call fails
         """
-        warn_msg = 'This endpoint is deprecated. For details, '
-        'check https://sparkpo.st/5qcj4.'
+        warn_msg = 'This method is deprecated.'
 
         warnings.warn(warn_msg, DeprecationWarning)
         return self.request('GET', self.uri, params=kwargs)
