@@ -250,8 +250,8 @@ class Transmissions(Resource):
             transmission. See `header notes
             <https://developers.sparkpost.com/api/transmissions.html#header-header-notes>`_
 
-        :returns: a ``dict`` with the transmission ID and number of accepted and rejected
-            recipients
+        :returns: a ``dict`` with the transmission ID and number of accepted
+            and rejected recipients
         :raises: :exc:`SparkPostAPIException` if transmission cannot be sent
         """
 
