@@ -1,14 +1,15 @@
-Core contributors
+Maintainers
 -----------------
 
-- Bob Evans <bob.evans@sparkpost.com> `@bizob2828 <https://github.com/bizob2828>`_
-- Aydrian Howard <aydrian.howard@sparkpost.com> `@aydrian <https://github.com/aydrian>`_
-- Rich Leland <rich.leland@sparkpost.com> `@richleland <https://github.com/richleland>`_
+- Jose Zamora `@jgzamora <https://github.com/jgzamora>`_
 
 
-Patches and suggestions
+Contributors
 -----------------------
 
+- Bob Evans `@bizob2828 <https://github.com/bizob2828>`_
+- Aydrian Howard `@aydrian <https://github.com/aydrian>`_
+- Rich Leland `@richleland <https://github.com/richleland>`_
 - Artur Felipe Sousa `@arturfelipe <https://github.com/arturfelipe>`_
 - Barthelemy Dagenais `@bartdag <https://github.com/bartdag>`_
 - Dmitry Tyukin `@deems <https://github.com/deems>`_
