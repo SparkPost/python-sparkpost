@@ -44,11 +44,11 @@ Django is now configured to use the SparkPost email backend. You can now send ma
         html_message='<p>Hello Rock stars!</p>',
     )
 
-                     
+
 You can also use `EmailMessage` or `EmailMultiAlternatives` class directly. That will give you access to more specific fileds like `template`:
 
 .. code-block:: python
-    
+
     email = EmailMessage(
         to=[
             {
@@ -81,6 +81,60 @@ Or cc, bcc, reply to, or attachments fields:
 
     email.attach_alternative('<p>Woo hoo! Sent from Django!</p>', 'text/html')
     email.attach('image.png', img_data, 'image/png')
+    email.send()
+
+Metadata Email Sending (new as of July 31, 2018)
+------------------------------------------------
+
+If you are trying to attach metadata for SparkPost webhook usage, you need to use `EmailMessageWithMetadata` or `EmailMultiAlternativesWithMetadata` class directly. That will give you access to more specific fileds like `template`:
+
+.. code-block:: python
+
+    from sparkpostfrom sparkpost.django.message import EmailMessageWithMetadata
+
+    email = EmailMessageWithMetadata(
+        to=[
+            {
+                "address": "to@example.com",
+                "substitution_data": {
+                    "key": "value"
+                }
+            }
+        ],
+        from_email='test@from.com',
+        metadata={'key1': 'value1'}
+    )
+    email.template = 'template-id'
+
+    # Add more metadata
+    email.metadata['key2': 'value2']
+
+    email.send()
+
+
+Or cc, bcc, reply to, or attachments fields:
+
+.. code-block:: python
+
+    from sparkpostfrom sparkpost.django.message import EmailMultiAlternativesWithMetadata
+
+    email = EmailMultiAlternatives(
+      subject='hello from sparkpost',
+      body='Woo hoo! Sent from Django!',
+      from_email='from@yourdomain.com',
+      to=['to@example.com'],
+      cc=['ccone@example.com'],
+      bcc=['bccone@example.com'],
+      reply_to=['replyone@example.com'],
+      metadata={'key1': 'value1'}
+    )
+
+    email.attach_alternative('<p>Woo hoo! Sent from Django!</p>', 'text/html')
+    email.attach('image.png', img_data, 'image/png')
+
+    # Add more metadata if we want
+    email.metadata['key2': 'value2']
+
     email.send()
 
 
