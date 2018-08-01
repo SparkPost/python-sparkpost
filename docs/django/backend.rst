@@ -90,7 +90,7 @@ If you are trying to attach metadata for SparkPost webhook usage, you need to us
 
 .. code-block:: python
 
-    from sparkpostfrom sparkpost.django.message import EmailMessageWithMetadata
+    from sparkpost.django.message import EmailMessageWithMetadata
 
     email = EmailMessageWithMetadata(
         to=[
@@ -116,7 +116,7 @@ Or cc, bcc, reply to, or attachments fields:
 
 .. code-block:: python
 
-    from sparkpostfrom sparkpost.django.message import EmailMultiAlternativesWithMetadata
+    from sparkpost.django.message import EmailMultiAlternativesWithMetadata
 
     email = EmailMultiAlternatives(
       subject='hello from sparkpost',
