@@ -90,6 +90,9 @@ class SparkPostMessage(dict):
         if hasattr(message, 'campaign'):
             formatted['campaign'] = message.campaign
 
+        if hasattr(message, 'metadata'):
+            formatted['metadata'] = message.metadata
+
         if message.extra_headers:
             formatted['custom_headers'] = message.extra_headers
             if 'X-MSYS-API' in message.extra_headers:

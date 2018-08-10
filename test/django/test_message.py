@@ -186,34 +186,67 @@ def test_campaign():
     assert actual == expected
 
 
-def test_substitution_data():
+def test_metadata():
     email_message = EmailMessage(
         to=[
             {
-                "address": "to@example.com",
-                "substitution_data": {
-                    "key": "value"
+                'address': 'to@example.com',
+                'metadata': {
+                    'key': 'value'
                 }
             }
         ],
         from_email='test@from.com'
     )
     email_message.template = 'template-id'
-    email_message.substitution_data = {"key2": "value2"}
+    email_message.metadata = {'key2': 'value2'}
     actual = SparkPostMessage(email_message)
 
     expected = dict(
         recipients=[
             {
-                "address": "to@example.com",
-                "substitution_data": {
-                    "key": "value"
+                'address': 'to@example.com',
+                'metadata': {
+                    'key': 'value'
                 }
             }
         ],
         from_email='test@from.com',
         template='template-id',
-        substitution_data={"key2": "value2"}
+        metadata={'key2': 'value2'}
+    )
+
+    assert actual == expected
+
+
+def test_substitution_data():
+    email_message = EmailMessage(
+        to=[
+            {
+                'address': 'to@example.com',
+                'substitution_data': {
+                    'key': 'value'
+                }
+            }
+        ],
+        from_email='test@from.com'
+    )
+    email_message.template = 'template-id'
+    email_message.substitution_data = {'key2': 'value2'}
+    actual = SparkPostMessage(email_message)
+
+    expected = dict(
+        recipients=[
+            {
+                'address': 'to@example.com',
+                'substitution_data': {
+                    'key': 'value'
+                }
+            }
+        ],
+        from_email='test@from.com',
+        template='template-id',
+        substitution_data={'key2': 'value2'}
     )
 
     assert actual == expected
