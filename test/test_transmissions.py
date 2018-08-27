@@ -17,8 +17,8 @@ from sparkpost.exceptions import SparkPostAPIException, SparkPostException
 def test_translate_keys_with_list():
     t = Transmissions('uri', 'key')
     results = t._translate_keys(recipient_list='test')
-    assert results['return_path'] == 'default@sparkpostmail.com'
     assert results['content']['use_draft_template'] is False
+    assert isinstance(results['content']['headers'], dict)
     assert results['recipients'] == {'list_id': 'test'}
 
 

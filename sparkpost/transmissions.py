@@ -31,8 +31,7 @@ class Transmissions(Resource):
         }
 
         model['description'] = kwargs.get('description')
-        model['return_path'] = kwargs.get('return_path',
-                                          'default@sparkpostmail.com')
+        model['return_path'] = kwargs.get('return_path')
         model['campaign_id'] = kwargs.get('campaign')
         model['metadata'] = kwargs.get('metadata')
         model['substitution_data'] = kwargs.get('substitution_data')
