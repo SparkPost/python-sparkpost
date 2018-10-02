@@ -186,68 +186,116 @@ def test_campaign():
     assert actual == expected
 
 
-def test_metadata():
+def test_recipient_attributes():
     email_message = EmailMessage(
         to=[
             {
                 'address': 'to@example.com',
+                'substitution_data': {
+                    'sub': 'value'
+                },
                 'metadata': {
-                    'key': 'value'
-                }
+                    'meta': 'value'
+                },
+                'tags': ['tag1']
             }
         ],
         from_email='test@from.com'
     )
+
     email_message.template = 'template-id'
-    email_message.metadata = {'key2': 'value2'}
     actual = SparkPostMessage(email_message)
 
     expected = dict(
         recipients=[
             {
                 'address': 'to@example.com',
+                'substitution_data': {
+                    'sub': 'value'
+                },
                 'metadata': {
-                    'key': 'value'
-                }
+                    'meta': 'value'
+                },
+                'tags': ['tag1']
             }
         ],
         from_email='test@from.com',
-        template='template-id',
-        metadata={'key2': 'value2'}
+        template='template-id'
     )
 
     assert actual == expected
 
 
-def test_substitution_data():
+def test_pass_through_attr():
+
+    pass_through_attributes = {
+      'substitution_data': {'sub': 'vale'},
+      'metadata': {'meta': 'value'},
+      'description': 'a description',
+      'return_path': 'return@path.com',
+      'ip_pool': 'pool-id',
+      'inline_css': True,
+      'transactional': True,
+      'start_time': 'YYYY-MM-DDTHH:MM:SS+-HH:MM',
+      'skip_suppression': True
+    }
+
     email_message = EmailMessage(
-        to=[
-            {
-                'address': 'to@example.com',
-                'substitution_data': {
-                    'key': 'value'
-                }
-            }
-        ],
+        to=[{'address': 'to@example.com'}],
         from_email='test@from.com'
     )
     email_message.template = 'template-id'
-    email_message.substitution_data = {'key2': 'value2'}
+
+    for key, value in pass_through_attributes.items():
+        setattr(email_message, key, value)
+
     actual = SparkPostMessage(email_message)
 
     expected = dict(
-        recipients=[
-            {
-                'address': 'to@example.com',
-                'substitution_data': {
-                    'key': 'value'
-                }
-            }
-        ],
+        recipients=[{'address': 'to@example.com'}],
         from_email='test@from.com',
         template='template-id',
-        substitution_data={'key2': 'value2'}
     )
+
+    for key, value in pass_through_attributes.items():
+        expected[key] = value
+
+    assert actual == expected
+
+
+def test_transform_attr():
+
+    attributes_to_transform = {
+        'sandbox': True,
+        'open_tracking': False,
+        'click_tracking': False,
+    }
+
+    email_message = EmailMessage(
+        to=[{'address': 'to@example.com'}],
+        from_email='test@from.com'
+    )
+    email_message.template = 'template-id'
+
+    for key, value in attributes_to_transform.items():
+        setattr(email_message, key, value)
+
+    actual = SparkPostMessage(email_message)
+
+    expected = dict(
+        recipients=[{'address': 'to@example.com'}],
+        from_email='test@from.com',
+        template='template-id',
+    )
+
+    transformed_attributes = {
+        'use_sandbox': True,
+        'track_opens': False,
+        'track_clicks': False
+    }
+
+    for key, value in transformed_attributes.items():
+        expected[key] = value
 
     assert actual == expected
 

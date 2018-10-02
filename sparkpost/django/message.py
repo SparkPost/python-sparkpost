@@ -7,6 +7,26 @@ from django.conf import settings
 
 from .exceptions import UnsupportedContent
 
+# API attributes to pass through to Transmissions Class
+sparkpost_attributes = [
+  'substitution_data',
+  'metadata',
+  'description',
+  'return_path',
+  'ip_pool',
+  'inline_css',
+  'transactional',
+  'start_time',
+  'skip_suppression'
+]
+
+# API attributes that need to be transformed for Transmissions Class
+transform_attributes = {
+  'sandbox': 'use_sandbox',
+  'open_tracking': 'track_opens',
+  'click_tracking': 'track_clicks'
+}
+
 
 class SparkPostMessage(dict):
     """
@@ -84,14 +104,19 @@ class SparkPostMessage(dict):
                     'type': mimetype
                 })
 
-        if hasattr(message, 'substitution_data'):
-            formatted['substitution_data'] = message.substitution_data
+        # Set all other extra attributes
+        for attribute in sparkpost_attributes:
+            if hasattr(message, attribute):
+                formatted[attribute] = getattr(message, attribute)
 
+        # Set attributes that need to be transformed for Transmissions Class
+        for key, value in transform_attributes.items():
+            if hasattr(message, key):
+                formatted[value] = getattr(message, key)
+
+        # Not in sparkpost_attributes for backwards comaptibility
         if hasattr(message, 'campaign'):
             formatted['campaign'] = message.campaign
-
-        if hasattr(message, 'metadata'):
-            formatted['metadata'] = message.metadata
 
         if message.extra_headers:
             formatted['custom_headers'] = message.extra_headers
