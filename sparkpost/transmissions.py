@@ -45,18 +45,31 @@ class Transmissions(Resource):
         model['options']['ip_pool'] = kwargs.get('ip_pool')
         model['options']['inline_css'] = kwargs.get('inline_css')
 
-        model['content']['use_draft_template'] = \
-            kwargs.get('use_draft_template', False)
-        model['content']['reply_to'] = kwargs.get('reply_to')
-        model['content']['subject'] = kwargs.get('subject')
-        from_email = kwargs.get('from_email')
-        if isinstance(from_email, string_types):
-            from_email = self._parse_address(from_email)
-        model['content']['from'] = from_email
-        model['content']['html'] = kwargs.get('html')
-        model['content']['text'] = kwargs.get('text')
-        model['content']['template_id'] = kwargs.get('template')
-        model['content']['headers'] = kwargs.get('custom_headers', {})
+        rfc822 = kwargs.get('email_rfc822')
+        if rfc822:
+            model['content']['email_rfc822'] = rfc822
+        else:
+            model['content']['headers'] = kwargs.get('custom_headers', {})
+            model['content']['use_draft_template'] = \
+                kwargs.get('use_draft_template', False)
+            model['content']['reply_to'] = kwargs.get('reply_to')
+            model['content']['subject'] = kwargs.get('subject')
+            from_email = kwargs.get('from_email')
+            if isinstance(from_email, string_types):
+                from_email = self._parse_address(from_email)
+            model['content']['from'] = from_email
+            model['content']['html'] = kwargs.get('html')
+            model['content']['text'] = kwargs.get('text')
+            model['content']['template_id'] = kwargs.get('template')
+
+            attachments = kwargs.get('attachments', [])
+            model['content']['attachments'] = self._extract_attachments(
+                attachments)
+
+            if 'inline_images' in kwargs:
+                inline_images = kwargs['inline_images']
+                model['content']['inline_images'] = self._extract_attachments(
+                    inline_images)
 
         recipient_list = kwargs.get('recipient_list')
         if recipient_list:
@@ -76,15 +89,6 @@ class Transmissions(Resource):
                 recipients = recipients + bcc_copies
 
             model['recipients'] = recipients
-
-        attachments = kwargs.get('attachments', [])
-        model['content']['attachments'] = self._extract_attachments(
-            attachments)
-
-        if 'inline_images' in kwargs:
-            inline_images = kwargs['inline_images']
-            model['content']['inline_images'] = self._extract_attachments(
-                inline_images)
 
         return model
 
