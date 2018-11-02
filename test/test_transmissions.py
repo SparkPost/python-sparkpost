@@ -150,6 +150,39 @@ def test_translate_keys_with_inline_css():
     assert results['options'].get('inline_css') is True
 
 
+def test_translate_keys_with_email_rfc822():
+    t = Transmissions('uri', 'key')
+
+    # Build data using implicit cat, as max line length is enforced
+    eml = (
+        'To: wilma <wilma@flintstone.com>\n',
+        'From: fred <fred@flintstone.com>\n',
+        'Subject: Bedrock declaration\n',
+        'MIME-Version: 1.0\n',
+        'Content-Type: text/plain; charset=utf-8; format=flowed\n',
+        'Content-Transfer-Encoding: 7bit\nContent-Language: en-GB\n',
+        '\n',
+        'When in the Course of human events we yell yabba dabba doo.',
+    )
+
+    # Just a selection. Don't test attribs with irregular naming
+    non_rfc822_attrs = {
+        'headers': 'foo',
+        'reply_to': 'foo',
+        'subject': 'foo',
+        'html': 'foo',
+        'text': 'foo',
+    }
+
+    # Demonstrate that email_rfc822 overrides other content attributes
+    test_content = {'email_rfc822': eml}
+    test_content.update(non_rfc822_attrs)
+    results = t._translate_keys(**test_content)
+    for i in non_rfc822_attrs:
+        assert results['content'].get(i) is None
+    assert results['content'].get('email_rfc822') is not None
+
+
 @responses.activate
 def test_success_send():
     responses.add(
