@@ -47,6 +47,7 @@ Install from PyPI using `pip`_:
 
 .. _pip: http://www.pip-installer.org/en/latest/
 
+Python 2.7 or later is required.
 
 Get a key
 ---------
