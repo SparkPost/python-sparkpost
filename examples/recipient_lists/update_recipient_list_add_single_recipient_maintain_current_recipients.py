@@ -19,3 +19,4 @@ updated_recipients.append({"address": {"email": email.strip().lower(), "name": "
 response = sp.recipient_lists.update(
     list_id, name="list name", recipients=updated_recipients
 )
+print(response)
