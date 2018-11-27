@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.mail.backends.base import BaseEmailBackend
 
-from sparkpost import SparkPost
+from sparkpost import SparkPost, US_API
 
 from .message import SparkPostMessage
 
@@ -16,8 +16,9 @@ class SparkPostEmailBackend(BaseEmailBackend):
             .__init__(fail_silently=fail_silently, **kwargs)
 
         sp_api_key = getattr(settings, 'SPARKPOST_API_KEY', None)
+        sp_base_uri = getattr(settings, 'SPARKPOST_BASE_URI', US_API)
 
-        self.client = SparkPost(sp_api_key)
+        self.client = SparkPost(sp_api_key, sp_base_uri)
 
     def send_messages(self, email_messages):
         """

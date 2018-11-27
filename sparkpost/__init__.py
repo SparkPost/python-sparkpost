@@ -11,11 +11,14 @@ from .transmissions import Transmissions
 
 __version__ = '1.3.6'
 
+EU_API = 'api.eu.sparkpost.com'
+US_API = 'api.sparkpost.com'
+
 
 class SparkPost(object):
     TRANSPORT_CLASS = RequestsTransport
 
-    def __init__(self, api_key=None, base_uri='https://api.sparkpost.com',
+    def __init__(self, api_key=None, base_uri=US_API,
                  version='1'):
         "Set up the SparkPost API client"
         if not api_key:
@@ -23,7 +26,7 @@ class SparkPost(object):
             if not api_key:
                 raise SparkPostException("No API key. Improve message.")
 
-        self.base_uri = base_uri + '/api/v' + version
+        self.base_uri = 'https://' + base_uri + '/api/v' + version
         self.api_key = api_key
 
         self.metrics = Metrics(self.base_uri, self.api_key,

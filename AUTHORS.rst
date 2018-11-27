@@ -24,4 +24,5 @@ Contributors
 - `@puttu <https://github.com/puttu>`_
 - Janusz Skonieczny `@wooyek <https://github.com/wooyek>`_
 - Richard Dawe `@richdawe77 <https://github.com/rdawemsys>`_
+- John Keyes `@jkeyes <https://github.com/jkeyes>`_
 - ADD YOURSELF HERE (and link to your github page)

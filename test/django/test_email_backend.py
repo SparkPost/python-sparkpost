@@ -7,6 +7,7 @@ from django.core.mail import send_mass_mail
 from django.core.mail import EmailMultiAlternatives
 from django.utils.functional import empty
 
+from sparkpost import EU_API, US_API
 from sparkpost.django.email_backend import SparkPostEmailBackend
 from sparkpost.django.exceptions import UnsupportedContent
 from sparkpost.transmissions import Transmissions
@@ -51,6 +52,17 @@ def mailer(params):
 def test_password_retrieval():
     backend = SparkPostEmailBackend()
     assert backend.client.api_key == API_KEY
+
+
+def test_default_base_uri_retrieval():
+    backend = SparkPostEmailBackend()
+    assert backend.client.base_uri.startswith('https://' + US_API)
+
+
+def test_eu_base_uri_retrieval():
+    reconfigure_settings(SPARKPOST_BASE_URI=EU_API)
+    backend = SparkPostEmailBackend()
+    assert backend.client.base_uri.startswith('https://' + EU_API)
 
 
 def test_fail_silently():
