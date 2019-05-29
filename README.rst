@@ -107,9 +107,12 @@ The SparkPost python library comes with an email backend for Django. Put the fol
 .. code-block:: python
 
     SPARKPOST_API_KEY = 'API_KEY'
+    SPARKPOST_BASE_URI = 'api.sparkpost.com'
     EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
 
 Replace *API_KEY* with an actual API key that you've generated in `Get a Key`_ section. Check out the `full documentation`_ on the Django email backend.
+
+If you are using an EU account, set *SPARKPOST_BASE_URI* to `api.eu.sparkpost.com`. The default value is `api.sparkpost.com`.
 
 .. _full documentation: https://python-sparkpost.readthedocs.io/en/latest/django/backend.html
 

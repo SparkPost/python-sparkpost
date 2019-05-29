@@ -11,9 +11,12 @@ To configure Django to use SparkPost, put the following configuration in `settin
 .. code-block:: python
 
     SPARKPOST_API_KEY = 'API_KEY'
+    SPARKPOST_BASE_URI = 'api.sparkpost.com'
     EMAIL_BACKEND = 'sparkpost.django.email_backend.SparkPostEmailBackend'
 
 Replace *API_KEY* with an actual API key.
+
+If you are using an EU account, set *SPARKPOST_BASE_URI* to `api.eu.sparkpost.com`. The default value is `api.sparkpost.com`.
 
 You can also use `SPARKPOST_OPTIONS` to set options that will apply to every transmission.
 For example:
