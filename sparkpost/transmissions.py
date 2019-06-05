@@ -14,6 +14,32 @@ except NameError:
     string_types = str  # Python 3 doesn't have basestring
 
 
+model_remap = {
+    'campaign': 'campaign_id',
+    'start_time': 'options/start_time',
+    'track_opens': 'options/open_tracking',
+    'track_clicks': 'options/click_tracking',
+    'transactional': 'options/transactional',
+    'use_sandbox': 'options/sandbox',
+    'skip_suppression': 'options/skip_suppression',
+    'ip_pool': 'options/ip_pool',
+    'inline_css': 'options/inline_css',
+    'email_rfc822': 'content/email_rfc822',
+    'custom_headers': 'content/headers',
+    'use_draft_template': 'content/use_draft_template',
+    'reply_to': 'content/reply_to',
+    'subject': 'content/subject',
+    'from_email': 'content/from',
+    'html': 'content/html',
+    'text': 'content/text',
+    'template': 'content/template_id',
+    'attachments': 'content/attachments',
+    'inline_images': 'content/inline_images',
+    'recipient_list': 'recipients/list_id',
+}
+model_remap_keys = frozenset(model_remap.keys())
+
+
 class Transmissions(Resource):
     """
     Transmission class used to send, list and get transmissions. For detailed
@@ -24,71 +50,74 @@ class Transmissions(Resource):
     key = 'transmissions'
 
     def _translate_keys(self, **kwargs):
-        model = {
-            'content': {},
-            'options': {},
-            'recipients': {}
-        }
+        model = copy.deepcopy(kwargs)
 
-        model['description'] = kwargs.get('description')
-        model['return_path'] = kwargs.get('return_path')
-        model['campaign_id'] = kwargs.get('campaign')
-        model['metadata'] = kwargs.get('metadata')
-        model['substitution_data'] = kwargs.get('substitution_data')
+        # Intersection of keys that need to be remapped
+        data_remap_keys = model_remap_keys.intersection(model.keys())
 
-        model['options']['start_time'] = kwargs.get('start_time')
-        model['options']['open_tracking'] = kwargs.get('track_opens')
-        model['options']['click_tracking'] = kwargs.get('track_clicks')
-        model['options']['transactional'] = kwargs.get('transactional')
-        model['options']['sandbox'] = kwargs.get('use_sandbox')
-        model['options']['skip_suppression'] = kwargs.get('skip_suppression')
-        model['options']['ip_pool'] = kwargs.get('ip_pool')
-        model['options']['inline_css'] = kwargs.get('inline_css')
+        for from_key in data_remap_keys:
+            # Remap model keys to match API
+            if from_key in model:
+                to_model = model
+                to_key = model_remap[from_key]
+                if to_key.index('/'):
+                    # Nested within a dict
+                    into_list = to_key.split('/')
+                    to_key = into_list[-1]
+                    to_model = model.setdefault(into_list[0], {})
 
-        rfc822 = kwargs.get('email_rfc822')
-        if rfc822:
-            model['content']['email_rfc822'] = rfc822
-        else:
-            model['content']['headers'] = kwargs.get('custom_headers', {})
-            model['content']['use_draft_template'] = \
-                kwargs.get('use_draft_template', False)
-            model['content']['reply_to'] = kwargs.get('reply_to')
-            model['content']['subject'] = kwargs.get('subject')
-            from_email = kwargs.get('from_email')
+                # Move from current key and place into new key
+                to_model[to_key] = model.pop(from_key)
+
+        content = model.setdefault('content', {})
+        recipients = model.setdefault('recipients', [])
+
+        if content.get('email_rfc822'):
+            # Remove unnecessary keys from model['content'], if rfc822
+            rfc822_keys = frozenset([
+                'headers',
+                'use_draft_template',
+                'reply_to',
+                'subject',
+                'from',
+                'html',
+                'text',
+                'template_id',
+                'attachments',
+                'inline_images',
+            ])
+            del_content_keys = rfc822_keys.intersection(content.keys())
+            for key in del_content_keys:
+                del content[key]
+
+        if 'from' in content:
+            from_email = content.get('from')
             if isinstance(from_email, string_types):
-                from_email = self._parse_address(from_email)
-            model['content']['from'] = from_email
-            model['content']['html'] = kwargs.get('html')
-            model['content']['text'] = kwargs.get('text')
-            model['content']['template_id'] = kwargs.get('template')
+                content['from'] = self._parse_address(from_email)
 
-            attachments = kwargs.get('attachments', [])
-            model['content']['attachments'] = self._extract_attachments(
-                attachments)
+        if 'attachments' in content:
+            attachments = content.get('attachments')
+            content['attachments'] = self._extract_attachments(attachments)
 
-            if 'inline_images' in kwargs:
-                inline_images = kwargs['inline_images']
-                model['content']['inline_images'] = self._extract_attachments(
-                    inline_images)
+        if 'inline_images' in content:
+            inline_images = content.get('inline_images')
+            content['inline_images'] = self._extract_attachments(inline_images)
 
-        recipient_list = kwargs.get('recipient_list')
-        if recipient_list:
-            model['recipients']['list_id'] = recipient_list
-        else:
-            recipients = kwargs.get('recipients', [])
-            recipients = self._extract_recipients(recipients)
-            cc = kwargs.get('cc')
-            bcc = kwargs.get('bcc')
+        if recipients and not isinstance(recipients, dict):
+            model['recipients'] = self._extract_recipients(recipients)
+            recipients = model['recipients']
 
+            cc = model.pop('cc', None)
             if cc:
-                model['content']['headers']['CC'] = ','.join(cc)
+                headers = content.setdefault('headers', {})
+                headers['CC'] = ','.join(cc)
                 cc_copies = self._format_copies(recipients, cc)
-                recipients = recipients + cc_copies
+                recipients.extend(cc_copies)
+
+            bcc = model.pop('bcc', None)
             if bcc:
                 bcc_copies = self._format_copies(recipients, bcc)
-                recipients = recipients + bcc_copies
-
-            model['recipients'] = recipients
+                recipients.extend(bcc_copies)
 
         return model
 
