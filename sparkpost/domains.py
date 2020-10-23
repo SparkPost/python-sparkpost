@@ -211,8 +211,6 @@ class TrackingDomains(Resource):
             subaccount_str = ','.join(kwargs.get('subaccounts'))
             params['subaccounts'] = subaccount_str
 
-        print(params)
-
         return self.request('GET', self.uri, params=params)
 
     def get(self, domain):
