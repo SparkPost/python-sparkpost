@@ -7,6 +7,7 @@ from .recipient_lists import RecipientLists
 from .suppression_list import SuppressionList
 from .templates import Templates
 from .transmissions import Transmissions
+from .domains import SendingDomains, TrackingDomains
 
 
 __version__ = '1.3.6'
@@ -38,6 +39,10 @@ class SparkPost(object):
         self.templates = Templates(self.base_uri, self.api_key,
                                    self.TRANSPORT_CLASS)
         self.transmissions = Transmissions(self.base_uri, self.api_key,
+                                           self.TRANSPORT_CLASS)
+        self.sending_domains = SendingDomains(self.base_uri, self.api_key,
+                                           self.TRANSPORT_CLASS)
+        self.tracking_domains = TrackingDomains(self.base_uri, self.api_key,
                                            self.TRANSPORT_CLASS)
         # Keeping self.transmission for backwards compatibility.
         # Will be removed in a future release.
