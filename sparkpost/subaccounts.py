@@ -38,7 +38,7 @@ class Subaccounts(Resource):
         uri = "%s/%s" % (self.uri, id)
         return self.request('GET', uri)
 
-    def get_all(self):
+    def list(self):
         """
         Get all subaccounts
 

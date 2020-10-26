@@ -41,16 +41,12 @@ class SparkPost(object):
                                    self.TRANSPORT_CLASS)
         self.transmissions = Transmissions(self.base_uri, self.api_key,
                                            self.TRANSPORT_CLASS)
-<<<<<<< HEAD
-        self.subaccounts = Subaccounts(self.base_uri, self.api_key,
-                                           self.TRANSPORT_CLASS)
-
-=======
         self.sending_domains = SendingDomains(self.base_uri, self.api_key,
                                            self.TRANSPORT_CLASS)
         self.tracking_domains = TrackingDomains(self.base_uri, self.api_key,
+                                           self.TRANSPORT_CLASS)   
+        self.subaccounts = Subaccounts(self.base_uri, self.api_key,
                                            self.TRANSPORT_CLASS)
->>>>>>> 7d96a95075051a8fde4ae0313e76ca0d3d728c5e
         # Keeping self.transmission for backwards compatibility.
         # Will be removed in a future release.
         self.transmission = self.transmissions
