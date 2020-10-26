@@ -33,7 +33,7 @@ class Resource(object):
 
     def request(self, method, uri, **kwargs):
         headers = {
-            'User-Agent': 'python-sparkpost/' + sparkpost.__version__,
+            'User-Agent': 'python_sparkpost/' + sparkpost.__version__,
             'Content-Type': 'application/json',
             'Authorization': self.api_key
         }

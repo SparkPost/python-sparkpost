@@ -7,7 +7,7 @@ from .recipient_lists import RecipientLists
 from .suppression_list import SuppressionList
 from .templates import Templates
 from .transmissions import Transmissions
-
+from .subaccounts import Subaccounts
 
 __version__ = '1.3.6'
 
@@ -39,6 +39,9 @@ class SparkPost(object):
                                    self.TRANSPORT_CLASS)
         self.transmissions = Transmissions(self.base_uri, self.api_key,
                                            self.TRANSPORT_CLASS)
+        self.subaccounts = Subaccounts(self.base_uri, self.api_key,
+                                           self.TRANSPORT_CLASS)
+
         # Keeping self.transmission for backwards compatibility.
         # Will be removed in a future release.
         self.transmission = self.transmissions
