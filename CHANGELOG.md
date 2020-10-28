@@ -5,6 +5,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.5.1] - 2020-10-28
+### Fixed
+- [#3](https://github.com/Radico/python-sparkpost/pull/3) Fixed Subaccounts endpoint
+
+## [1.5.0] - 2020-10-26
+### Added
+- [#2](https://github.com/Radico/python-sparkpost/pull/2) Subaccounts endpoint
+
+## [1.4.0] - 2020-10-26
+### Added
+- [#1](https://github.com/Radico/python-sparkpost/pull/1) SendingDomains and TrackingDomains endpoints
+
 ## [1.3.6] - 2018-03-23
 ### Added
 - [#160](https://github.com/SparkPost/python-sparkpost/pull/160) Extra header support for Django messages
