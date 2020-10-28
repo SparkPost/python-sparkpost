@@ -24,7 +24,7 @@ class Subaccounts(Resource):
         :raises: :exc:`SparkPostAPIException` if API call fails
         """
 
-        return self.request('POST', self.uri, params=kwargs)
+        return self.request('POST', self.uri, json=kwargs)
 
     def get(self, id):
         """
@@ -61,4 +61,4 @@ class Subaccounts(Resource):
         """
 
         uri = "%s/%s" % (self.uri, id)
-        return self.request('PUT', uri, params=kwargs)
+        return self.request('PUT', uri, json=kwargs)
