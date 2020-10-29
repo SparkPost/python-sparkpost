@@ -66,7 +66,7 @@ class SendingDomains(Resource):
         :raises: :exc:`SparkPostAPIException` otherwise
         """
         uri = "%s/%s" % (self.uri, domain)
-        self.request('DELETE', uri)
+        return self.request('DELETE', uri)
 
     def update(self, domain, **kwargs):
         """
@@ -89,7 +89,7 @@ class SendingDomains(Resource):
           or mx_status equal to valid. The master account and each subaccount may set
           its own unique default bounce domain.
 
-        :returns: 204 if successful
+        :returns: a ``dict`` with a message
         :raises: :exc:`SparkPostAPIException` otherwise
         """
         uri = "%s/%s" % (self.uri, domain)
@@ -108,9 +108,9 @@ class SendingDomains(Resource):
         if 'is_default_bounce_domain' in kwargs:
             payload['is_default_bounce_domain'] = kwargs.get('is_default_bounce_domain')
 
-        self.request('PUT', uri, data=json.dumps(payload))
+        return self.request('PUT', uri, data=json.dumps(payload))
 
-    def create(self, **kwargs):
+    def create(self, domain, **kwargs):
         """
         Creates a new sending domain. Each domain and its subdomains can only be added
         to a single account.
@@ -125,7 +125,7 @@ class SendingDomains(Resource):
         :param bool generate_dkim: whether to generate a DKIM keypair on creation.
           If true, dkim_private, dkim_public, and dkim_selector are ignored. Default
           true.
-        :param int dkim_key_length: isze, in bits, of the DKIM private key to be
+        :param int dkim_key_length: size, in bits, of the DKIM private key to be
           generated. Ignored if generate_dkim is false. Default 1024.
         :param bool shared_with_subaccounts: whether this domain can be used by
           subaccounts. Only available to domains belonging to a master account.
@@ -134,11 +134,7 @@ class SendingDomains(Resource):
         :returns: the new domain
         :raises: :exc:`SparkPostAPIException` otherwise
         """
-        payload = {}
-        if 'domain' not in kwargs:
-            raise ValueError('domain is required')
-
-        payload['domain'] = kwargs.get('domain')
+        payload = {'domain': domain}
 
         if 'tracking_domain' in kwargs:
             payload['tracking_domain'] = kwargs.get('tracking_domain')
@@ -235,7 +231,7 @@ class TrackingDomains(Resource):
         :raises: :exc:`SparkPostAPIException` otherwise
         """
         uri = "%s/%s" % (self.uri, domain)
-        self.request('DELETE', uri)
+        return self.request('DELETE', uri)
 
     def update(self, domain, **kwargs):
         """
@@ -250,7 +246,7 @@ class TrackingDomains(Resource):
           explicitly associated with a sending domain. The domain has to be verified to
           be set as the default.
 
-        :returns: 204 if successful
+        :returns: a ``dict`` with a message
         :raises: :exc:`SparkPostAPIException` otherwise
         """
 
@@ -262,7 +258,7 @@ class TrackingDomains(Resource):
         if 'default' in kwargs:
             payload['default'] = kwargs.get('default')
 
-        self.request('PUT', uri, data=json.dumps(payload))
+        return self.request('PUT', uri, data=json.dumps(payload))
 
     def create(self, domain, **kwargs):
         """
