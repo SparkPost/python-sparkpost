@@ -1,11 +1,46 @@
 import mimetypes
 from base64 import b64encode
 
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.core.mail.message import DEFAULT_ATTACHMENT_MIME_TYPE
 from django.conf import settings
 
 from .exceptions import UnsupportedContent
+
+
+class EmailMultiAlternativesWithMetadata(EmailMultiAlternatives):
+
+    def __init__(self, subject='', body='', from_email=None, to=None,
+                 bcc=None, connection=None, attachments=None, headers=None,
+                 alternatives=None, cc=None, reply_to=None, metadata=None):
+
+        super(EmailMultiAlternativesWithMetadata, self
+              ).__init__(subject=subject, body=body, from_email=from_email,
+                         to=to, bcc=bcc, connection=connection,
+                         attachments=attachments, headers=headers,
+                         alternatives=alternatives, cc=cc, reply_to=reply_to)
+
+        if metadata is None:
+            self.metadata = {}
+        else:
+            self.metadata = metadata
+
+
+class EmailMessageWithMetadata(EmailMessage):
+
+    def __init__(self, subject='', body='', from_email=None, to=None, bcc=None,
+                 connection=None, attachments=None, headers=None, cc=None,
+                 reply_to=None, metadata=None):
+
+        super(EmailMessageWithMetadata, self).__init__(
+            subject=subject, body=body, from_email=from_email, to=to, bcc=bcc,
+            connection=connection, attachments=attachments, headers=headers,
+            cc=cc, reply_to=reply_to)
+
+        if metadata is None:
+            self.metadata = {}
+        else:
+            self.metadata = metadata
 
 
 class SparkPostMessage(dict):
@@ -97,5 +132,9 @@ class SparkPostMessage(dict):
                 msys_api = json.loads(message.extra_headers['X-MSYS-API'])
                 if msys_api and msys_api.get('options', {}).get('transactional', False):  # noqa: E501
                     formatted['transactional'] = True
+
+        # Handle metadata if it exists
+        if hasattr(message, 'metadata'):
+            formatted['metadata'] = message.metadata
 
         super(SparkPostMessage, self).__init__(formatted)
