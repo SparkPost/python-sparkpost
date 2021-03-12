@@ -1,5 +1,4 @@
 -r test-requirements.txt
 wheel
-twine
 Django>=1.7,<1.10
 tornado>=3.2
