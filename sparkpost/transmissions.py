@@ -18,6 +18,7 @@ model_remap = {
     'campaign': 'campaign_id',
     'start_time': 'options/start_time',
     'track_opens': 'options/open_tracking',
+    'track_initial_opens': 'options/initial_open',
     'track_clicks': 'options/click_tracking',
     'transactional': 'options/transactional',
     'use_sandbox': 'options/sandbox',
@@ -264,6 +265,8 @@ class Transmissions(Resource):
             '2015-02-11T08:00:00-04:00'.
         :param bool track_opens: Defaults to True. Used to track opens of
             transmission
+        :param bool track_initial_opens:  Used to track opens
+            of transmission with top pixel
         :param bool track_clicks: Defaults to True. Used to track clicks of
             transmission
         :param bool use_sandbox: Flag must be set to use sandbox domain instead
