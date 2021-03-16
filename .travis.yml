@@ -20,7 +20,7 @@ install:
 before_script:
   - flake8 sparkpost test
 script:
-  - py.test --cov sparkpost test/ --cov-report term-missing
+  - py.test
 after_success:
   - coveralls
 notifications:
