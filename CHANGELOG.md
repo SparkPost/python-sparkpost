@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.7] - 2021-03-24
+- [#211](https://github.com/SparkPost/python-sparkpost/pull/211) Support for top open pixel for transmissions
+
 ## [1.3.6] - 2018-03-23
 ### Added
 - [#160](https://github.com/SparkPost/python-sparkpost/pull/160) Extra header support for Django messages
