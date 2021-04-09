@@ -32,6 +32,7 @@ model_remap = {
     'subject': 'content/subject',
     'from_email': 'content/from',
     'html': 'content/html',
+    'amp_html': 'content/amp_html',
     'text': 'content/text',
     'template': 'content/template_id',
     'attachments': 'content/attachments',
@@ -201,6 +202,7 @@ class Transmissions(Resource):
         :param bool use_draft_template: Defaults to False. Set to true if you
             want to send a template that is a draft
         :param str html: HTML part of transmission
+        :param str amp_html: AMP HTML part of the transmission
         :param str text: Text part of transmission
         :param str subject: Subject of transmission
         :param str from_email: Email that the transmission comes from. The
