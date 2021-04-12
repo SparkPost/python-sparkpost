@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.8] - 2021-04-09
+- [#214](https://github.com/SparkPost/python-sparkpost/pull/214) Support for AMP HTML for transmissions
+
 ## [1.3.7] - 2021-03-24
 - [#211](https://github.com/SparkPost/python-sparkpost/pull/211) Support for top open pixel for transmissions
 
