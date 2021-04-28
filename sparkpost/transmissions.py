@@ -62,7 +62,7 @@ class Transmissions(Resource):
             if from_key in model:
                 to_model = model
                 to_key = model_remap[from_key]
-                if to_key.index('/'):
+                if '/' in to_key:
                     # Nested within a dict
                     into_list = to_key.split('/')
                     to_key = into_list[-1]
