@@ -66,6 +66,7 @@ def test_translate_keys_for_from_email():
     }
 
 
+@responses.activate
 def test_campaign_id():
     responses.add(
         responses.POST,
