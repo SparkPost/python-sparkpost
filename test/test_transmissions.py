@@ -66,6 +66,19 @@ def test_translate_keys_for_from_email():
     }
 
 
+def test_campaign_id():
+    responses.add(
+        responses.POST,
+        'https://api.sparkpost.com/api/v1/transmissions',
+        status=200,
+        content_type='application/json',
+        body='{"results": "yay"}'
+    )
+    sp = SparkPost('fake-key')
+    results = sp.transmission.send(campaign="test")
+    assert results == 'yay'
+
+
 def test_format_header_to():
     t = Transmissions('uri', 'key')
     formatted = t._format_header_to(recipient={
