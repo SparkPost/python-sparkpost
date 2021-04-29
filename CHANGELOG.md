@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.9] - 2021-04-29
+- [#215](https://github.com/SparkPost/python-sparkpost/pull/215) Fix bug in _translate_keys that affects non-nested parameters
+
 ## [1.3.8] - 2021-04-09
 - [#214](https://github.com/SparkPost/python-sparkpost/pull/214) Support for AMP HTML for transmissions
 

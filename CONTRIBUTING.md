@@ -66,7 +66,12 @@ If you do not have Python 2.7, 3.4, and 3.5, you can install them with pyenv:
 
 ## Releasing
 
-To put python-sparkpost on PyPI
+### Increment the library version number
+* Update version number in setup.py
+* Update version number in sparkpost/__init__.py
+* Update CHANGELOG.md to reflect the changes
+
+### To put python-sparkpost on PyPI
 
 * Ensure you have maintainer privileges in PyPI
 * Update your ``~/.pypirc`` if necessary to contain your username and password (hint: you can run ``python setup.py register``)
