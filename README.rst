@@ -71,7 +71,7 @@ For SparkPost EU and Enterprise accounts, pass in a second parameter to set the 
 .. code-block:: python
 
     from sparkpost import SparkPost
-    sp = SparkPost('YOUR API KEY', 'https://api.eu.sparkpost.com')
+    sp = SparkPost('YOUR API KEY', 'api.eu.sparkpost.com')
 
 .. _API & SMTP: https://app.sparkpost.com/#/configuration/credentials
 
