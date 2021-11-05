@@ -283,7 +283,8 @@ class Transmissions(Resource):
         :param str ip_pool: The ID of an IP pool associated with
             your account
         :param bool inline_css: Whether or not to perform CSS inlining
-        :param bool perform_substitutions: Whether or not to enable substitutions (default is True)
+        :param bool perform_substitutions: Whether or not to enable
+            substitutions (default is True)
         :param dict custom_headers: Used to set any headers associated with
             transmission. See `header notes
             <https://developers.sparkpost.com/api/transmissions.html#header-header-notes>`_
