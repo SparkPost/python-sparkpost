@@ -6,7 +6,7 @@ with open('README.rst', 'r', 'utf-8') as f:
 
 setup(
     name='sparkpost',
-    version='1.3.9',
+    version='1.3.10',
     author='SparkPost',
     author_email='developers@sparkpost.com',
     packages=find_packages(),

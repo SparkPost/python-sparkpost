@@ -9,7 +9,7 @@ from .templates import Templates
 from .transmissions import Transmissions
 
 
-__version__ = '1.3.9'
+__version__ = '1.3.10'
 
 EU_API = 'api.eu.sparkpost.com'
 US_API = 'api.sparkpost.com'
