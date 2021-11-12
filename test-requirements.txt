@@ -1,6 +1,6 @@
 flake8
 pytest==2.8.7
-pytest-cov==1.8.1
+pytest-cov==2.8.0
 requests==2.20.1
 responses==0.3.0
 mock==2.0.0
