@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - [Compare to latest release][unreleased]
 
+## [1.3.11] - 2021-12-13
+- [#221](https://github.com/SparkPost/python-sparkpost/pull/221) Update documentation for EU users
+
 ## [1.3.10] - 2021-11-09
 - [#219](https://github.com/SparkPost/python-sparkpost/pull/219) Support for perform_substitution
 
