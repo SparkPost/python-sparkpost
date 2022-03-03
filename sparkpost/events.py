@@ -14,7 +14,7 @@ class Events(Resource):
     """
     Events class used to search events. For detailed
     request and response formats, see the `Events API documentation
-    <https://developers.sparkpost.com/api/events/>`_.
+    <https://developers.sparkpost.com/api/events/>.
     """
 
     key = 'events/message'

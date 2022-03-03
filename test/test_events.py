@@ -83,7 +83,7 @@ def test_get_by_sender_email_mocked():
         "to": datetime.datetime(2022, 2, 28, 23, 59),
         "events": [delivery_type]
     }
-    results = sp.events.get()
+    results = sp.events.get(params)
     assert 1 == len(results)
     assert sender_address == results[0]["friendly_from"]
     assert delivery_type == results[0]["type"]
